@@ -1,5 +1,5 @@
 {
-  "name": "akosi",
+  "name": "akosi-core",
   "version": "0.0.1",
   "description": "JWT based Open Authentication mechanism",
   "main": "src/index.ts",
