@@ -2,8 +2,15 @@ import { UserInfo } from ".";
 import { DatabaseInterface } from "./DatabaseInterface";
 
 export interface OAuthClientRegistrationInterface {
-  owner: UserInfo
   clientName: string
+  owner: UserInfo
+}
+
+export interface OAuthClient {
+  clientId: string
+  clientName: string
+  owner: UserInfo
+  createdDate: Date
 }
 
 export class OAuthClientService {
@@ -12,12 +19,12 @@ export class OAuthClientService {
     this.db = db;
   }
 
-
   async registerNewClient(data: OAuthClientRegistrationInterface) {
-    this.db.addNewOAuthClient({
-      ownerName: data.owner.username,
+    const newClient = await this.db.addNewOAuthClient({
+      ownerName: data.owner.email,
       clientName: data.clientName,
     });
+    if (!newClient) throw new Error('Client registration failed');
   }
 
   async validateClientApiKey(apiKey: string) {
