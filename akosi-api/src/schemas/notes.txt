@@ -1,0 +1,25 @@
+CREATE TABLE users (
+    user_id INT PRIMARY KEY,
+    -- Other user-related fields (e.g., email, date of birth, etc.)
+);
+
+CREATE TABLE user_names (
+    name_id INT PRIMARY KEY,
+    user_id INT,
+    given_name VARCHAR(255) NOT NULL,
+    middle_name VARCHAR(255),
+    family_name VARCHAR(255),
+    patronymic_name VARCHAR(255),
+    matronymic_name VARCHAR(255),
+    honorific_title VARCHAR(255),
+    name_suffix VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE user_details (
+    user_id INT PRIMARY KEY,
+    gender ENUM('Male', 'Female', 'Other'),
+    nationality VARCHAR(255),
+    -- Additional details related to users
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
