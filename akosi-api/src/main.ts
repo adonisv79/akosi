@@ -10,7 +10,6 @@ async function bootstrap() {
   .setTitle(packageInfo.name)
   .setDescription(packageInfo.description)
   .setVersion(packageInfo.version)
-  .addTag(packageInfo.keywords.reduce(i => i + ','))
   .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

@@ -1,11 +1,23 @@
 {
   "name": "akosi-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "The akosi-api is an OAuth + OIDC based system that focuses on providing an authentication system granting privacy, security and control for the users.",
+  "author": {
+    "name": "Adonis Lee Villamor",
+    "email": "adonisv79@gmail.com",
+    "url": "http://bytecommander.com"
+  },
   "private": true,
   "license": "UNLICENSED",
   "keywords": [ "akosi", "oauth", "oidc" ],
+  "homepage": "https://github.com/adonisv79/akosi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adonisv79/akosi"
+  },
+  "bugs": {
+    "url": "https://github.com/adonisv79/akosi/issues"
+  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
