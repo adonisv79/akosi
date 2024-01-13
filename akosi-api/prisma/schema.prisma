@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid()) @db.Uuid
+  username      String    @db.VarChar(255) @unique  @map(name: "user_name")
+  passwordHash  String    @db.VarChar(255) @map(name: "password_hash")
+
+  profileNames      UserProfileName[]
+  
+  @@map("users")
+  @@index([id], name: "idx_users_id") 
+  @@index([id], name: "idx_users_username") 
+}
+
+model UserProfileName {
+  id              String    @id @default(uuid()) @db.Uuid
+  userId          String    @db.Uuid @map(name: "user_id")
+  givenName       String    @db.VarChar(255) @map(name: "given_name")
+  middleName      String?   @db.VarChar(255) @map(name: "middle_name")
+  surname         String?   @db.VarChar(255) @map(name: "surname")
+  patronymicName  String?   @db.VarChar(255) @map(name: "patronymic_name")
+  honorificTitle  String?   @db.VarChar(255) @map(name: "honorific_title")
+  nameSuffix      String?   @db.VarChar(255) @map(name: "name_suffix")
+
+  user            User      @relation(fields: [userId], references: [id])
+  @@map("user_profile_names")
+  @@index([id], name: "idx_user_profile_names_id") 
+}

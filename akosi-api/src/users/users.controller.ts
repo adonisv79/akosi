@@ -23,10 +23,13 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Languages } from 'src/enums/languages';
+import { UsersService } from './users.service';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
+  constructor(private users: UsersService) {}
+
   @ApiOkResponse({ description: 'Resource retrieval success' })
   @Get(':id')
   async getUserInfo(@Req() req: Request, @Ip() ip, @Param() params) {
@@ -70,7 +73,7 @@ export class UsersController {
   async registerNewUser(
     @Body() body: CreateNewUserDto,
   ): Promise<CreateNewUserResponseDto> {
-    return { userId: body.username + '1234' };
+    return this.users.createNewUser(body);
   }
 
   @ApiBody({
