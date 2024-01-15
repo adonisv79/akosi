@@ -1,29 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { BiologicalSex } from "src/enums/biological_sex";
 import { Languages } from "src/enums/languages";
-
-export class CreateNewUserDto {
-  @ApiProperty({
-    description: 'The primary user\'s identifier. This has to be unique within the system and is only known to you for sign-in purposes.',
-    required: true,
-    type: String,
-    minimum: 1
-  })
-  username!: string;
-
-  @ApiProperty({
-    description: 'The initial password. User will use this to authenticate themselves within the system.',
-    required: true,
-    type: String,
-    minimum: 12
-  })
-  password!: string;
-}
-
-export class CreateNewUserResponseDto {
-  @ApiProperty({ description: 'The unique user identifier', type: String })
-  userId!: string
-}
+import { IsNotEmpty } from 'class-validator';
 
 class UserNameDto {
   @ApiProperty({
@@ -32,6 +10,7 @@ class UserNameDto {
     type: String,
     minimum: 1
   })
+  @IsNotEmpty()
   givenName!: string;
 
   @ApiProperty({
@@ -91,6 +70,7 @@ export class AddLanguageDto {
     enum: Languages,
     required: true,
   })
+  @IsNotEmpty()
   lang!: Languages;
 
   @ApiProperty({
@@ -100,5 +80,6 @@ export class AddLanguageDto {
     maximum: 5,
     required: true,
   })
+  @IsNotEmpty()
   proficiency!: Number;
 }

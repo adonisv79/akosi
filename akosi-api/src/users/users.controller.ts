@@ -8,30 +8,31 @@ import {
   Post,
   Put,
   Req,
+  ValidationPipe,
 } from '@nestjs/common';
 import {
   AddLanguageDto,
-  CreateNewUserDto,
-  CreateNewUserResponseDto,
   UpdateUserInfoDto,
-} from './dtos/users.dto';
+} from './dto/users.dto';
 import {
   ApiBody,
   ApiCreatedResponse,
   ApiOkResponse,
+  ApiOperation,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Languages } from 'src/enums/languages';
 import { UsersService } from './users.service';
 
-@ApiTags('users')
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private users: UsersService) {}
 
-  @ApiOkResponse({ description: 'Resource retrieval success' })
   @Get(':id')
+  @ApiOperation({ summary: 'Retrieves user information'})
+  @ApiOkResponse({ description: 'Resource retrieval success' })
   async getUserInfo(@Req() req: Request, @Ip() ip, @Param() params) {
     return {
       reqParams: params,
@@ -54,28 +55,8 @@ export class UsersController {
     };
   }
 
-  @ApiBody({
-    type: CreateNewUserDto,
-    required: true,
-    examples: {
-      basic: {
-        value: { username: 'akosi_user', password: 'ThisIsNot@GoodPassword' },
-      },
-    },
-  })
-  @ApiCreatedResponse({
-    description:
-      'User is registered successfully. Response body will also contain new user information such as unique identifier.',
-    type: CreateNewUserResponseDto,
-  })
-  @Post()
-  @HttpCode(201)
-  async registerNewUser(
-    @Body() body: CreateNewUserDto,
-  ): Promise<CreateNewUserResponseDto> {
-    return this.users.createNewUser(body);
-  }
-
+  @Put('/')
+  @ApiOperation({ summary: 'Updates user information'})
   @ApiBody({
     type: UpdateUserInfoDto,
     required: true,
@@ -152,11 +133,10 @@ export class UsersController {
   @ApiUnauthorizedResponse({
     description: 'User must first sign in to have access to this functionality',
   })
-  @Put()
   async updateUser(
     @Req() req: Request,
     @Ip() ip,
-    @Body() body: UpdateUserInfoDto,
+    @Body(new ValidationPipe()) body: UpdateUserInfoDto,
   ) {
     return {
       reqBody: body,
@@ -179,6 +159,7 @@ export class UsersController {
     };
   }
 
+  @Post('/lang')
   @ApiBody({
     type: AddLanguageDto,
     required: true,
@@ -191,8 +172,7 @@ export class UsersController {
   @ApiUnauthorizedResponse({
     description: 'User must first sign in to have access to this functionality',
   })
-  @Post('/lang')
-  async addLanguage(@Body() body: AddLanguageDto) {
+  async addLanguage(@Body(new ValidationPipe()) body: AddLanguageDto) {
     return { ...body };
   }
 }
