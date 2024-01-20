@@ -9,12 +9,14 @@ import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserCredentialsDto, UserCredentialsDto } from './dto/auth.dto';
 
+const INVALID_CREDENTIALS_MSG = 'Username or password invalid.';
+
 @Injectable()
 export class AuthService {
   private minRounds = 10;
   private maxRounds = 13;
 
-  constructor( private prisma: PrismaService ) {}
+  constructor(private prisma: PrismaService) {}
 
   async usernameExists(username: string) {
     if (!username) throw new BadRequestException('Username invalid');
@@ -47,6 +49,23 @@ export class AuthService {
     return { userId: result.id };
   }
 
+  async deleteUser(body: UserCredentialsDto) {
+    if (!(await this.usernameExists(body.username)))
+      throw new NotFoundException();
+    const hash = await this.encryptPassword(body.password);
+
+    if (!(await this.isCredentialsValid(body)))
+      throw new BadRequestException(INVALID_CREDENTIALS_MSG);
+
+    const result = await this.prisma.user.delete({
+      where: {
+        username: body.username,
+      },
+    });
+
+    return;
+  }
+
   private async isCredentialsValid(body: UserCredentialsDto): Promise<boolean> {
     try {
       const result = await this.prisma.user.findFirst({
@@ -64,14 +83,14 @@ export class AuthService {
 
   async authenticateUser(body: UserCredentialsDto) {
     if ((await this.isCredentialsValid(body)) === false)
-      throw new NotFoundException('Username or password invalid.');
+      throw new NotFoundException(INVALID_CREDENTIALS_MSG);
     // perform token creation and attach to headers
     return 'User authenticated successfully';
   }
 
   async updatePassword(body: UpdateUserCredentialsDto) {
     if ((await this.isCredentialsValid(body)) === false)
-      throw new NotFoundException('Username or password invalid.');
+      throw new BadRequestException(INVALID_CREDENTIALS_MSG);
     const newHash = await this.encryptPassword(body.newPassword);
     await this.prisma.user.update({
       data: { passwordHash: newHash },

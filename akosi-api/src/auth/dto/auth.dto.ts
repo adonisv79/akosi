@@ -10,7 +10,7 @@ export class UserCredentialsDto {
   })
   @IsNotEmpty()
   @IsString()
-  @Length(100, 255)
+  @Length(8, 255)
   username!: string;
 
   @ApiProperty({
@@ -20,7 +20,7 @@ export class UserCredentialsDto {
     minimum: 12
   })
   @IsNotEmpty()
-  @IsStrongPassword()
+  @Length(8, 255)
   password!: string;
 }
 
@@ -32,7 +32,6 @@ export class UpdateUserCredentialsDto extends UserCredentialsDto {
     minimum: 12
   })
   @IsNotEmpty()
-  @IsStrongPassword()
   newPassword!: string;
 }
 

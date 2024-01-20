@@ -2,12 +2,13 @@ import { Body, Controller, Delete, HttpCode, Ip, Post, Put, Req, ValidationPipe 
 import {
   ApiBody,
   ApiCreatedResponse,
+  ApiNoContentResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateNewUserResponseDto, UpdateUserCredentialsDto, UserCredentialsDto } from './dto/auth.dto';
-import { AuthService } from './auth.service';
+import { CreateNewUserResponseDto, UpdateUserCredentialsDto, UserCredentialsDto } from '../dto/auth.dto';
+import { AuthService } from '../auth.service';
 
 @ApiTags('User Authentication')
 @Controller('/auth')
@@ -68,10 +69,8 @@ export class AuthController {
     return await this.auth.updatePassword(body);
   }
 
-  @Post('/session')
-  @ApiOperation({
-    summary: 'Signs-in the user and retrieve authentication session tokens',
-  })
+  @Delete('/')
+  @ApiOperation({ summary: 'Permanently deletes user data and granted permissions' })
   @ApiBody({
     type: UserCredentialsDto,
     examples: {
@@ -80,42 +79,15 @@ export class AuthController {
       },
     },
   })
-  @ApiOkResponse({
-    description: 'The user credential is valid and session tokens are provided',
+  @ApiNoContentResponse({
+    description: 'The user data and grants were deleted successfully',
   })
-  async loginUser(
+  @HttpCode(204)
+  async deleteUser(
     @Req() req: Request,
     @Ip() ip,
     @Body(new ValidationPipe()) body: UserCredentialsDto,
   ) {
-    return await this.auth.authenticateUser(body);
-  }
-
-  @Put('/session')
-  @ApiOperation({
-    summary: 'Refreshes the current user session tokens',
-  })
-  @ApiOkResponse({
-    description: 'The user session tokens have been renewed',
-  })
-  async refreshUserSession(
-    @Req() req: Request,
-    @Ip() ip,
-  ) {
-    return 'success';
-  }
-
-  @Delete('/session')
-  @ApiOperation({
-    summary: 'Signs-out the current user session and disables any active tokens',
-  })
-  @ApiOkResponse({
-    description: 'The user has been signed out',
-  })
-  async logoutUser(
-    @Req() req: Request,
-    @Ip() ip,
-  ) {
-    return 'success';
+    return await this.auth.deleteUser(body);
   }
 }
