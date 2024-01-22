@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BiologicalSex } from "src/enums/biological_sex";
-import { Languages } from "src/enums/languages";
+import { BiologicalSex } from "src/common/enums/biological_sex";
+import { Languages } from "src/common/enums/languages";
 import { IsNotEmpty } from 'class-validator';
 
 class UserNameDto {

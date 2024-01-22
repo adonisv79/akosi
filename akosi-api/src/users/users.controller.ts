@@ -22,7 +22,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Languages } from 'src/enums/languages';
+import { Languages } from 'src/common/enums/languages';
 import { UsersService } from './users.service';
 
 @ApiTags('Users')

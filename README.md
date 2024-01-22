@@ -32,3 +32,15 @@ The very first step needed to access the system is by having a user account. Whe
 
 Clients make it easy to manage users in your apps or services.
 
+## Updating Prisma
+Whenerver prisma schema is updated, run the following 
+
+to update the client
+```
+npx prisma generate
+```
+
+to create a new migration
+```
+npx prisma migrate dev --name <any name>
+```
