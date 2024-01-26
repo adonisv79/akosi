@@ -7,9 +7,11 @@ import {
   Post,
   Put,
   Req,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiCreatedResponse,
   ApiNoContentResponse,
@@ -22,8 +24,9 @@ import {
   CreateNewUserResponseDto,
   UpdateUserCredentialsDto,
   UserCredentialsDto,
-} from '../dto/auth.dto';
-import { AuthService } from '../auth.service';
+} from './dto/auth.dto';
+import { AuthService } from './auth.service';
+import { AuthGuard } from 'src/common/guards/auth.guard';
 
 @ApiTags('User Authentication')
 @Controller('/auth')
@@ -57,7 +60,9 @@ export class AuthController {
   }
 
   @Put('/')
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Updates user password credentials' })
+  @ApiBearerAuth()
   @ApiBody({
     type: UpdateUserCredentialsDto,
     examples: {
@@ -92,9 +97,11 @@ export class AuthController {
   }
 
   @Delete('/')
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary: 'Permanently deletes user data and granted permissions',
   })
+  @ApiBearerAuth()
   @ApiBody({
     type: UserCredentialsDto,
     examples: {

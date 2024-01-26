@@ -10,13 +10,13 @@ import {
   PrismaClientInitializationError,
   PrismaClientKnownRequestError,
 } from '@prisma/client/runtime/library';
-import { CustomRequest } from 'src/common/middleware/logger.middleware';
+import { Request } from 'express';
 
 const LOGGER_CONTEXT = 'ErrorHandlerService';
 
 @Injectable()
 export class ErrorHandlerService {
-  constructor(@Inject(REQUEST) private readonly req: CustomRequest) {}
+  constructor(@Inject(REQUEST) private readonly req: Request) {}
 
   /**
    * Handles any known service related errors and throws a proper nestjs response.

@@ -3,12 +3,13 @@ import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserCredentialsDto, UserCredentialsDto } from './dto/auth.dto';
 import { REQUEST } from '@nestjs/core';
-import { CustomRequest } from 'src/common/middleware/logger.middleware';
 import { UsernameInUseException } from 'src/common/exceptions/username-in-use.exception';
 import { UserCredentialsInvalidException } from 'src/common/exceptions/user-credentials-invalid.exception';
 import { UserActivitiesService } from 'src/user-activities/user-activities.service';
 import { ActionLogCodes } from 'src/common/enums/log_actions';
 import { ErrorHandlerService } from 'src/errors/error-handler.service';
+import { Request } from 'express';
+import { AuthSessionService } from './sessions/auth-session.service';
 
 const LOGGER_CONTEXT = 'AuthService';
 
@@ -18,9 +19,10 @@ export class AuthService {
   private maxRounds = 13;
 
   constructor(
-    @Inject(REQUEST) private readonly req: CustomRequest,
+    @Inject(REQUEST) private readonly req: Request,
     private errors: ErrorHandlerService,
     private prisma: PrismaService,
+    private authSession: AuthSessionService,
     private userActivity: UserActivitiesService,
   ) {}
 
@@ -37,24 +39,6 @@ export class AuthService {
       Math.floor(Math.random() * (this.maxRounds - this.minRounds + 1)) +
       this.minRounds;
     return await bcrypt.hash(password, rounds);
-  }
-
-  private async validateAndGetUserId(
-    body: UserCredentialsDto,
-  ): Promise<string | null> {
-    try {
-      const result = await this.prisma.user.findFirst({
-        select: { id: true, passwordHash: true },
-        where: { username: body.username },
-      });
-      if (!result) return null;
-      const isMatch = await bcrypt.compare(body.password, result.passwordHash);
-      return isMatch ? result.id : null;
-    } catch (err) {
-      this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
-      this.errors.handleGeneralError(err, LOGGER_CONTEXT);
-      return null; // just fail the sign-in
-    }
   }
 
   async createNewUser(body: UserCredentialsDto) {
@@ -86,7 +70,7 @@ export class AuthService {
   async deleteUser(body: UserCredentialsDto) {
     this.req.logger.warn(`deleting user "${body.username}"`);
     try {
-      const userId = await this.validateAndGetUserId(body);
+      const userId = await this.authSession.validateAndGetUserId(body);
       if (!userId) throw new UserCredentialsInvalidException();
 
       const result = await this.prisma.user.delete({
@@ -108,30 +92,10 @@ export class AuthService {
     }
   }
 
-  async authenticateUser(body: UserCredentialsDto) {
-    this.req.logger.warn(`authenticating user "${body.username}"`);
-    try {
-      const userId = await this.validateAndGetUserId(body);
-      if (!userId) throw new UserCredentialsInvalidException();
-      // perform token creation and attach to headers
-
-      this.userActivity.log(userId, ActionLogCodes.userAuthSignedIn);
-      this.req.logger.log(
-        `User ${userId} authenticated successfully`,
-        LOGGER_CONTEXT,
-      );
-      return 'User authenticated successfully';
-    } catch (err) {
-      this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
-      this.errors.handleGeneralError(err, LOGGER_CONTEXT);
-      throw err;
-    }
-  }
-
   async updatePassword(body: UpdateUserCredentialsDto) {
     this.req.logger.warn(`updating user's passwrod "${body.username}"`);
     try {
-      const userId = await this.validateAndGetUserId(body);
+      const userId = await this.authSession.validateAndGetUserId(body);
       if (!userId) throw new UserCredentialsInvalidException();
       const newHash = await this.encryptPassword(body.newPassword);
       await this.prisma.user.update({

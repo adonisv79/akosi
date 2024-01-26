@@ -1,21 +1,42 @@
-import { Body, Controller, Delete, HttpCode, Ip, Post, Put, Req, ValidationPipe } from '@nestjs/common';
 import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Headers,
+  Ip,
+  Post,
+  Put,
+  Req,
+  Request,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
   ApiBody,
-  ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { CreateNewUserResponseDto, UpdateUserCredentialsDto, UserCredentialsDto } from '../dto/auth.dto';
-import { AuthService } from '../auth.service';
+import { UserCredentialsDto } from '../dto/auth.dto';
+import { AuthSessionService } from './auth-session.service';
+import { AuthGuard } from 'src/common/guards/auth.guard';
 
 @ApiTags('User Authentication')
-@Controller('/auth')
+@Controller('/auth/session')
 export class AuthSessionController {
-  constructor(private auth: AuthService) {}
+  constructor(private authSession: AuthSessionService) {}
 
-  @Post('/session')
+  @Get('/')
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  getProfile(@Request() req) {
+    return req.user;
+  }
+
+  @Post('/')
   @ApiOperation({
     summary: 'Signs-in the user and retrieve authentication session tokens',
   })
@@ -33,39 +54,38 @@ export class AuthSessionController {
   @ApiUnauthorizedResponse({
     description: 'Provided credentials are invalid',
   })
-  async loginUser(
+  async signIn(
     @Req() req: Request,
     @Ip() ip,
     @Body(new ValidationPipe()) body: UserCredentialsDto,
   ) {
-    return await this.auth.authenticateUser(body);
+    return await this.authSession.signIn(body);
   }
 
-  @Put('/session')
+  @Put('/')
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary: 'Refreshes the current user session tokens',
   })
+  @ApiBearerAuth()
   @ApiOkResponse({
     description: 'The user session tokens have been renewed',
   })
-  async refreshUserSession(
-    @Req() req: Request,
-    @Ip() ip,
-  ) {
+  async refreshUserSession(@Req() req: Request, @Ip() ip) {
     return 'success';
   }
 
-  @Delete('/session')
+  @Delete('/')
+  @UseGuards(AuthGuard)
   @ApiOperation({
-    summary: 'Signs-out the current user session and disables any active tokens',
+    summary:
+      'Signs-out the current user session and disables any active tokens',
   })
+  @ApiBearerAuth()
   @ApiOkResponse({
     description: 'The user has been signed out',
   })
-  async logoutUser(
-    @Req() req: Request,
-    @Ip() ip,
-  ) {
+  async logoutUser(@Req() req: Request, @Ip() ip) {
     return 'success';
   }
 }

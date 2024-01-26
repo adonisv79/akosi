@@ -9,7 +9,7 @@ import { NextFunction, Request, Response } from 'express';
  * @param next
  */
 export function LoggerMiddleware(
-  req: CustomRequest,
+  req: Request,
   _res: Response,
   next: NextFunction,
 ) {
@@ -18,6 +18,10 @@ export function LoggerMiddleware(
   next();
 }
 
-export interface CustomRequest extends Request {
-  logger: Logger;
+declare global {
+  namespace Express {
+    interface Request {
+      logger: Logger;
+    }
+  }
 }
