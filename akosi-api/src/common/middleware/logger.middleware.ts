@@ -14,7 +14,7 @@ export function LoggerMiddleware(
   next: NextFunction,
 ) {
   req.logger = new Logger(`UnknownClient(${req.ip})`, { timestamp: true });
-  req.logger.log(`${req.method} ${req.baseUrl}${req.path}`);
+  req.logger.log(`${req.method} ${req.originalUrl}`);
   next();
 }
 

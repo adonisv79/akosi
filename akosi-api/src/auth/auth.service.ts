@@ -8,6 +8,7 @@ import { UsernameInUseException } from 'src/common/exceptions/username-in-use.ex
 import { UserCredentialsInvalidException } from 'src/common/exceptions/user-credentials-invalid.exception';
 import { UserActivitiesService } from 'src/user-activities/user-activities.service';
 import { ActionLogCodes } from 'src/common/enums/log_actions';
+import { ErrorHandlerService } from 'src/errors/error-handler.service';
 
 const LOGGER_CONTEXT = 'AuthService';
 
@@ -18,6 +19,7 @@ export class AuthService {
 
   constructor(
     @Inject(REQUEST) private readonly req: CustomRequest,
+    private errors: ErrorHandlerService,
     private prisma: PrismaService,
     private userActivity: UserActivitiesService,
   ) {}
@@ -35,6 +37,24 @@ export class AuthService {
       Math.floor(Math.random() * (this.maxRounds - this.minRounds + 1)) +
       this.minRounds;
     return await bcrypt.hash(password, rounds);
+  }
+
+  private async validateAndGetUserId(
+    body: UserCredentialsDto,
+  ): Promise<string | null> {
+    try {
+      const result = await this.prisma.user.findFirst({
+        select: { id: true, passwordHash: true },
+        where: { username: body.username },
+      });
+      if (!result) return null;
+      const isMatch = await bcrypt.compare(body.password, result.passwordHash);
+      return isMatch ? result.id : null;
+    } catch (err) {
+      this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
+      this.errors.handleGeneralError(err, LOGGER_CONTEXT);
+      return null; // just fail the sign-in
+    }
   }
 
   async createNewUser(body: UserCredentialsDto) {
@@ -82,25 +102,9 @@ export class AuthService {
       );
       return;
     } catch (err) {
-      this.req.logger.error(err.message, err.stack, LOGGER_CONTEXT);
+      this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
+      this.errors.handleGeneralError(err, LOGGER_CONTEXT);
       throw err;
-    }
-  }
-
-  private async validateAndGetUserId(
-    body: UserCredentialsDto,
-  ): Promise<string | null> {
-    try {
-      const result = await this.prisma.user.findFirst({
-        select: { id: true, passwordHash: true },
-        where: { username: body.username },
-      });
-      if (!result) return null;
-      const isMatch = await bcrypt.compare(body.password, result.passwordHash);
-      return isMatch ? result.id : null;
-    } catch (err) {
-      this.req.logger.error(err.message, err.stack, LOGGER_CONTEXT);
-      return null; // just fail the sign-in
     }
   }
 
@@ -118,7 +122,8 @@ export class AuthService {
       );
       return 'User authenticated successfully';
     } catch (err) {
-      this.req.logger.error(err.message, err.stack, LOGGER_CONTEXT);
+      this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
+      this.errors.handleGeneralError(err, LOGGER_CONTEXT);
       throw err;
     }
   }
@@ -140,7 +145,8 @@ export class AuthService {
       );
       return 'Password updated successfully';
     } catch (err) {
-      this.req.logger.error(err.message, err.stack, LOGGER_CONTEXT);
+      this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
+      this.errors.handleGeneralError(err, LOGGER_CONTEXT);
       throw err;
     }
   }

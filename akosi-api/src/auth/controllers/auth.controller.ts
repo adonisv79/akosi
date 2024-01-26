@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, HttpCode, Ip, Post, Put, Req, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  HttpCode,
+  Ip,
+  Post,
+  Put,
+  Req,
+  ValidationPipe,
+} from '@nestjs/common';
 import {
   ApiBody,
   ApiCreatedResponse,
@@ -6,8 +16,13 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { CreateNewUserResponseDto, UpdateUserCredentialsDto, UserCredentialsDto } from '../dto/auth.dto';
+import {
+  CreateNewUserResponseDto,
+  UpdateUserCredentialsDto,
+  UserCredentialsDto,
+} from '../dto/auth.dto';
 import { AuthService } from '../auth.service';
 
 @ApiTags('User Authentication')
@@ -16,7 +31,11 @@ export class AuthController {
   constructor(private auth: AuthService) {}
 
   @Post('/')
-  @ApiOperation({  summary: 'Registers a new user', description: 'Use this to create a new user account. Note that this is a secured endpoint that can only be accessed thru an official domain', })
+  @ApiOperation({
+    summary: 'Registers a new user',
+    description:
+      'Use this to create a new user account. Note that this is a secured endpoint that can only be accessed thru an official domain',
+  })
   @ApiBody({
     type: UserCredentialsDto,
     examples: {
@@ -61,6 +80,9 @@ export class AuthController {
   @ApiOkResponse({
     description: 'The user credential was updated successfully',
   })
+  @ApiUnauthorizedResponse({
+    description: 'Provided credentials are invalid',
+  })
   async updatePassword(
     @Req() req: Request,
     @Ip() ip,
@@ -70,7 +92,9 @@ export class AuthController {
   }
 
   @Delete('/')
-  @ApiOperation({ summary: 'Permanently deletes user data and granted permissions' })
+  @ApiOperation({
+    summary: 'Permanently deletes user data and granted permissions',
+  })
   @ApiBody({
     type: UserCredentialsDto,
     examples: {
@@ -81,6 +105,9 @@ export class AuthController {
   })
   @ApiNoContentResponse({
     description: 'The user data and grants were deleted successfully',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Provided credentials are invalid',
   })
   @HttpCode(204)
   async deleteUser(

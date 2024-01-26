@@ -5,6 +5,7 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { CreateNewUserResponseDto, UpdateUserCredentialsDto, UserCredentialsDto } from '../dto/auth.dto';
 import { AuthService } from '../auth.service';
@@ -28,6 +29,9 @@ export class AuthSessionController {
   })
   @ApiOkResponse({
     description: 'The user credential is valid and session tokens are provided',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Provided credentials are invalid',
   })
   async loginUser(
     @Req() req: Request,

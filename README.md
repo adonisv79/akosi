@@ -44,3 +44,9 @@ to create a new migration
 ```
 npx prisma migrate dev --name <any name>
 ```
+
+Strong Pass:
+Must be 12 characters-the more characters, the better
+Must be a mixture of both uppercase and lowercase letters
+Must be a mixture of letters and numbers
+Must include at least one special character, e.g., ! @ # ? ]
