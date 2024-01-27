@@ -2,16 +2,16 @@ import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { PrismaService } from 'src/prisma.service';
-import { AuthSessionController } from './sessions/auth-session.controller';
 import { UserActivitiesService } from 'src/user-activities/user-activities.service';
 import { ErrorHandlerService } from 'src/errors/error-handler.service';
-import { AuthSessionService } from './sessions/auth-session.service';
+import { UsersModule } from 'src/users/users.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
-  controllers: [AuthController, AuthSessionController],
+  imports: [UsersModule, PassportModule],
+  controllers: [AuthController],
   providers: [
     AuthService,
-    AuthSessionService,
     ErrorHandlerService,
     PrismaService,
     UserActivitiesService,

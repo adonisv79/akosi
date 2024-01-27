@@ -35,7 +35,7 @@ model UserProfileName {
   createdDate     DateTime  @db.Timestamp()  @map(name: "created_date")         @default(now())
   lastUpdateDate  DateTime  @db.Timestamp()  @map(name: "last_updated_date")    @default(now())
 
-  user            User      @relation(fields: [userId], references: [id])
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@map("user_profile_names")
   @@index([userId], name: "idx_user_profile_names_userid") 
 }
@@ -45,7 +45,7 @@ model UserActivityLog {
   activityId      Int       @db.Integer @map(name: "activity_id")
   createdDate     DateTime  @db.Timestamp()  @map(name: "created_date")    @default(now())
   
-  user            User      @relation(fields: [userId], references: [id])
+  user            User      @relation(fields: [userId], references: [id] , onDelete: Cascade)
   @@id([userId, createdDate])
   @@map("user_activity_logs")
 }

@@ -8,7 +8,6 @@ import {
   Put,
   Req,
   UseGuards,
-  ValidationPipe,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -22,6 +21,7 @@ import {
 } from '@nestjs/swagger';
 import {
   CreateNewUserResponseDto,
+  PasswordDto,
   UpdateUserCredentialsDto,
   UserCredentialsDto,
 } from './dto/auth.dto';
@@ -54,7 +54,7 @@ export class AuthController {
   })
   @HttpCode(201)
   async registerNewUser(
-    @Body(new ValidationPipe()) body: UserCredentialsDto,
+    @Body() body: UserCredentialsDto,
   ): Promise<CreateNewUserResponseDto> {
     return this.auth.createNewUser(body);
   }
@@ -68,14 +68,12 @@ export class AuthController {
     examples: {
       basic1: {
         value: {
-          username: 'akosi_user',
           password: 'ThisIsNot@GoodPassword',
           newPassword: '1dfs34f$dsf21!Fer',
         },
       },
       basic2: {
         value: {
-          username: 'akosi_user',
           password: '1dfs34f$dsf21!Fer',
           newPassword: 'ThisIsNot@GoodPassword',
         },
@@ -88,11 +86,7 @@ export class AuthController {
   @ApiUnauthorizedResponse({
     description: 'Provided credentials are invalid',
   })
-  async updatePassword(
-    @Req() req: Request,
-    @Ip() ip,
-    @Body(new ValidationPipe()) body: UpdateUserCredentialsDto,
-  ) {
+  async updatePassword(@Body() body: UpdateUserCredentialsDto) {
     return await this.auth.updatePassword(body);
   }
 
@@ -106,7 +100,7 @@ export class AuthController {
     type: UserCredentialsDto,
     examples: {
       basic: {
-        value: { username: 'akosi_user', password: 'ThisIsNot@GoodPassword' },
+        value: { password: 'ThisIsNot@GoodPassword' },
       },
     },
   })
@@ -117,11 +111,29 @@ export class AuthController {
     description: 'Provided credentials are invalid',
   })
   @HttpCode(204)
-  async deleteUser(
-    @Req() req: Request,
-    @Ip() ip,
-    @Body(new ValidationPipe()) body: UserCredentialsDto,
-  ) {
+  async deleteUser(@Body() body: PasswordDto) {
     return await this.auth.deleteUser(body);
+  }
+
+  @Post('/login')
+  @ApiOperation({
+    summary: 'Signs-in the user and retrieve authentication session tokens',
+  })
+  @ApiBody({
+    type: UserCredentialsDto,
+    examples: {
+      basic: {
+        value: { username: 'akosi_user', password: 'ThisIsNot@GoodPassword' },
+      },
+    },
+  })
+  @ApiOkResponse({
+    description: 'The user credential is valid and session tokens are provided',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Provided credentials are invalid',
+  })
+  async signInUser(@Body() body: UserCredentialsDto) {
+    return this.auth.signIn(body.username, body.password);
   }
 }

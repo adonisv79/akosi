@@ -1,5 +1,6 @@
 export interface Configuration {
   api: {
+    nodeEnv: string;
     port: number;
     jwtSecret: string;
   };
@@ -9,7 +10,8 @@ export interface Configuration {
 }
 
 export default (): Configuration => ({
-  api: {
+  api: {    
+    nodeEnv: process.env.NODE_ENV,
     port: parseInt(process.env.API_PORT),
     jwtSecret: process.env.JWT_SECRET,
   },

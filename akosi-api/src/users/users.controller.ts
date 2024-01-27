@@ -2,21 +2,15 @@ import {
   Body,
   Controller,
   Get,
-  HttpCode,
   Ip,
   Param,
   Post,
   Put,
   Req,
-  ValidationPipe,
 } from '@nestjs/common';
-import {
-  AddLanguageDto,
-  UpdateUserInfoDto,
-} from './dto/users.dto';
+import { AddLanguageDto, UpdateUserInfoDto } from './dto/users.dto';
 import {
   ApiBody,
-  ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
@@ -31,7 +25,7 @@ export class UsersController {
   constructor(private users: UsersService) {}
 
   @Get(':id')
-  @ApiOperation({ summary: 'Retrieves user information'})
+  @ApiOperation({ summary: 'Retrieves user information' })
   @ApiOkResponse({ description: 'Resource retrieval success' })
   async getUserInfo(@Req() req: Request, @Ip() ip, @Param() params) {
     return {
@@ -56,7 +50,7 @@ export class UsersController {
   }
 
   @Put('/')
-  @ApiOperation({ summary: 'Updates user information'})
+  @ApiOperation({ summary: 'Updates user information' })
   @ApiBody({
     type: UpdateUserInfoDto,
     required: true,
@@ -136,7 +130,7 @@ export class UsersController {
   async updateUser(
     @Req() req: Request,
     @Ip() ip,
-    @Body(new ValidationPipe()) body: UpdateUserInfoDto,
+    @Body() body: UpdateUserInfoDto,
   ) {
     return {
       reqBody: body,
@@ -172,7 +166,7 @@ export class UsersController {
   @ApiUnauthorizedResponse({
     description: 'User must first sign in to have access to this functionality',
   })
-  async addLanguage(@Body(new ValidationPipe()) body: AddLanguageDto) {
+  async addLanguage(@Body() body: AddLanguageDto) {
     return { ...body };
   }
 }

@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { UpdateUserCredentialsDto, UserCredentialsDto } from './dto/auth.dto';
+import { PasswordDto, UpdateUserCredentialsDto, UserCredentialsDto } from './dto/auth.dto';
 import { REQUEST } from '@nestjs/core';
 import { UsernameInUseException } from 'src/common/exceptions/username-in-use.exception';
 import { UserCredentialsInvalidException } from 'src/common/exceptions/user-credentials-invalid.exception';
@@ -9,7 +8,8 @@ import { UserActivitiesService } from 'src/user-activities/user-activities.servi
 import { ActionLogCodes } from 'src/common/enums/log_actions';
 import { ErrorHandlerService } from 'src/errors/error-handler.service';
 import { Request } from 'express';
-import { AuthSessionService } from './sessions/auth-session.service';
+import { UsersService } from 'src/users/users.service';
+import { JwtService } from '@nestjs/jwt';
 
 const LOGGER_CONTEXT = 'AuthService';
 
@@ -21,17 +21,38 @@ export class AuthService {
   constructor(
     @Inject(REQUEST) private readonly req: Request,
     private errors: ErrorHandlerService,
-    private prisma: PrismaService,
-    private authSession: AuthSessionService,
+    private jwtService: JwtService,
     private userActivity: UserActivitiesService,
+    private usersService: UsersService,
   ) {}
 
-  async usernameExists(username: string) {
-    const result = await this.prisma.user.findFirst({
-      select: { username: true },
-      where: { username },
-    });
-    return !!result;
+  async signIn(username: string, password: string) {
+    this.req.logger.warn(`authenticating user "${username}"`);
+    try {
+      const userId = await this.usersService.validateUserAndGetId(
+        username,
+        password,
+      );
+      if (!userId) throw new UserCredentialsInvalidException();
+
+      const result = await this.usersService.findOne(username);
+      const access_token = await this.jwtService.signAsync({
+        sub: result.id,
+        username: username,
+        member_since: result.createdDate,
+      });
+
+      this.userActivity.log(result.id, ActionLogCodes.userAuthSignedIn);
+      this.req.logger.log(
+        `User ${result.id} authenticated successfully`,
+        LOGGER_CONTEXT,
+      );
+      return { access_token };
+    } catch (err) {
+      this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
+      this.errors.handleGeneralError(err, LOGGER_CONTEXT);
+      throw err;
+    }
   }
 
   private async encryptPassword(password: string): Promise<string> {
@@ -44,16 +65,11 @@ export class AuthService {
   async createNewUser(body: UserCredentialsDto) {
     this.req.logger.log(`Creating new user "${body.username}"`);
     try {
-      if (await this.usernameExists(body.username))
+      if (await this.usersService.usernameExists(body.username))
         throw new UsernameInUseException(body.username);
       const hash = await this.encryptPassword(body.password);
 
-      const result = await this.prisma.user.create({
-        data: {
-          username: body.username,
-          passwordHash: hash,
-        },
-      });
+      const result = await this.usersService.create(body.username, hash);
       this.userActivity.log(result.id, ActionLogCodes.userAuthRegistered);
 
       this.req.logger.log(
@@ -67,20 +83,19 @@ export class AuthService {
     }
   }
 
-  async deleteUser(body: UserCredentialsDto) {
-    this.req.logger.warn(`deleting user "${body.username}"`);
+  async deleteUser(body: PasswordDto) {
+    this.req.logger.warn(`deleting user "${this.req.user.username}"`);
     try {
-      const userId = await this.authSession.validateAndGetUserId(body);
+      const userId = await this.usersService.validateUserAndGetId(
+        this.req.user.username,
+        body.password,
+      );
       if (!userId) throw new UserCredentialsInvalidException();
 
-      const result = await this.prisma.user.delete({
-        where: {
-          username: body.username,
-        },
-      });
+      const result = await this.usersService.delete(this.req.user.username);
       // this.userActivity.log(result.id, ActionLogCodes.userAuthDeleted);
 
-      await this.req.logger.log(
+      this.req.logger.log(
         `User ${result.id} deleted successfully`,
         LOGGER_CONTEXT,
       );
@@ -93,15 +108,20 @@ export class AuthService {
   }
 
   async updatePassword(body: UpdateUserCredentialsDto) {
-    this.req.logger.warn(`updating user's passwrod "${body.username}"`);
+    this.req.logger.warn(
+      `updating user's passwrod "${this.req.user.username}"`,
+    );
     try {
-      const userId = await this.authSession.validateAndGetUserId(body);
+      const userId = await this.usersService.validateUserAndGetId(
+        this.req.user.username,
+        body.password,
+      );
       if (!userId) throw new UserCredentialsInvalidException();
       const newHash = await this.encryptPassword(body.newPassword);
-      await this.prisma.user.update({
-        data: { passwordHash: newHash },
-        where: { username: body.username },
-      });
+      await this.usersService.updatePasswordHash(
+        this.req.user.username,
+        newHash,
+      );
       this.userActivity.log(userId, ActionLogCodes.userAuthChangedPassword);
       this.req.logger.log(
         `User ${userId}'s password updated successfully`,
