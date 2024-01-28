@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Req,
+  UseFilters,
 } from '@nestjs/common';
 import { AddLanguageDto, UpdateUserInfoDto } from './dto/users.dto';
 import {
@@ -18,7 +19,9 @@ import {
 } from '@nestjs/swagger';
 import { Languages } from 'src/common/enums/languages';
 import { UsersService } from './users.service';
+import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 
+@UseFilters(new HttpExceptionFilter())
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {

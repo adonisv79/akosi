@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Req,
+  UseFilters,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -27,8 +28,10 @@ import {
 } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from 'src/common/guards/auth.guard';
+import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 
 @ApiTags('User Authentication')
+@UseFilters(new HttpExceptionFilter())
 @Controller('/auth')
 export class AuthController {
   constructor(private auth: AuthService) {}
@@ -127,8 +130,8 @@ export class AuthController {
       },
     },
   })
-  @ApiOkResponse({
-    description: 'The user credential is valid and session tokens are provided',
+  @ApiCreatedResponse({
+    description: 'Access tokens are generated and provided',
   })
   @ApiUnauthorizedResponse({
     description: 'Provided credentials are invalid',

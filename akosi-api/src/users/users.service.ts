@@ -1,29 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { ErrorHandlerService } from 'src/errors/error-handler.service';
 
 const LOGGER_CONTEXT = 'UsersService';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService,
-    private errors: ErrorHandlerService) {}
+  constructor(private prisma: PrismaService) {}
 
   async validateUserAndGetId(username: string, password: string) {
-    try {
-      const result = await this.prisma.user.findFirst({
-        select: { id: true, passwordHash: true },
-        where: { username }
-      });
-      if (!result) return null;
-      const isMatch = await bcrypt.compare(password, result.passwordHash);
-      return isMatch ? result.id : null;
-    } catch (err) {
-        this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
-        this.errors.handleGeneralError(err, LOGGER_CONTEXT);
-      return null;
-    }
+    const result = await this.prisma.user.findFirst({
+      select: { id: true, passwordHash: true },
+      where: { username },
+    });
+    if (!result) return null;
+    const isMatch = await bcrypt.compare(password, result.passwordHash);
+    return isMatch ? result.id : null;
   }
 
   async findOne(username: string) {

@@ -1,12 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { PasswordDto, UpdateUserCredentialsDto, UserCredentialsDto } from './dto/auth.dto';
+import {
+  PasswordDto,
+  UpdateUserCredentialsDto,
+  UserCredentialsDto,
+} from './dto/auth.dto';
 import { REQUEST } from '@nestjs/core';
 import { UsernameInUseException } from 'src/common/exceptions/username-in-use.exception';
 import { UserCredentialsInvalidException } from 'src/common/exceptions/user-credentials-invalid.exception';
 import { UserActivitiesService } from 'src/user-activities/user-activities.service';
 import { ActionLogCodes } from 'src/common/enums/log_actions';
-import { ErrorHandlerService } from 'src/errors/error-handler.service';
 import { Request } from 'express';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
@@ -20,7 +23,6 @@ export class AuthService {
 
   constructor(
     @Inject(REQUEST) private readonly req: Request,
-    private errors: ErrorHandlerService,
     private jwtService: JwtService,
     private userActivity: UserActivitiesService,
     private usersService: UsersService,
@@ -49,8 +51,8 @@ export class AuthService {
       );
       return { access_token };
     } catch (err) {
-      this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
-      this.errors.handleGeneralError(err, LOGGER_CONTEXT);
+      // this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
+      // this.errors.handleGeneralError(err, LOGGER_CONTEXT);
       throw err;
     }
   }
@@ -85,53 +87,38 @@ export class AuthService {
 
   async deleteUser(body: PasswordDto) {
     this.req.logger.warn(`deleting user "${this.req.user.username}"`);
-    try {
-      const userId = await this.usersService.validateUserAndGetId(
-        this.req.user.username,
-        body.password,
-      );
-      if (!userId) throw new UserCredentialsInvalidException();
+    const userId = await this.usersService.validateUserAndGetId(
+      this.req.user.username,
+      body.password,
+    );
+    if (!userId) throw new UserCredentialsInvalidException();
 
-      const result = await this.usersService.delete(this.req.user.username);
-      // this.userActivity.log(result.id, ActionLogCodes.userAuthDeleted);
+    const result = await this.usersService.delete(this.req.user.username);
+    // this.userActivity.log(result.id, ActionLogCodes.userAuthDeleted);
 
-      this.req.logger.log(
-        `User ${result.id} deleted successfully`,
-        LOGGER_CONTEXT,
-      );
-      return;
-    } catch (err) {
-      this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
-      this.errors.handleGeneralError(err, LOGGER_CONTEXT);
-      throw err;
-    }
+    this.req.logger.log(
+      `User ${result.id} deleted successfully`,
+      LOGGER_CONTEXT,
+    );
+    return;
   }
 
   async updatePassword(body: UpdateUserCredentialsDto) {
     this.req.logger.warn(
       `updating user's passwrod "${this.req.user.username}"`,
     );
-    try {
-      const userId = await this.usersService.validateUserAndGetId(
-        this.req.user.username,
-        body.password,
-      );
-      if (!userId) throw new UserCredentialsInvalidException();
-      const newHash = await this.encryptPassword(body.newPassword);
-      await this.usersService.updatePasswordHash(
-        this.req.user.username,
-        newHash,
-      );
-      this.userActivity.log(userId, ActionLogCodes.userAuthChangedPassword);
-      this.req.logger.log(
-        `User ${userId}'s password updated successfully`,
-        LOGGER_CONTEXT,
-      );
-      return 'Password updated successfully';
-    } catch (err) {
-      this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
-      this.errors.handleGeneralError(err, LOGGER_CONTEXT);
-      throw err;
-    }
+    const userId = await this.usersService.validateUserAndGetId(
+      this.req.user.username,
+      body.password,
+    );
+    if (!userId) throw new UserCredentialsInvalidException();
+    const newHash = await this.encryptPassword(body.newPassword);
+    await this.usersService.updatePasswordHash(this.req.user.username, newHash);
+    this.userActivity.log(userId, ActionLogCodes.userAuthChangedPassword);
+    this.req.logger.log(
+      `User ${userId}'s password updated successfully`,
+      LOGGER_CONTEXT,
+    );
+    return 'Password updated successfully';
   }
 }

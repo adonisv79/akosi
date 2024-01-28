@@ -1,49 +1,52 @@
 import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
   HttpException,
-  Inject,
-  Injectable,
   InternalServerErrorException,
   ServiceUnavailableException,
 } from '@nestjs/common';
-import { REQUEST } from '@nestjs/core';
 import {
   PrismaClientInitializationError,
   PrismaClientKnownRequestError,
 } from '@prisma/client/runtime/library';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 
-const LOGGER_CONTEXT = 'ErrorHandlerService';
+const LOGGER_CONTEXT = 'HttpExceptionFilter';
 
-@Injectable()
-export class ErrorHandlerService {
-  constructor(@Inject(REQUEST) private readonly req: Request) {}
-
+@Catch()
+export class HttpExceptionFilter implements ExceptionFilter{
+  catch(error: HttpException, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const request = ctx.getRequest<Request>();
+    const response = ctx.getResponse<Response>();
+    const status = error.getStatus();
+    this.handlePrismaConnectivityErrors(request, error);
+    this.handleGeneralError(request, error);
+    response.status(status).json({ statusCode: status, name: error.name || 'unknown' })
+  }
   /**
    * Handles any known service related errors and throws a proper nestjs response.
    * @param error the error object from a catch
    */
-  handlePrismaConnectivityErrors(error: unknown, context?: string) {
+  private handlePrismaConnectivityErrors(request: Request, error: unknown) {
     if (error instanceof HttpException) return;
 
     if (error['name'])
-      this.req.logger.error(
+      request.logger.error(
         `PRISMA_ERROR: ${error['name']}`,
         null,
         LOGGER_CONTEXT,
       );
     // handle database connectivity errors
     if (error instanceof PrismaClientInitializationError) {
-      this.req.logger.error(
-        error.message,
-        error.stack,
-        context ?? LOGGER_CONTEXT,
-      );
+      request.logger.error(error.message, error.stack, LOGGER_CONTEXT);
       throw new ServiceUnavailableException();
     } else if (error instanceof PrismaClientKnownRequestError) {
-      this.req.logger.error(
+      request.logger.error(
         `[${error.code}] ${error.message}`,
         error.stack,
-        context ?? LOGGER_CONTEXT,
+        LOGGER_CONTEXT,
       );
       switch (error.code) {
         case '1001':
@@ -54,17 +57,13 @@ export class ErrorHandlerService {
     }
   }
 
-  handleGeneralError<T extends HttpException>(
+  private handleGeneralError(
+    request: Request,
     error: unknown,
-    context?: string,
   ) {
     if (error instanceof HttpException) return;
 
     if (error instanceof Error)
-      this.req.logger.error(
-        error.message,
-        error.stack,
-        context ?? LOGGER_CONTEXT,
-      );
+      request.logger.error(error.message, error.stack, LOGGER_CONTEXT);
   }
 }
