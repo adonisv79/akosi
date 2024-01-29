@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AKOSI-UI Project
 
-## Getting Started
+This project serves as the UI/UX component of the AKOSI project. This project is intended to be used in cobnjunction with AKOSI-API. 
 
-First, run the development server:
+## NEXTjs
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
+This project is built with NEXTjs (React). To start the host, run the following
+```
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Storybook
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This project uses Storybook in order to visualize and document the UI components in a sandbox. To initialize, run the following
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+pnpx start storybook
+```
 
-## Learn More
+Storybook will be available in you http://localhost:6006
 
-To learn more about Next.js, take a look at the following resources:
+### Storybook telemetry
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Telemetry has been disabled but to be sure you can set the environment variable STORYBOOK_DISABLE_TELEMETRY=1

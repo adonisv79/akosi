@@ -1,17 +1,33 @@
+import { MouseEvent } from "react";
+
 export type ButtonThemes = "light" | "dark";
 export type ButtonSizes = "sm" | "md" | "lg";
 
 export type ALVButtonParams = {
+  /** Unique identifier for the button. */
+  id: string;
+  /** Contents for the button element */
   children: any;
+  /** The different themes we allow for the button */
   theme?: ButtonThemes;
+  /** Available size variations for the button */
   size?: ButtonSizes;
+  /** Callback function when a click event is performed */
+  onClick?: (e: MouseEvent) => void;
 };
 
-export default function ALVButton({
+/**
+ * The Base Button to be used on all components
+ * @param param0
+ * @returns
+ */
+export const ALVButton = ({
+  id,
   children,
   theme = "light",
   size = "md",
-}: ALVButtonParams) {
+  onClick,
+}: ALVButtonParams) => {
   const themeClasses =
     theme === "light"
       ? "bg-white text-black border-black-500 hover:bg-gray-300"
@@ -24,8 +40,12 @@ export default function ALVButton({
       : "text-lg px-3 py-1 border-lg";
 
   return (
-    <button className={`rounded-full border ${themeClasses} ${sizeClasses}`}>
+    <button
+      id={id}
+      className={`rounded-full border ${themeClasses} ${sizeClasses}`}
+      onClick={onClick}
+    >
       {children}
     </button>
   );
-}
+};
