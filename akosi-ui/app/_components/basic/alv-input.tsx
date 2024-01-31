@@ -1,3 +1,12 @@
+import {
+  CommonElementProps,
+  NavigableElementProps,
+  ParentalElementProps,
+  SizeableElementProps,
+  ThemableElementProps,
+  UniqueElementProps,
+} from './common.types';
+
 /**
  * src: https://www.w3schools.com/TAgs/att_input_autocomplete.asp
  */
@@ -58,3 +67,82 @@ export type InputAutoCompleteValues =
   | 'tel-local-suffix' /** Expects the local suffix of the phone number */
   | 'tel-extension' /** Expects the extension code of the phone number */
   | 'impp' /** Expects the URL of an instant messaging protocol endpoint */;
+
+export type InputTypes =
+  | 'button'
+  | 'checkbox'
+  | 'color'
+  | 'date'
+  | 'datetime-local'
+  | 'email'
+  | 'file'
+  | 'hidden'
+  | 'image'
+  | 'month'
+  | 'number'
+  | 'password'
+  | 'radio'
+  | 'range'
+  | 'reset'
+  | 'search'
+  | 'submit'
+  | 'tel'
+  | 'text'
+  | 'time'
+  | 'url'
+  | 'week';
+
+export type AlvInputProps = CommonElementProps &
+  UniqueElementProps &
+  ParentalElementProps &
+  NavigableElementProps &
+  ThemableElementProps &
+  SizeableElementProps & {
+    /** Browser auto complete value */
+    autoComplete?: InputAutoCompleteValues;
+    /** Form identifier for the input (defaults to id). */
+    name?: string;
+    /** Input type */
+    type: InputTypes;
+    /** The value of the input */
+    value?: string | number | string[];
+  };
+
+/**
+ * Basic input field
+ * @param param0
+ * @returns
+ */
+export const AlvInput = ({
+  autoComplete,
+  className,
+  id,
+  name,
+  size = 'md',
+  theme = 'light',
+  type,
+  value,
+}: AlvInputProps) => {
+  const themeClasses =
+    theme === 'light'
+      ? 'bg-white text-black border-black-500 hover:bg-gray-100'
+      : 'bg-black text-white border-black-500 hover:bg-gray-800';
+
+  const sizeClasses =
+    size === 'sm'
+      ? 'text-sm p-2 border-sm'
+      : size === 'md'
+      ? 'text-base p-2.5 border-md'
+      : 'text-lg p-3 border-lg';
+
+  return (
+    <input
+      id={id}
+      name={name ?? id}
+      className={`border rounded-md p-2 ${themeClasses} ${sizeClasses} ${className} `}
+      type={type}
+      autoComplete={autoComplete}
+      value={value}
+    />
+  );
+};

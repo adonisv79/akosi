@@ -1,20 +1,26 @@
 import { MouseEvent } from 'react';
+import {
+  CommonElementProps,
+  NavigableElementProps,
+  ParentalElementProps,
+  SizeableElementProps,
+  ThemableElementProps,
+  UniqueElementProps,
+} from './common.types';
 
-export type ButtonThemes = 'light' | 'dark';
-export type ButtonSizes = 'sm' | 'md' | 'lg';
+export type ButtonTypes = 'button' | 'reset' | 'submit';
 
-export type ALVButtonParams = {
-  /** Unique identifier for the button. */
-  id: string;
-  /** Contents for the button element */
-  children: any;
-  /** The different themes we allow for the button */
-  theme?: ButtonThemes;
-  /** Available size variations for the button */
-  size?: ButtonSizes;
-  /** Callback function when a click event is performed */
-  onClick?: (e: MouseEvent) => void;
-};
+export type ALVButtonParams = CommonElementProps &
+  UniqueElementProps &
+  ParentalElementProps &
+  NavigableElementProps & 
+  ThemableElementProps & 
+  SizeableElementProps & {
+    /** Callback function when a click event is performed */
+    onClick?: (e: MouseEvent) => void;
+    /** The button type */
+    type?: ButtonTypes;
+  };
 
 /**
  * The Base Button to be used on all components
@@ -24,14 +30,19 @@ export type ALVButtonParams = {
 export const ALVButton = ({
   id,
   children,
+  className,
   theme = 'light',
   size = 'md',
+  tabIndex,
+  type,
   onClick,
 }: ALVButtonParams) => {
   const themeClasses =
     theme === 'light'
-      ? 'bg-white text-black border-black-500 hover:bg-gray-300'
-      : 'bg-black text-white border-black-500 hover:bg-gray-700';
+      ? 'text-black bg-white border-black-500 hover:bg-gray-300'
+      : theme === 'primary'
+      ? 'text-white bg-blue-500 border-black-500 hover:bg-blue-600'
+      : 'text-white bg-black border-black-500 hover:bg-gray-700';
   const sizeClasses =
     size === 'sm'
       ? 'text-sm px-2 py-1 border-sm'
@@ -42,8 +53,10 @@ export const ALVButton = ({
   return (
     <button
       id={id}
-      className={`rounded-full border ${themeClasses} ${sizeClasses}`}
+      className={`rounded-md border ${themeClasses} ${sizeClasses} ${className}`}
       onClick={onClick}
+      tabIndex={tabIndex}
+      type={type}
     >
       {children}
     </button>

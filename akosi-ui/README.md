@@ -17,7 +17,7 @@ This project uses Storybook in order to visualize and document the UI components
 pnpx start storybook
 ```
 
-Storybook will be available in you http://localhost:6006
+Storybook will be available in your local machine at http://localhost:6006
 
 ### Storybook telemetry
 

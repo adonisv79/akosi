@@ -1,14 +1,19 @@
+import {
+  CommonElementProps,
+  ParentalElementProps,
+  UniqueElementProps,
+} from './common.types';
+
 export type HorizontalALignments = 'left' | 'centered' | 'right';
 export type VerticalALignments = 'top' | 'centered' | 'bottom';
 export type DisplayTypes = 'flex' | 'grid';
-export type ALVSectionProps = {
-  id: string;
-  children: any;
-  className: string;
-  displayType?: DisplayTypes;
-  hAlign?: HorizontalALignments;
-  vAlign?: VerticalALignments;
-};
+export type ALVSectionProps = CommonElementProps &
+  UniqueElementProps &
+  ParentalElementProps & {
+    displayType?: DisplayTypes;
+    hAlign?: HorizontalALignments;
+    vAlign?: VerticalALignments;
+  };
 
 export const ALVSection = ({
   id,
