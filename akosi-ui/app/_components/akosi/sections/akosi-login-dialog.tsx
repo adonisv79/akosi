@@ -1,10 +1,11 @@
 import { FormEvent } from 'react';
-import { ALVButton } from '../basic/alv-button';
-import { ALVForm } from '../basic/alv-form';
-import { AlvInput } from '../basic/alv-input';
-import { ALVLabel } from '../basic/alv-label';
-import { ALVSection } from '../basic/alv-section';
-import { ALVTypography } from '../basic/alv-typography';
+import { ALVForm } from '../../core/alv-form';
+import { ALVLabel } from '../../core/alv-label';
+import { ALVSection } from '../../core/alv-section';
+import { ALVTypography } from '../../core/alv-typography';
+import { HTMLButton } from '../../core/html/html-button/html-button';
+import { AkosiTextBox } from '../basics/akosi-textbox';
+import { AkosiButton } from '../basics/akosi-button';
 
 type AkosiLoginDialogProps = {
   dialogHeaderText: string;
@@ -35,34 +36,26 @@ export const AkosiLoginDialog = ({
           <ALVTypography weight="semibold" size="sm" theme="light">
             <ALVLabel targetElementId="username">{usernameHeaderText}</ALVLabel>
           </ALVTypography>
-          <AlvInput
-            type="text"
-            id="username"
-            name="username"
-            autoComplete="username"
-            className="mt-1 w-full"
-          />
+          <AkosiTextBox id="login-username" type='username' className="mt-1 w-full" />
         </div>
         <div className="mb-4">
           <ALVTypography weight="semibold" size="sm" theme="light">
             <ALVLabel targetElementId="password">{passwordHeaderText}</ALVLabel>
           </ALVTypography>
-          <AlvInput
-            type="password"
-            id="password"
-            name="password"
-            autoComplete="current-password"
-            className="mt-1 w-full"
-          />
+          <AkosiTextBox id="login-password" type='password' className="mt-1 w-full" />
         </div>
-        <ALVButton
+        <AkosiButton
           type="submit"
           id="login-button"
           theme="primary"
-          className="px-4 py-2"
+          borderRounding="full"
+          className="px-4 py-2 w-full"
         >
           Log in
-        </ALVButton>
+        </AkosiButton>
+        <ALVTypography italic size="sm" theme="light">
+          Not a member? Register here
+        </ALVTypography>
       </ALVForm>
     </ALVSection>
   );

@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  ALVSizes,
   CommonElementProps,
   ParentalElementProps,
-  ThemableElementProps,
 } from './common.types';
+import { ALVSizes, ThemableElementProps } from '../akosi/common.types';
 
 export type ALVTypographyProps = CommonElementProps &
   ParentalElementProps &

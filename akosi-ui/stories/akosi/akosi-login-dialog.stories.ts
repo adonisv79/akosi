@@ -1,8 +1,8 @@
-import { AkosiLoginDialog } from '../app/_components/sections/akosi-login-dialog';
+import { AkosiLoginDialog } from '../../app/_components/akosi/sections/akosi-login-dialog';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof AkosiLoginDialog> = {
-  title: 'Akosi/ALV Login Dialog',
+  title: 'Akosi/Sections/ALV Login Dialog',
   component: AkosiLoginDialog,
   parameters: {
     layout: 'centered',

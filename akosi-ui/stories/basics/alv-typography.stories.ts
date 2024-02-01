@@ -1,5 +1,4 @@
-import { ALVTypography } from '../../app/_components/basic/alv-typography';
-import { AlvInput } from '../../app/_components/basic/alv-input';
+import { ALVTypography } from '../../app/_components/core/alv-typography';
 import { StoryObj, Meta } from '@storybook/react';
 
 const meta: Meta<typeof ALVTypography> = {
@@ -11,7 +10,6 @@ const meta: Meta<typeof ALVTypography> = {
   tags: ['autodocs'],
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    bold: false,
     italic: false,
     type: 'p'
   }
@@ -49,7 +47,7 @@ export const DarkBold: Story = {
     children: 'Dark Button',
     theme: 'dark',
     size: 'lg',
-    bold: true,
+    weight: 'bold',
   },
 };
 
@@ -58,7 +56,7 @@ export const DarkBoldItalic: Story = {
     children: 'Dark Button',
     theme: 'dark',
     size: 'lg',
-    bold: true,
+    weight: 'semibold',
     italic: true,
   },
 };

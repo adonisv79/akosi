@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./header.css";
-import { ALVButton } from "../app/_components/basic/alv-button";
+import { AkosiButton } from "../app/_components/akosi/basics/akosi-button";
 
 type User = {
   name: string;
@@ -52,33 +52,33 @@ export const Header = ({
             <span className="welcome">
               Welcome, <b>{user.name}</b>!
             </span>
-            <ALVButton
+            <AkosiButton
               id="storybook-header-logout"
               theme="light"
               size="sm"
               onClick={onLogout}
             >
               Log out
-            </ALVButton>
+            </AkosiButton>
           </>
         ) : (
           <>
-            <ALVButton
+            <AkosiButton
               id="storybook-header-login"
               theme="light"
               size="sm"
               onClick={onLogin}
             >
               Log in
-            </ALVButton>
-            <ALVButton
+            </AkosiButton>
+            <AkosiButton
               id="storybook-header-signup"
               theme="dark"
               size="sm"
               onClick={onCreateAccount}
             >
               Sign up
-            </ALVButton>
+            </AkosiButton>
           </>
         )}
       </div>
