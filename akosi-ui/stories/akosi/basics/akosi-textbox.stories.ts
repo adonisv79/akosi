@@ -1,4 +1,4 @@
-import { AkosiTextBox } from '../../app/_components/akosi/basics/akosi-textbox';
+import { AkosiTextBox } from '../../../app/_components/akosi/basics/akosi-textbox';
 import { StoryObj, Meta } from '@storybook/react';
 
 const meta: Meta<typeof AkosiTextBox> = {
