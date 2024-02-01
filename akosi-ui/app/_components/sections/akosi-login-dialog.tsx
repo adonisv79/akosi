@@ -4,6 +4,7 @@ import { ALVForm } from '../basic/alv-form';
 import { AlvInput } from '../basic/alv-input';
 import { ALVLabel } from '../basic/alv-label';
 import { ALVSection } from '../basic/alv-section';
+import { ALVTypography } from '../basic/alv-typography';
 
 type AkosiLoginDialogProps = {
   dialogHeaderText: string;
@@ -26,33 +27,31 @@ export const AkosiLoginDialog = ({
       className="bg-white p-8 rounded-md shadow-md"
       displayType="grid"
     >
-      <h2 className="text-2xl font-semibold mb-4">{dialogHeaderText}</h2>
+      <ALVTypography type="h4" className="mb-4">
+        {dialogHeaderText}
+      </ALVTypography>
       <ALVForm id="login-form" onSubmit={handleSubmit}>
         <div className="mb-4">
-          <ALVLabel
-            targetElementId="username"
-            className="block text-sm font-medium text-gray-600"
-          >
-            {usernameHeaderText}
-          </ALVLabel>
+          <ALVTypography weight="semibold" size="sm" theme="light">
+            <ALVLabel targetElementId="username">{usernameHeaderText}</ALVLabel>
+          </ALVTypography>
           <AlvInput
             type="text"
             id="username"
             name="username"
+            autoComplete="username"
             className="mt-1 w-full"
           />
         </div>
         <div className="mb-4">
-          <ALVLabel
-            targetElementId="password"
-            className="block text-sm font-medium text-gray-600"
-          >
-            {passwordHeaderText}
-          </ALVLabel>
+          <ALVTypography weight="semibold" size="sm" theme="light">
+            <ALVLabel targetElementId="password">{passwordHeaderText}</ALVLabel>
+          </ALVTypography>
           <AlvInput
             type="password"
             id="password"
             name="password"
+            autoComplete="current-password"
             className="mt-1 w-full"
           />
         </div>
