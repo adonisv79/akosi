@@ -1,0 +1,13 @@
+{
+  "buttonLoginText": "ログイン",
+  "dialogHeaderText": "こんにちは！サインインしてください",
+  "notAMemberText": "メンバーでないですか？",
+  "passwordForgotLink": "パスワードをお忘れですか？",
+  "passwordHeaderText": "パスワード",
+  "passwordPlaceholderText": "ここにパスワードを入力してください",
+  "passwordTooltipText": "パスワードはリソースにアクセスするための秘密のキーです。他の人と共有しないでください。",
+  "registerHereText": "こちらで登録",
+  "usernameHeaderText": "ユーザー名",
+  "usernamePlaceholderText": "ここにユーザー名を入力してください",
+  "usernameTooltipText": "ユーザー名はユニークなアカウント名です"
+}

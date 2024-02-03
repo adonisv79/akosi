@@ -1,0 +1,13 @@
+{
+  "buttonLoginText": "Iniciar sesión",
+  "dialogHeaderText": "¡Hola! Por favor, inicia sesión",
+  "notAMemberText": "¿No eres miembro?",
+  "passwordForgotLink": "¿Olvidaste tu contraseña?",
+  "passwordHeaderText": "Contraseña",
+  "passwordPlaceholderText": "Ingresa la contraseña aquí",
+  "passwordTooltipText": "Tu contraseña es la clave secreta para acceder al recurso. No la compartas con nadie.",
+  "registerHereText": "Regístrate aquí",
+  "usernameHeaderText": "Nombre de usuario",
+  "usernamePlaceholderText": "Ingresa el nombre de usuario aquí",
+  "usernameTooltipText": "Tu nombre de usuario es el nombre único de la cuenta"
+}

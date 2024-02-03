@@ -1,0 +1,13 @@
+{
+  "buttonLoginText": "Mag-login",
+  "dialogHeaderText": "Kamusta! Mangyaring mag-sign in",
+  "notAMemberText": "Hindi ka pa miyembro?",
+  "passwordForgotLink": "Nakalimutan ang iyong password?",
+  "passwordHeaderText": "Password",
+  "passwordPlaceholderText": "Ilagay ang password dito",
+  "passwordTooltipText": "Ang iyong password ay ang iyong lihim na susi upang mag-access sa resurso. Huwag ito ipamahagi sa iba.",
+  "registerHereText": "Magrehistro dito",
+  "usernameHeaderText": "Username",
+  "usernamePlaceholderText": "Ilagay ang username dito",
+  "usernameTooltipText": "Ang iyong username ay ang pambansang pangalan ng account"
+}

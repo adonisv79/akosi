@@ -1,0 +1,13 @@
+{
+  "buttonLoginText": "Login",
+  "dialogHeaderText": "Hi there! please sign-in",
+  "notAMemberText": "Not a member?",
+  "passwordForgotLink": "Forgot your password?",
+  "passwordHeaderText": "Password",
+  "passwordPlaceholderText": "Enter password here",
+  "passwordTooltipText": "Your password is your secret key to access the resource. Do not share it with annyone.",
+  "registerHereText":"Register here",
+  "usernameHeaderText": "Username",
+  "usernamePlaceholderText": "Enter username here",
+  "usernameTooltipText": "Your username is the unique account name"
+}

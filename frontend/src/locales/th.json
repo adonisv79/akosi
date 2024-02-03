@@ -1,0 +1,13 @@
+{
+  "buttonLoginText": "เข้าสู่ระบบ",
+  "dialogHeaderText": "สวัสดีครับ/ค่ะ! กรุณาเข้าสู่ระบบ",
+  "notAMemberText": "ยังไม่เป็นสมาชิกหรือ?",
+  "passwordForgotLink": "ลืมรหัสผ่าน?",
+  "passwordHeaderText": "รหัสผ่าน",
+  "passwordPlaceholderText": "กรุณากรอกรหัสผ่านที่นี่",
+  "passwordTooltipText": "รหัสผ่านคือคีย์ลับที่เป็นสิ่งลับในการเข้าถึงทรัพยากร โปรดอย่าแชร์กับผู้อื่น",
+  "registerHereText": "ลงทะเบียนที่นี่",
+  "usernameHeaderText": "ชื่อผู้ใช้",
+  "usernamePlaceholderText": "กรุณากรอกชื่อผู้ใช้ที่นี่",
+  "usernameTooltipText": "ชื่อผู้ใช้คือชื่อบัญชีที่เป็นเอกลักษณ์"
+}

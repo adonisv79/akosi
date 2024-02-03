@@ -1,0 +1,13 @@
+{
+  "buttonLoginText": "로그인",
+  "dialogHeaderText": "안녕하세요! 로그인 해주세요",
+  "notAMemberText": "회원이 아니신가요?",
+  "passwordForgotLink": "비밀번호를 잊으셨나요?",
+  "passwordHeaderText": "비밀번호",
+  "passwordPlaceholderText": "여기에 비밀번호를 입력하세요",
+  "passwordTooltipText": "비밀번호는 리소스에 액세스하기 위한 비밀 키입니다. 다른 사람과 공유하지 마세요.",
+  "registerHereText": "여기에서 등록",
+  "usernameHeaderText": "사용자 이름",
+  "usernamePlaceholderText": "여기에 사용자 이름을 입력하세요",
+  "usernameTooltipText": "사용자 이름은 고유한 계정 이름입니다"
+}

@@ -1,0 +1,13 @@
+{
+  "buttonLoginText": "登录",
+  "dialogHeaderText": "你好！请登录",
+  "notAMemberText": "还不是会员？",
+  "passwordForgotLink": "忘记密码？",
+  "passwordHeaderText": "密码",
+  "passwordPlaceholderText": "在这里输入密码",
+  "passwordTooltipText": "您的密码是访问资源的秘钥，请不要与他人分享。",
+  "registerHereText": "在这里注册",
+  "usernameHeaderText": "用户名",
+  "usernamePlaceholderText": "在这里输入用户名",
+  "usernameTooltipText": "您的用户名是唯一的账户名"
+}
