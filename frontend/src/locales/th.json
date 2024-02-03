@@ -1,13 +1,30 @@
 {
-  "buttonLoginText": "เข้าสู่ระบบ",
-  "dialogHeaderText": "สวัสดีครับ/ค่ะ! กรุณาเข้าสู่ระบบ",
-  "notAMemberText": "ยังไม่เป็นสมาชิกหรือ?",
-  "passwordForgotLink": "ลืมรหัสผ่าน?",
-  "passwordHeaderText": "รหัสผ่าน",
-  "passwordPlaceholderText": "กรุณากรอกรหัสผ่านที่นี่",
-  "passwordTooltipText": "รหัสผ่านคือคีย์ลับที่เป็นสิ่งลับในการเข้าถึงทรัพยากร โปรดอย่าแชร์กับผู้อื่น",
-  "registerHereText": "ลงทะเบียนที่นี่",
-  "usernameHeaderText": "ชื่อผู้ใช้",
-  "usernamePlaceholderText": "กรุณากรอกชื่อผู้ใช้ที่นี่",
-  "usernameTooltipText": "ชื่อผู้ใช้คือชื่อบัญชีที่เป็นเอกลักษณ์"
+  "homePage": {
+    "welcomeHeader": "ยินดีต้อนรับสู่โปรเจกต์ของฉัน!",
+    "underConstruction": "เว็บไซต์นี้กำลังอยู่ในระหว่างการก่อสร้าง... ในระหว่างนี้โปรดดูที่ <a>{{loginPageLink}}</a>",
+    "loginPageLinkText": "หน้าเข้าสู่ระบบ"
+  },
+  "loginDialog": {
+    "buttonLoginText": "เข้าสู่ระบบ",
+    "dialogHeaderText": "สวัสดีนั้น! กรุณาเข้าสู่ระบบ",
+    "notAMemberText": "ยังไม่ได้เป็นสมาชิก?",
+    "passwordForgotLink": "ลืมรหัสผ่านของคุณ?",
+    "passwordHeaderText": "รหัสผ่าน",
+    "passwordPlaceholderText": "ป้อนรหัสผ่านที่นี่",
+    "passwordTooltipText": "รหัสผ่านของคุณคือคีย์ลับเพื่อเข้าถึงทรัพยากร โปรดอย่าแชร์กับผู้อื่น",
+    "registerHereText": "ลงทะเบียนที่นี่",
+    "usernameHeaderText": "ชื่อผู้ใช้",
+    "usernamePlaceholderText": "ป้อนชื่อผู้ใช้ที่นี่",
+    "usernameTooltipText": "ชื่อผู้ใช้ของคุณคือชื่อบัญชีที่ไม่ซ้ำ"
+  },
+  "languageSelection": {
+    "selectLanguage": "เลือกภาษา",
+    "chinese": "จีน",
+    "english": "อังกฤษ",
+    "filipino": "ฟิลิปปินส์",
+    "japanese": "ญี่ปุ่น",
+    "korean": "เกาหลี",
+    "spanish": "สเปน",
+    "thai": "ไทย"
+  }
 }

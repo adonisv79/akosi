@@ -1,13 +1,30 @@
 {
-  "buttonLoginText": "Login",
-  "dialogHeaderText": "Hi there! please sign-in",
-  "notAMemberText": "Not a member?",
-  "passwordForgotLink": "Forgot your password?",
-  "passwordHeaderText": "Password",
-  "passwordPlaceholderText": "Enter password here",
-  "passwordTooltipText": "Your password is your secret key to access the resource. Do not share it with annyone.",
-  "registerHereText":"Register here",
-  "usernameHeaderText": "Username",
-  "usernamePlaceholderText": "Enter username here",
-  "usernameTooltipText": "Your username is the unique account name"
+  "homePage": {
+    "welcomeHeader": "Welcome to my project!",
+    "underConstruction": "This site is under construction... for the meantime, please see the <a>{{loginPageLink}}</a>",
+    "loginPageLinkText": "Login page"
+  },
+  "loginDialog": {
+    "buttonLoginText": "Login",
+    "dialogHeaderText": "Hi there! please sign-in",
+    "notAMemberText": "Not a member?",
+    "passwordForgotLink": "Forgot your password?",
+    "passwordHeaderText": "Password",
+    "passwordPlaceholderText": "Enter password here",
+    "passwordTooltipText": "Your password is your secret key to access the resource. Do not share it with annyone.",
+    "registerHereText": "Register here",
+    "usernameHeaderText": "Username",
+    "usernamePlaceholderText": "Enter username here",
+    "usernameTooltipText": "Your username is the unique account name"
+  },
+  "languageSelection": {
+    "selectLanguage": "Select language",
+    "chinese": "Chinese",
+    "english": "English",
+    "filipino": "Filipino",
+    "japanese": "Japanese",
+    "korean": "Korean",
+    "spanish": "Spanish",
+    "thai": "Thai"
+  }
 }

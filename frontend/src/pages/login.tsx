@@ -1,51 +1,29 @@
 import { AkosiLoginDialog } from "../_components/akosi/sections/akosi-login-dialog";
 import { useTranslation } from "react-i18next";
-import { AkosiButton } from "../_components/akosi/basics/akosi-button";
+import { AkosiLanguagePicker } from "../_components/akosi/basics/akosi-lang-picker";
+import { HTMLSection } from "../_components/core/html/html-section";
 
 export const LoginPage = () => {
-  const { t, i18n } = useTranslation();
-  const handleClick = (lang: string) => {
-    i18n.changeLanguage(lang);
-  };
+  const { t } = useTranslation();
   return (
-    <>
-      <AkosiButton id="ss" onClick={() => handleClick("en")}>
-        English
-      </AkosiButton>
-      <AkosiButton id="ss" onClick={() => handleClick("ja")}>
-        Japanese
-      </AkosiButton>
-      <AkosiButton id="ss" onClick={() => handleClick("es")}>
-        Spanish
-      </AkosiButton>
-      <AkosiButton id="ss" onClick={() => handleClick("ko")}>
-        Korean
-      </AkosiButton>
-      <AkosiButton id="ss" onClick={() => handleClick("th")}>
-        Thai
-      </AkosiButton>
-      <AkosiButton id="ss" onClick={() => handleClick("tl")}>
-        Tagalog
-      </AkosiButton>
-      <AkosiButton id="ss" onClick={() => handleClick("zh")}>
-        Chinese
-      </AkosiButton>
+    <HTMLSection id="login-page-container">
+      <AkosiLanguagePicker />
       <AkosiLoginDialog
         registrationUrl="/"
         texts={{
-          dialogHeaderText: t("dialogHeaderText"),
-          passwordForgotLink: t("passwordForgotLink"),
-          passwordHeaderText: t("passwordHeaderText"),
-          passwordPlaceholderText: t("passwordPlaceholderText"),
-          passwordTooltipText: t("passwordTooltipText"),
-          usernameHeaderText: t("usernameHeaderText"),
-          usernamePlaceholderText: t("usernamePlaceholderText"),
-          usernameTooltipText: t("usernameTooltipText"),
-          buttonLoginText: t("buttonLoginText"),
-          registerHereText: t("registerHereText"),
-          notAMemberText: t("notAMemberText"),
+          dialogHeaderText: t("loginDialog.dialogHeaderText"),
+          passwordForgotLink: t("loginDialog.passwordForgotLink"),
+          passwordHeaderText: t("loginDialog.passwordHeaderText"),
+          passwordPlaceholderText: t("loginDialog.passwordPlaceholderText"),
+          passwordTooltipText: t("loginDialog.passwordTooltipText"),
+          usernameHeaderText: t("loginDialog.usernameHeaderText"),
+          usernamePlaceholderText: t("loginDialog.usernamePlaceholderText"),
+          usernameTooltipText: t("loginDialog.usernameTooltipText"),
+          buttonLoginText: t("loginDialog.buttonLoginText"),
+          registerHereText: t("loginDialog.registerHereText"),
+          notAMemberText: t("loginDialog.notAMemberText"),
         }}
       />
-    </>
+    </HTMLSection>
   );
 };

@@ -1,13 +1,30 @@
 {
-  "buttonLoginText": "Iniciar sesión",
-  "dialogHeaderText": "¡Hola! Por favor, inicia sesión",
-  "notAMemberText": "¿No eres miembro?",
-  "passwordForgotLink": "¿Olvidaste tu contraseña?",
-  "passwordHeaderText": "Contraseña",
-  "passwordPlaceholderText": "Ingresa la contraseña aquí",
-  "passwordTooltipText": "Tu contraseña es la clave secreta para acceder al recurso. No la compartas con nadie.",
-  "registerHereText": "Regístrate aquí",
-  "usernameHeaderText": "Nombre de usuario",
-  "usernamePlaceholderText": "Ingresa el nombre de usuario aquí",
-  "usernameTooltipText": "Tu nombre de usuario es el nombre único de la cuenta"
+  "homePage": {
+    "welcomeHeader": "¡Bienvenido a mi proyecto!",
+    "underConstruction": "Este sitio está en construcción... por ahora, por favor visita <a>{{loginPageLink}}</a>",
+    "loginPageLinkText": "Página de inicio de sesión"
+  },
+  "loginDialog": {
+    "buttonLoginText": "Iniciar sesión",
+    "dialogHeaderText": "¡Hola! Por favor, inicia sesión",
+    "notAMemberText": "¿No eres miembro?",
+    "passwordForgotLink": "¿Olvidaste tu contraseña?",
+    "passwordHeaderText": "Contraseña",
+    "passwordPlaceholderText": "Ingresa la contraseña aquí",
+    "passwordTooltipText": "Tu contraseña es tu clave secreta para acceder al recurso. No la compartas con nadie.",
+    "registerHereText": "Regístrate aquí",
+    "usernameHeaderText": "Nombre de usuario",
+    "usernamePlaceholderText": "Ingresa el nombre de usuario aquí",
+    "usernameTooltipText": "Tu nombre de usuario es el nombre único de la cuenta"
+  },
+  "languageSelection": {
+    "selectLanguage": "Selecciona el idioma",
+    "chinese": "Chino",
+    "english": "Inglés",
+    "filipino": "Filipino",
+    "japanese": "Japonés",
+    "korean": "Coreano",
+    "spanish": "Español",
+    "thai": "Tailandés"
+  }
 }

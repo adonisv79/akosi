@@ -1,13 +1,30 @@
 {
-  "buttonLoginText": "Mag-login",
-  "dialogHeaderText": "Kamusta! Mangyaring mag-sign in",
-  "notAMemberText": "Hindi ka pa miyembro?",
-  "passwordForgotLink": "Nakalimutan ang iyong password?",
-  "passwordHeaderText": "Password",
-  "passwordPlaceholderText": "Ilagay ang password dito",
-  "passwordTooltipText": "Ang iyong password ay ang iyong lihim na susi upang mag-access sa resurso. Huwag ito ipamahagi sa iba.",
-  "registerHereText": "Magrehistro dito",
-  "usernameHeaderText": "Username",
-  "usernamePlaceholderText": "Ilagay ang username dito",
-  "usernameTooltipText": "Ang iyong username ay ang pambansang pangalan ng account"
+  "homePage": {
+    "welcomeHeader": "Maligayang pagdating sa aking proyekto!",
+    "underConstruction": "Ang website na ito ay kasalukuyang nasa ilalim ng konstruksiyon... sa pagitan ng mga oras na ito, mangyaring tingnan ang <a>{{loginPageLink}}</a>",
+    "loginPageLinkText": "Pahina ng Login"
+  },
+  "loginDialog": {
+    "buttonLoginText": "Mag-login",
+    "dialogHeaderText": "Hi doon! Mangyaring mag-sign in",
+    "notAMemberText": "Hindi pa miyembro?",
+    "passwordForgotLink": "Nakalimutan mo ba ang iyong password?",
+    "passwordHeaderText": "Password",
+    "passwordPlaceholderText": "Ilagay ang password dito",
+    "passwordTooltipText": "Ang iyong password ay ang iyong lihim na susi para makapasok sa yaman. Huwag itong ipamahagi sa sinuman.",
+    "registerHereText": "Magrehistro dito",
+    "usernameHeaderText": "Username",
+    "usernamePlaceholderText": "Ilagay ang username dito",
+    "usernameTooltipText": "Ang iyong username ay ang kakaibang pangalan ng iyong account"
+  },
+  "languageSelection": {
+    "selectLanguage": "Pumili ng Wika",
+    "chinese": "Intsik",
+    "english": "Ingles",
+    "filipino": "Filipino",
+    "japanese": "Hapones",
+    "korean": "Koreano",
+    "spanish": "Espanyol",
+    "thai": "Thai"
+  }
 }

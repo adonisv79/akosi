@@ -10,7 +10,7 @@ const meta: Meta<typeof AkosiButton> = {
   tags: ["autodocs"],
   args: {
     borderRounding: "full",
-    children: "CLick me!",
+    children: "Click me!",
     theme: "primary",
   },
 };

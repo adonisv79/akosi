@@ -1,13 +1,30 @@
 {
-  "buttonLoginText": "登录",
-  "dialogHeaderText": "你好！请登录",
-  "notAMemberText": "还不是会员？",
-  "passwordForgotLink": "忘记密码？",
-  "passwordHeaderText": "密码",
-  "passwordPlaceholderText": "在这里输入密码",
-  "passwordTooltipText": "您的密码是访问资源的秘钥，请不要与他人分享。",
-  "registerHereText": "在这里注册",
-  "usernameHeaderText": "用户名",
-  "usernamePlaceholderText": "在这里输入用户名",
-  "usernameTooltipText": "您的用户名是唯一的账户名"
+  "homePage": {
+    "welcomeHeader": "欢迎来到我的项目！",
+    "underConstruction": "该网站正在建设中... 请暂时查看<a>{{loginPageLink}}</a>",
+    "loginPageLinkText": "登录页面"
+  },
+  "loginDialog": {
+    "buttonLoginText": "登录",
+    "dialogHeaderText": "嗨！请登录",
+    "notAMemberText": "还不是会员？",
+    "passwordForgotLink": "忘记密码？",
+    "passwordHeaderText": "密码",
+    "passwordPlaceholderText": "在此输入密码",
+    "passwordTooltipText": "您的密码是访问资源的秘钥。请勿与任何人分享。",
+    "registerHereText": "在这里注册",
+    "usernameHeaderText": "用户名",
+    "usernamePlaceholderText": "在此输入用户名",
+    "usernameTooltipText": "您的用户名是唯一的帐户名称"
+  },
+  "languageSelection": {
+    "selectLanguage": "选择语言",
+    "chinese": "中文",
+    "english": "英语",
+    "filipino": "菲律宾语",
+    "japanese": "日语",
+    "korean": "韩语",
+    "spanish": "西班牙语",
+    "thai": "泰语"
+  }
 }

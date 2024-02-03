@@ -1,13 +1,30 @@
 {
-  "buttonLoginText": "ログイン",
-  "dialogHeaderText": "こんにちは！サインインしてください",
-  "notAMemberText": "メンバーでないですか？",
-  "passwordForgotLink": "パスワードをお忘れですか？",
-  "passwordHeaderText": "パスワード",
-  "passwordPlaceholderText": "ここにパスワードを入力してください",
-  "passwordTooltipText": "パスワードはリソースにアクセスするための秘密のキーです。他の人と共有しないでください。",
-  "registerHereText": "こちらで登録",
-  "usernameHeaderText": "ユーザー名",
-  "usernamePlaceholderText": "ここにユーザー名を入力してください",
-  "usernameTooltipText": "ユーザー名はユニークなアカウント名です"
+  "homePage": {
+    "welcomeHeader": "プロジェクトへようこそ！",
+    "underConstruction": "このサイトは現在工事中です... その間、<a>{{loginPageLink}}</a> をご覧ください。",
+    "loginPageLinkText": "ログインページ"
+  },
+  "loginDialog": {
+    "buttonLoginText": "ログイン",
+    "dialogHeaderText": "こんにちは！サインインしてください",
+    "notAMemberText": "会員でないですか？",
+    "passwordForgotLink": "パスワードをお忘れですか？",
+    "passwordHeaderText": "パスワード",
+    "passwordPlaceholderText": "ここにパスワードを入力",
+    "passwordTooltipText": "パスワードはリソースにアクセスするための秘密のキーです。他の誰とも共有しないでください。",
+    "registerHereText": "こちらで登録",
+    "usernameHeaderText": "ユーザー名",
+    "usernamePlaceholderText": "ここにユーザー名を入力",
+    "usernameTooltipText": "ユーザー名はユニークなアカウント名です"
+  },
+  "languageSelection": {
+    "selectLanguage": "言語を選択",
+    "chinese": "中国語",
+    "english": "英語",
+    "filipino": "フィリピン語",
+    "japanese": "日本語",
+    "korean": "韓国語",
+    "spanish": "スペイン語",
+    "thai": "タイ語"
+  }
 }
