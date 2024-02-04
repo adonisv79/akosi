@@ -7,7 +7,7 @@
   "loginDialog": {
     "buttonLoginText": "Mag-login",
     "buttonLogoutText": "Mag-logout",
-    "dialogHeaderText": "Hi doon! Mangyaring mag-sign in",
+    "dialogHeaderText": "Kumusta! Mangyaring mag-sign in",
     "notAMemberText": "Hindi pa miyembro?",
     "passwordForgotLink": "Nakalimutan mo ba ang iyong password?",
     "passwordHeaderText": "Password",
