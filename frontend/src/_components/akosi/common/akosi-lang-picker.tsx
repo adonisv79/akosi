@@ -5,8 +5,9 @@ import { i18n } from "../../../i18n";
 import { HTMLLabel } from "../../core/html/html-label";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
+import { ALVTypography } from "../../core/alv/alv-typography";
 
-export const AkosiLanguagePicker = () => {
+export const AkosiLanguagePicker = ({className}: {className?: string}) => {
   const { t } = useTranslation();
 
   const config: HTMLSelectConfig = {
@@ -26,9 +27,11 @@ export const AkosiLanguagePicker = () => {
   };
 
   return (
-    <>
-      <HTMLLabel targetElementId="akosi-language-selector">
-        {t('languageSelection.selectLanguage')}
+    <span className={className}>
+      <HTMLLabel targetElementId="akosi-language-selector" className="pr-2">
+        <ALVTypography size="sm">
+          {t('languageSelection.selectLanguage')}
+        </ALVTypography>
       </HTMLLabel>
       <HTMLSelect
         id="akosi-language-selector"
@@ -36,7 +39,8 @@ export const AkosiLanguagePicker = () => {
         config={config}
         defaultValue={i18next.language}
         onChange={handleChange}
+        className="border text-inherit bg-inherit text-xs"
       />
-    </>
+    </span>
   );
 };

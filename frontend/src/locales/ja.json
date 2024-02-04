@@ -18,6 +18,21 @@
     "usernamePlaceholderText": "ここにユーザー名を入力",
     "usernameTooltipText": "ユーザー名はユニークなアカウント名です"
   },
+  "registrationDialog": {
+    "buttonRegisterText": "登録",
+    "dialogHeaderText": "登録",
+    "alreadyAMemberText": "既にメンバーですか？",
+    "loginHereText": "こちらでログイン",
+    "passwordConfirmHeaderText": "パスワード確認",
+    "passwordConfirmPlaceholderText": "ここに再度希望するパスワードを入力してください",
+    "passwordConfirmTooltipText": "これは希望するパスワードが正しく入力されていることを確認するために使用されます。",
+    "passwordHeaderText": "パスワード",
+    "passwordPlaceholderText": "ここに希望するパスワードを入力してください",
+    "passwordTooltipText": "パスワードはリソースにアクセスするための秘密のキーです。他の人と共有しないでください。",
+    "usernameHeaderText": "ユーザー名",
+    "usernamePlaceholderText": "ここにユーザー名を入力してください",
+    "usernameTooltipText": "ユーザー名はユニークなアカウント名です"
+  },  
   "languageSelection": {
     "selectLanguage": "言語を選択",
     "chinese": "中国語",

@@ -18,6 +18,21 @@
     "usernamePlaceholderText": "Ingresa el nombre de usuario aquí",
     "usernameTooltipText": "Tu nombre de usuario es el nombre único de la cuenta"
   },
+  "registrationDialog": {
+    "buttonRegisterText": "Registrarse",
+    "dialogHeaderText": "Registro",
+    "alreadyAMemberText": "¿Ya eres miembro?",
+    "loginHereText": "Inicia sesión aquí",
+    "passwordConfirmHeaderText": "Confirmar contraseña",
+    "passwordConfirmPlaceholderText": "Vuelva a ingresar la contraseña deseada aquí",
+    "passwordConfirmTooltipText": "Esto se utiliza para asegurarse de que haya ingresado correctamente su contraseña deseada.",
+    "passwordHeaderText": "Contraseña",
+    "passwordPlaceholderText": "Ingrese la contraseña deseada aquí",
+    "passwordTooltipText": "Tu contraseña es la clave secreta para acceder al recurso. No la compartas con nadie.",
+    "usernameHeaderText": "Nombre de usuario",
+    "usernamePlaceholderText": "Ingrese el nombre de usuario aquí",
+    "usernameTooltipText": "Tu nombre de usuario es el nombre único de la cuenta"
+  },  
   "languageSelection": {
     "selectLanguage": "Selecciona el idioma",
     "chinese": "Chino",

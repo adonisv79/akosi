@@ -18,6 +18,21 @@
     "usernamePlaceholderText": "ป้อนชื่อผู้ใช้ที่นี่",
     "usernameTooltipText": "ชื่อผู้ใช้ของคุณคือชื่อบัญชีที่ไม่ซ้ำ"
   },
+  "registrationDialog": {
+    "buttonRegisterText": "ลงทะเบียน",
+    "dialogHeaderText": "ลงทะเบียน",
+    "alreadyAMemberText": "เป็นสมาชิกแล้วหรือยัง?",
+    "loginHereText": "เข้าสู่ระบบที่นี่",
+    "passwordConfirmHeaderText": "ยืนยันรหัสผ่าน",
+    "passwordConfirmPlaceholderText": "ป้อนรหัสผ่านที่ต้องการอีกครั้งที่นี่",
+    "passwordConfirmTooltipText": "นี้ใช้ในการให้แน่ใจว่าคุณพิมพ์รหัสผ่านที่ต้องการได้ถูกต้อง",
+    "passwordHeaderText": "รหัสผ่าน",
+    "passwordPlaceholderText": "ป้อนรหัสผ่านที่ต้องการที่นี่",
+    "passwordTooltipText": "รหัสผ่านของคุณคือคีย์ลับเพื่อเข้าถึงทรัพยากร โปรดอย่าแชร์กับผู้อื่น",
+    "usernameHeaderText": "ชื่อผู้ใช้",
+    "usernamePlaceholderText": "ป้อนชื่อผู้ใช้ที่นี่",
+    "usernameTooltipText": "ชื่อผู้ใช้ของคุณคือชื่อบัญชีที่เป็นเอกลักษณ์"
+  },  
   "languageSelection": {
     "selectLanguage": "เลือกภาษา",
     "chinese": "จีน",

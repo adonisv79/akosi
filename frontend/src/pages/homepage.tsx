@@ -1,6 +1,6 @@
 import { Trans, useTranslation } from "react-i18next";
 import { AkosiLanguagePicker } from "../_components/akosi/common/akosi-lang-picker";
-import { ALVTypography } from "../_components/core/alv-typography";
+import { ALVTypography } from "../_components/core/alv/alv-typography";
 import { HTMLSection } from "../_components/core/html/html-section";
 import { HTMLLink } from "../_components/core/html/html-link";
 

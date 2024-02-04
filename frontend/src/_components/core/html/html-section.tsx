@@ -10,7 +10,6 @@ export type DisplayTypes = 'flex' | 'grid';
 export type HTMLSectionProps = CommonElementProps &
   UniqueElementProps &
   ParentalElementProps & {
-    displayType?: DisplayTypes;
     hAlign?: HorizontalALignments;
     vAlign?: VerticalALignments;
   };
@@ -19,7 +18,6 @@ export const HTMLSection = ({
   id,
   children,
   className,
-  displayType = 'flex',
   hAlign = 'centered',
   vAlign = 'centered',
 }: HTMLSectionProps) => {
@@ -37,7 +35,6 @@ export const HTMLSection = ({
       : 'justify-start';
 
   const classes = [
-    displayType,
     VerticalLignment,
     HorizontalALignment,
     className,

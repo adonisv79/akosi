@@ -18,6 +18,21 @@
     "usernamePlaceholderText": "Ilagay ang username dito",
     "usernameTooltipText": "Ang iyong username ay ang kakaibang pangalan ng iyong account"
   },
+  "registrationDialog": {
+    "buttonRegisterText": "Mag-register",
+    "dialogHeaderText": "Rehistrasyon",
+    "alreadyAMemberText": "Isa ka nang miyembro?",
+    "loginHereText": "Mag-login dito",
+    "passwordConfirmHeaderText": "Kumpirmahin ang Password",
+    "passwordConfirmPlaceholderText": "Dito ulit ipasok ang ninanais na password",
+    "passwordConfirmTooltipText": "Ito ay ginagamit upang siguruhing tama ang iyong ini-type na ninanais na password.",
+    "passwordHeaderText": "Password",
+    "passwordPlaceholderText": "Dito ipasok ang ninanais na password",
+    "passwordTooltipText": "Ang iyong password ay ang iyong lihim na susi upang mag-access sa resurso. Huwag ito ipamahagi sa iba.",
+    "usernameHeaderText": "Username",
+    "usernamePlaceholderText": "Dito ipasok ang username",
+    "usernameTooltipText": "Ang iyong username ay ang pambansang pangalan ng account"
+  },  
   "languageSelection": {
     "selectLanguage": "Pumili ng Wika",
     "chinese": "Intsik",

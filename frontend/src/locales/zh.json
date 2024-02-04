@@ -18,6 +18,21 @@
     "usernamePlaceholderText": "在此输入用户名",
     "usernameTooltipText": "您的用户名是唯一的帐户名称"
   },
+  "registrationDialog": {
+    "buttonRegisterText": "注册",
+    "dialogHeaderText": "注册",
+    "alreadyAMemberText": "已经是会员了吗？",
+    "loginHereText": "在此登录",
+    "passwordConfirmHeaderText": "确认密码",
+    "passwordConfirmPlaceholderText": "在此重新输入所需密码",
+    "passwordConfirmTooltipText": "这用于确保您正确输入了所需的密码。",
+    "passwordHeaderText": "密码",
+    "passwordPlaceholderText": "在此输入所需的密码",
+    "passwordTooltipText": "您的密码是访问资源的秘钥，请不要与他人分享。",
+    "usernameHeaderText": "用户名",
+    "usernamePlaceholderText": "在此输入用户名",
+    "usernameTooltipText": "您的用户名是唯一的账户名"
+  },  
   "languageSelection": {
     "selectLanguage": "选择语言",
     "chinese": "中文",

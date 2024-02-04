@@ -18,6 +18,21 @@
     "usernamePlaceholderText": "여기에 사용자 이름 입력",
     "usernameTooltipText": "사용자 이름은 고유한 계정 이름입니다"
   },
+  "registrationDialog": {
+    "buttonRegisterText": "등록",
+    "dialogHeaderText": "등록",
+    "alreadyAMemberText": "이미 회원이십니까?",
+    "loginHereText": "여기에서 로그인",
+    "passwordConfirmHeaderText": "비밀번호 확인",
+    "passwordConfirmPlaceholderText": "여기에 다시 입력하려는 비밀번호를 입력하세요",
+    "passwordConfirmTooltipText": "이것은 원하는 비밀번호를 올바르게 입력했는지 확인하기 위해 사용됩니다.",
+    "passwordHeaderText": "비밀번호",
+    "passwordPlaceholderText": "여기에 원하는 비밀번호를 입력하세요",
+    "passwordTooltipText": "비밀번호는 리소스에 액세스하기 위한 비밀 키입니다. 다른 사람과 공유하지 마세요.",
+    "usernameHeaderText": "사용자 이름",
+    "usernamePlaceholderText": "여기에 사용자 이름을 입력하세요",
+    "usernameTooltipText": "사용자 이름은 고유한 계정 이름입니다"
+  },  
   "languageSelection": {
     "selectLanguage": "언어 선택",
     "chinese": "중국어",
