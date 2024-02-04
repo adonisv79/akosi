@@ -8,9 +8,11 @@ import {
   Put,
   Req,
   UseFilters,
+  UseGuards,
 } from '@nestjs/common';
 import { AddLanguageDto, UpdateUserInfoDto } from './dto/users.dto';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiOkResponse,
   ApiOperation,
@@ -20,6 +22,8 @@ import {
 import { Languages } from 'src/common/enums/languages';
 import { UsersService } from './users.service';
 import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
+import { Request } from 'express';
+import { AuthGuard } from 'src/common/guards/auth.guard';
 
 @UseFilters(new HttpExceptionFilter())
 @ApiTags('Users')
@@ -27,29 +31,18 @@ import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 export class UsersController {
   constructor(private users: UsersService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard)
+  @Get('/')
+  async getCurrentUserInfo(@Req() req: Request) {
+    return await this.users.findOneById(req.user.id);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Retrieves user information' })
   @ApiOkResponse({ description: 'Resource retrieval success' })
   async getUserInfo(@Req() req: Request, @Ip() ip, @Param() params) {
-    return {
-      reqParams: params,
-      ip,
-      body: req.body,
-      bodyUsed: req.bodyUsed,
-      cache: req.cache,
-      credentials: req.credentials,
-      destination: req.destination,
-      headers: req.headers,
-      integrity: req.integrity,
-      keepalive: req.keepalive,
-      method: req.method,
-      mode: req.mode,
-      redirect: req.redirect,
-      referrer: req.referrer,
-      referrerPolicy: req.referrerPolicy,
-      signal: req.signal,
-      url: req.url,
-    };
+    return {};
   }
 
   @Put('/')
@@ -136,23 +129,6 @@ export class UsersController {
     @Body() body: UpdateUserInfoDto,
   ) {
     return {
-      reqBody: body,
-      ip,
-      body: req.body,
-      bodyUsed: req.bodyUsed,
-      cache: req.cache,
-      credentials: req.credentials,
-      destination: req.destination,
-      headers: req.headers,
-      integrity: req.integrity,
-      keepalive: req.keepalive,
-      method: req.method,
-      mode: req.mode,
-      redirect: req.redirect,
-      referrer: req.referrer,
-      referrerPolicy: req.referrerPolicy,
-      signal: req.signal,
-      url: req.url,
     };
   }
 

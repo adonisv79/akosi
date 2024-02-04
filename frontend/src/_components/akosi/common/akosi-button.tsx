@@ -23,7 +23,7 @@ export const AkosiButton = ({
   className,
   onClick,
   theme = 'light',
-  size = 'md',
+  size = 'base',
   type,
 }: AkosiButtonProps) => {
   const borderRoundingClass =
@@ -42,7 +42,7 @@ export const AkosiButton = ({
   const sizeClasses =
     size === 'sm'
       ? 'text-sm px-2 py-1 border-sm'
-      : size === 'md'
+      : size === 'base'
       ? 'text-base px-2.5 py-1 border-md'
       : 'text-lg px-3 py-1 border-lg';
 

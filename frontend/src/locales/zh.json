@@ -6,6 +6,7 @@
   },
   "loginDialog": {
     "buttonLoginText": "登录",
+    "buttonLogoutText": "登出",
     "dialogHeaderText": "嗨！请登录",
     "notAMemberText": "还不是会员？",
     "passwordForgotLink": "忘记密码？",

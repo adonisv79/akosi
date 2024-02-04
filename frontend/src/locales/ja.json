@@ -6,6 +6,7 @@
   },
   "loginDialog": {
     "buttonLoginText": "ログイン",
+    "buttonLogoutText": "ログアウト",
     "dialogHeaderText": "こんにちは！サインインしてください",
     "notAMemberText": "会員でないですか？",
     "passwordForgotLink": "パスワードをお忘れですか？",

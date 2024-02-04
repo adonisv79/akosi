@@ -13,20 +13,26 @@ import { ActionLogCodes } from 'src/common/enums/log_actions';
 import { Request } from 'express';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import { Configuration } from 'src/config/configuration';
 
 const LOGGER_CONTEXT = 'AuthService';
 
 @Injectable()
 export class AuthService {
-  private minRounds = 10;
-  private maxRounds = 13;
+  private readonly minRounds = 10;
+  private readonly maxRounds = 13;
+  private readonly jwtExpiresIn: string;
 
   constructor(
     @Inject(REQUEST) private readonly req: Request,
     private jwtService: JwtService,
     private userActivity: UserActivitiesService,
     private usersService: UsersService,
-  ) {}
+    private config: ConfigService<Configuration>,
+  ) {
+    this.jwtExpiresIn = this.config.get('api', { infer: true }).jwt.expiresIn
+  }
 
   async signIn(username: string, password: string) {
     this.req.logger.warn(`authenticating user "${username}"`);
@@ -38,18 +44,21 @@ export class AuthService {
       if (!userId) throw new UserCredentialsInvalidException();
 
       const result = await this.usersService.findOne(username);
-      const access_token = await this.jwtService.signAsync({
-        sub: result.id,
-        username: username,
-        member_since: result.createdDate,
-      });
+      const accessToken = await this.jwtService.signAsync(
+        {
+          sub: result.id,
+          username: username,
+          member_since: result.createdDate,
+        },
+        { expiresIn: this.jwtExpiresIn },
+      );
 
       this.userActivity.log(result.id, ActionLogCodes.userAuthSignedIn);
       this.req.logger.log(
         `User ${result.id} authenticated successfully`,
         LOGGER_CONTEXT,
       );
-      return { access_token };
+      return { accessToken };
     } catch (err) {
       // this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
       // this.errors.handleGeneralError(err, LOGGER_CONTEXT);

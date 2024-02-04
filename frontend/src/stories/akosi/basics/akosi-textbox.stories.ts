@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { AkosiTextBox } from "../../../_components/akosi/basics/akosi-textbox";
+import { AkosiTextBox } from "../../../_components/akosi/common/akosi-textbox";
 
 const meta: Meta<typeof AkosiTextBox> = {
   title: "Akosi/Basics/Textbox",

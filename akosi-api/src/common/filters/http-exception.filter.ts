@@ -20,11 +20,12 @@ export class HttpExceptionFilter implements ExceptionFilter{
     const ctx = host.switchToHttp();
     const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
-    const status = error.getStatus();
+    const status = error instanceof HttpException ? error.getStatus() : 500;
     this.handlePrismaConnectivityErrors(request, error);
     this.handleGeneralError(request, error);
     response.status(status).json({ statusCode: status, name: error.name || 'unknown' })
   }
+
   /**
    * Handles any known service related errors and throws a proper nestjs response.
    * @param error the error object from a catch

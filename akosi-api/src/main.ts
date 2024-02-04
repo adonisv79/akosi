@@ -5,12 +5,15 @@ import { ConfigService } from '@nestjs/config';
 import { Configuration } from './config/configuration';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { ValidationPipe } from '@nestjs/common';
+import { SecurityMiddleware } from './common/middleware/security.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   const configService = app.get(ConfigService<Configuration>);
   const apiConfig = configService.get('api', { infer: true });
   app.use(LoggerMiddleware);
+  app.use(SecurityMiddleware);
   app.useGlobalPipes(new ValidationPipe({
     disableErrorMessages: (apiConfig.nodeEnv.toString() !== 'development'),
     transform: true,
@@ -28,7 +31,6 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-
   await app.listen(apiConfig.port);
 }
 

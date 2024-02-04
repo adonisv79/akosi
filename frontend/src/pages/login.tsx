@@ -1,6 +1,6 @@
 import { AkosiLoginDialog } from "../_components/akosi/sections/akosi-login-dialog";
 import { useTranslation } from "react-i18next";
-import { AkosiLanguagePicker } from "../_components/akosi/basics/akosi-lang-picker";
+import { AkosiLanguagePicker } from "../_components/akosi/common/akosi-lang-picker";
 import { HTMLSection } from "../_components/core/html/html-section";
 
 export const LoginPage = () => {
@@ -11,6 +11,8 @@ export const LoginPage = () => {
       <AkosiLoginDialog
         registrationUrl="/"
         texts={{
+          buttonLoginText: t("loginDialog.buttonLoginText"),
+          buttonLogoutText: t("loginDialog.buttonLogoutText"),
           dialogHeaderText: t("loginDialog.dialogHeaderText"),
           passwordForgotLink: t("loginDialog.passwordForgotLink"),
           passwordHeaderText: t("loginDialog.passwordHeaderText"),
@@ -19,7 +21,6 @@ export const LoginPage = () => {
           usernameHeaderText: t("loginDialog.usernameHeaderText"),
           usernamePlaceholderText: t("loginDialog.usernamePlaceholderText"),
           usernameTooltipText: t("loginDialog.usernameTooltipText"),
-          buttonLoginText: t("loginDialog.buttonLoginText"),
           registerHereText: t("loginDialog.registerHereText"),
           notAMemberText: t("loginDialog.notAMemberText"),
         }}

@@ -6,6 +6,7 @@
   },
   "loginDialog": {
     "buttonLoginText": "เข้าสู่ระบบ",
+    "buttonLogoutText": "ออกจากระบบ",
     "dialogHeaderText": "สวัสดีนั้น! กรุณาเข้าสู่ระบบ",
     "notAMemberText": "ยังไม่ได้เป็นสมาชิก?",
     "passwordForgotLink": "ลืมรหัสผ่านของคุณ?",

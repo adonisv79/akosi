@@ -6,6 +6,7 @@
   },
   "loginDialog": {
     "buttonLoginText": "로그인",
+    "buttonLogoutText": "로그아웃",
     "dialogHeaderText": "안녕하세요! 로그인 해주세요",
     "notAMemberText": "회원이 아니신가요?",
     "passwordForgotLink": "비밀번호를 잊으셨나요?",

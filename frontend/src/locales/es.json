@@ -6,6 +6,7 @@
   },
   "loginDialog": {
     "buttonLoginText": "Iniciar sesión",
+    "buttonLogoutText": "Cerrar sesión",
     "dialogHeaderText": "¡Hola! Por favor, inicia sesión",
     "notAMemberText": "¿No eres miembro?",
     "passwordForgotLink": "¿Olvidaste tu contraseña?",

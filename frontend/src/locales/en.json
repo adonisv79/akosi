@@ -6,6 +6,7 @@
   },
   "loginDialog": {
     "buttonLoginText": "Login",
+    "buttonLogoutText": "Logout",
     "dialogHeaderText": "Hi there! please sign-in",
     "notAMemberText": "Not a member?",
     "passwordForgotLink": "Forgot your password?",

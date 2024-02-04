@@ -1,36 +1,33 @@
-import { FormEvent, useEffect } from 'react';
+import { FormEvent } from "react";
 import {
   CommonElementProps,
   ParentalElementProps,
   UniqueElementProps,
-} from '../common.types';
+} from "../common.types";
 
 export type HTMLFormProps = CommonElementProps &
   UniqueElementProps &
   ParentalElementProps & {
-    onSubmit?: (e: FormEvent | null) => void;
+    onSubmit?: (formData: Record<string, string>) => void;
   };
 
 export const HTMLForm = ({ id, children, onSubmit }: HTMLFormProps) => {
-  const handleClick = () => {
-    console.log('Button clicked!');
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
+    const formDataObject: Record<string, string> = {};
+
+    formData.forEach((value, key) => {
+      formDataObject[key] = value as string;
+    });
+
+    if (onSubmit) {
+      onSubmit(formDataObject);
+    }
   };
 
-  useEffect(() => {
-    handleClick();
-  
-    // Attach event listener or perform other side effects
-  
-    return () => {
-      // Cleanup, remove event listeners, etc.
-    };
-  }, []);
-
   return (
-    <form
-      id={id}
-      onSubmit={handleClick}
-    >
+    <form id={id} onSubmit={handleSubmit}>
       {children}
     </form>
   );

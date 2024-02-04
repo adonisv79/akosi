@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { AkosiButton } from "../../../_components/akosi/basics/akosi-button";
+import { AkosiButton } from "../../../_components/akosi/common/akosi-button";
 
 const meta: Meta<typeof AkosiButton> = {
   title: "Akosi/Basics/Button",

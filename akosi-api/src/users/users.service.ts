@@ -20,7 +20,15 @@ export class UsersService {
 
   async findOne(username: string) {
     return await this.prisma.user.findFirst({
+      select: { id: true, username: true, createdDate: true, lastUpdateDate: true },
       where: { username },
+    });
+  }
+
+  async findOneById(userId: string) {
+    return await this.prisma.user.findFirst({
+      select: { id: true, username: true, createdDate: true, lastUpdateDate: true },
+      where: { id: userId },
     });
   }
 
