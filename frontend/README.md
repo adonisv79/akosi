@@ -1,30 +1,35 @@
-# React + TypeScript + Vite
+# AKOSI Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This serves as the official documentation for the AKOSI UI/UX
 
-Currently, two official plugins are available:
+## Folder structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* _components - This folder stores all common reusable components of the app. inside are 2 major groupings
+  * akosi - akosi project custom components. Use these whenever possible to adhere to UI/UX standards and avoid rewrites of existing implementations
+  * core - These stores barebone reusable components that have very generic implementations. most akosi components will implement these in its component. If for example you have used the HTMLButton with 3 different implementations but used all over the hundreds of components, its best to create an akosi component (ex: MySpecialButton) that returns an HTMLButton with all the configurations fixed.
+* api - This folder store all your api related request queries
+* locales - this folder contains the translation/localization files
+* pages - this folder contains main components that act as route landing pages
+* stories - this folder contains all the stories for storybook.
 
-## Expanding the ESLint configuration
+## Running the project
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+Install dependencies by running the following
+```
+pnpm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Run the frontend service (VITE)
+```
+pnpm dev
+```
+
+Run storybook (if you want to test and feel the components)
+```
+pnpm storybook
+```
+
+## Data Storages
+
+* sessionStorage - use these whenever possible and you do not know until when data should stay alive. This is because it auto cleans up after a user closes the tab or browser.
+* localStorage - use this for non-risky data like user's language or UI theme preferences.

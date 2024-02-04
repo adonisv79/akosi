@@ -7,19 +7,20 @@ import { LoginPage } from "./pages/login.tsx";
 import { i18n } from "./i18n";
 import { HomePage } from "./pages/homepage.tsx";
 const queryClient = new QueryClient();
+const userLanguage = localStorage.getItem('lang') || 'en';
 
-i18n.changeLanguage("en").then(() => {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <HomePage />,
-    },
-    {
-      path: "/auth",
-      element: <LoginPage />,
-    },
-  ]);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/auth",
+    element: <LoginPage />,
+  },
+]);
 
+i18n.changeLanguage(userLanguage).then(() => {
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <React.StrictMode>

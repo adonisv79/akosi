@@ -21,6 +21,7 @@ export const AkosiLanguagePicker = () => {
     ],
   };
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    localStorage.setItem('lang', e.target.value || 'en');
     i18n.changeLanguage(e.target.value);
   };
 
