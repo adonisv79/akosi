@@ -1,11 +1,11 @@
-import { MouseEvent } from 'react';
+import { MouseEvent } from "react";
 import {
   CommonElementProps,
   NavigableElementProps,
   ParentalElementProps,
   UniqueElementProps,
-} from '../../common.types';
-import { HTMLButtonTypes } from './html-button.types';
+} from "../../common.types";
+import { HTMLButtonTypes } from "./html-button.types";
 
 export type HTMLButtonParams = CommonElementProps &
   UniqueElementProps &
@@ -13,6 +13,10 @@ export type HTMLButtonParams = CommonElementProps &
   NavigableElementProps & {
     /** Callback function when a click event is performed */
     onClick?: (e: MouseEvent) => void;
+    onMouseUp?: (e: MouseEvent) => void;
+    onMouseDown?: (e: MouseEvent) => void;
+    onMouseLeave?: (e: MouseEvent) => void;
+    toolTip?: string;
     /** The button type */
     type?: HTMLButtonTypes;
   };
@@ -27,14 +31,22 @@ export const HTMLButton = ({
   children,
   className,
   tabIndex,
-  type='button',
+  toolTip,
+  type = "button",
   onClick,
+  onMouseUp,
+  onMouseDown,
+  onMouseLeave,
 }: HTMLButtonParams) => {
   return (
     <button
       id={id}
       className={className}
       onClick={onClick}
+      onMouseUp={onMouseUp}
+      onMouseDown={onMouseDown}
+      onMouseLeave={onMouseLeave}
+      title={toolTip}
       tabIndex={tabIndex}
       type={type}
     >

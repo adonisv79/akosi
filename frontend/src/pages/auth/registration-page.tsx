@@ -1,18 +1,20 @@
-import { useTranslation } from "react-i18next"
-import { AkosiButton } from "../../_components/akosi/common/akosi-button"
-import { AkosiLanguagePicker } from "../../_components/akosi/common/akosi-lang-picker"
-import { AkosiTextBox } from "../../_components/akosi/common/akosi-textbox"
-import { ALVTypography } from "../../_components/core/alv/alv-typography"
-import { HTMLForm } from "../../_components/core/html/html-form"
-import { HTMLLabel } from "../../_components/core/html/html-label"
-import { HTMLLink } from "../../_components/core/html/html-link"
-import { HTMLSection } from "../../_components/core/html/html-section"
+import { useTranslation } from "react-i18next";
+import { AkosiButton } from "../../_components/akosi/common/akosi-button";
+import { AkosiLanguagePicker } from "../../_components/akosi/common/akosi-lang-picker";
+import { AkosiTextBox } from "../../_components/akosi/common/akosi-textbox";
+import { ALVTypography } from "../../_components/core/alv/alv-typography";
+import { HTMLForm } from "../../_components/core/html/html-form";
+import { HTMLLabel } from "../../_components/core/html/html-label";
+import { HTMLLink } from "../../_components/core/html/html-link";
+import { HTMLSection } from "../../_components/core/html/html-section";
+import { AkosiTextBoxPassword } from "../../_components/akosi/common/akosi-textbox-password";
 
 export const RegistrationPage = () => {
   const { t } = useTranslation();
 
   const handleSubmit = async (formData: Record<string, string>) => {
     try {
+      console.dir(formData);
       //assume validation passed
       // const result = await signIn.mutateAsync({
       //   username: formData["username"],
@@ -61,15 +63,7 @@ export const RegistrationPage = () => {
               {t("registrationDialog.passwordHeaderText")}
             </HTMLLabel>
           </ALVTypography>
-          <AkosiTextBox
-            id="login-password"
-            formId="password"
-            type="password"
-            size="sm"
-            className="mt-1 w-full"
-            placeholder={t("registrationDialog.passwordPlaceholderText")}
-            tootTip={t("registrationDialog.passwordTooltipText")}
-          />
+          <AkosiTextBoxPassword/>
         </div>
         <div className="my-2">
           <ALVTypography weight="semibold" size="sm" theme="light" type="p">
@@ -108,5 +102,6 @@ export const RegistrationPage = () => {
           </ALVTypography>
         </div>
       </HTMLForm>
-    </HTMLSection>)
-}
+    </HTMLSection>
+  );
+};
