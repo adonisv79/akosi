@@ -21,16 +21,29 @@ export const HTMLSelect = ({
   onChange,
 }: HTMLSelectProps) => {
   return (
-    <select id={id} className={`${className}`} name={name} defaultValue={defaultValue} onChange={onChange}>
-      {config.options.map((optionGroup) => {
+    <select
+      id={id}
+      className={`${className}`}
+      name={name}
+      defaultValue={defaultValue}
+      onChange={onChange}
+    >
+      {config.options.map((optionGroup, index) => {
         if ("options" in optionGroup) {
           return (
             <optgroup
+              id={optionGroup.id}
+              key={`${optionGroup.id}${index}`}
               className={`${classNameOption} ${optionGroup.className}`}
               label={optionGroup.label}
             >
               {optionGroup.options.map((option) => (
-                <option className={`${classNameOption} ${option.className}`} value={option.value}>
+                <option
+                  id={option.id}
+                  key={`${option.id}${index}`}
+                  className={`${classNameOption} ${option.className}`}
+                  value={option.value}
+                >
                   {option.text}
                 </option>
               ))}
@@ -38,7 +51,12 @@ export const HTMLSelect = ({
           );
         } else {
           return (
-            <option className={`${classNameOption} ${optionGroup.className}`} value={optionGroup.value}>
+            <option
+              id={optionGroup.id}
+              key={`${optionGroup.id}${index}`}
+              className={`${classNameOption} ${optionGroup.className}`}
+              value={optionGroup.value}
+            >
               {optionGroup.text}
             </option>
           );

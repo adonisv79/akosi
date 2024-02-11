@@ -33,16 +33,10 @@ export class UsersController {
 
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
+  @ApiOperation({ summary: 'Retrieves user information' })
   @Get('/self')
   async getCurrentUserInfo(@Req() req: Request) {
     return await this.users.findOneById(req.user.id);
-  }
-
-  @Get(':id')
-  @ApiOperation({ summary: 'Retrieves user information' })
-  @ApiOkResponse({ description: 'Resource retrieval success' })
-  async getUserInfo(@Req() req: Request, @Ip() ip, @Param() params) {
-    return {};
   }
 
   @Put('/')

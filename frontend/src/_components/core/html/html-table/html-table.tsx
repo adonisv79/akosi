@@ -24,10 +24,10 @@ export const HTMLTable = ({
 
       {config.header && (
         <thead className={config.header.className}>
-          {config.header.rows.map((rowConfig) => (
-            <tr className={rowConfig.className}>
-              {rowConfig.cells.map((cellConfig) => (
-                <th className={`${classNameCells} ${cellConfig.className}`}>
+          {config.header.rows.map((rowConfig, index) => (
+            <tr id={rowConfig.id} key={`${rowConfig.id}${index}`} className={rowConfig.className}>
+              {rowConfig.cells.map((cellConfig, index) => (
+                <th id={cellConfig.id} key={`${cellConfig.id}${index}`} className={`${classNameCells} ${cellConfig.className}`}>
                   {cellConfig.children}
                 </th>
               ))}
@@ -37,10 +37,10 @@ export const HTMLTable = ({
       )}
 
       <tbody className={config.body.className}>
-        {config.body.rows.map((rowConfig) => (
-          <tr className={rowConfig.className}>
-            {rowConfig.cells.map((cellConfig) => (
-              <td className={`${classNameCells} ${cellConfig.className}`}>{cellConfig.children}</td>
+        {config.body.rows.map((rowConfig, index) => (
+          <tr id={rowConfig.id} key={`${rowConfig.id}${index}`} className={rowConfig.className}>
+            {rowConfig.cells.map((cellConfig, index) => (
+              <td id={cellConfig.id} key={`${cellConfig.id}${index}`} className={`${classNameCells} ${cellConfig.className}`}>{cellConfig.children}</td>
             ))}
           </tr>
         ))}
@@ -48,10 +48,10 @@ export const HTMLTable = ({
 
       {config.footer && (
         <tfoot className={config.footer.className}>
-          {config.footer.rows.map((rowConfig) => (
-            <tr className={rowConfig.className}>
-              {rowConfig.cells.map((cellConfig) => (
-                <td className={`${classNameCells} ${cellConfig.className}`}>{cellConfig.children}</td>
+          {config.footer.rows.map((rowConfig, index) => (
+            <tr id={rowConfig.id} key={`${rowConfig.id}${index}`} className={rowConfig.className}>
+              {rowConfig.cells.map((cellConfig, index) => (
+                <td id={cellConfig.id} key={`${cellConfig.id}${index}`} className={`${classNameCells} ${cellConfig.className}`}>{cellConfig.children}</td>
               ))}
             </tr>
           ))}

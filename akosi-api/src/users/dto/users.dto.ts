@@ -1,7 +1,20 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { BiologicalSex } from "src/common/enums/biological_sex";
 import { Languages } from "src/common/enums/languages";
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsUUID, MinLength } from 'class-validator';
+
+export class UsersParamsDto {
+  @ApiProperty({
+    description: "The unique user identifier (UUIDv4)",
+    required: true,
+    type: String,
+    minLength: 16,
+  })
+  @IsNotEmpty()
+  @IsUUID()
+  @MinLength(16)
+  userId: string;
+}
 
 class UserNameDto {
   @ApiProperty({

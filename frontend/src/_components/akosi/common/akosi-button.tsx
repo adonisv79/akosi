@@ -47,7 +47,6 @@ export const AkosiButton = ({
       : 'text-lg px-3 py-1 border-lg';
 
   const classConsolidated = `border px-4 py-2 w-full ${borderRoundingClass} ${themeClasses} ${sizeClasses} ${className}`;
-  console.log(classConsolidated)
   return (
     <HTMLButton type={type} id={id} className={classConsolidated} onClick={onClick}>
       {children}

@@ -6,17 +6,19 @@ import { getUserSession } from "../../helpers/get-user-session";
 import { useNavigate } from "react-router-dom";
 import { AkosiLanguagePicker } from "../../_components/akosi/common/akosi-lang-picker";
 import { ALVTypography } from "../../_components/core/alv/alv-typography";
+import { useUserHistoryQuery } from "../../api/queries/users-query";
 
 export const DashboardPage = () => {
   const { t } = useTranslation();
   const navigateTo = useNavigate();
+  const session = getUserSession();
+  const {data} = useUserHistoryQuery(session?.userId)
   const handleSignOut = async () => {
     // send a delete session request to backend
     sessionStorage.removeItem("accessToken");
     navigateTo("/");
   };
 
-  const session = getUserSession();
   if (!session) return null;
   const minutesRemaining = Math.round(
     (session.exp * 1000 - Date.now()) / 60000
@@ -82,6 +84,8 @@ export const DashboardPage = () => {
       ],
     },
   };
+
+  console.log(JSON.stringify(data));
   return (
     <>
       <AkosiLanguagePicker
