@@ -1,5 +1,8 @@
 import { ApiProperty, IntersectionType } from "@nestjs/swagger";
-import { IsNotEmpty, IsString, IsStrongPassword, Length } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsString, IsStrongPassword, Length, Matches, MaxLength, MinLength } from 'class-validator';
+const MIN_LENGTH = 8;
+const MAX_LENGTH = 255;
+const PASSWORD_PATTERN_RULE = `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*\\-_=+;:'",.<>?\\{\\}\\(\\)\\|\\/\\\\]).{${MIN_LENGTH},${MAX_LENGTH}}$`;
 
 export class UsernameDto {
   @ApiProperty({
@@ -20,11 +23,13 @@ export class PasswordDto {
     description: 'The initial password. User will use this to authenticate themselves within the system.',
     required: true,
     type: String,
-    minLength: 12,
-    maxLength: 12
+    minLength: 8,
+    maxLength: 255
   })
   @IsNotEmpty()
-  @Length(12)
+  @MinLength(MIN_LENGTH)
+  @MaxLength(MAX_LENGTH)
+  @Matches(new RegExp(PASSWORD_PATTERN_RULE), { message: 'Password is too weak' })
   password!: string;
 }
 
@@ -33,11 +38,13 @@ export class NewPasswordDto {
     description: 'The new password that will replace the previous password.',
     required: true,
     type: String,
-    minLength: 12,
-    maxLength: 12
+    minLength: 8,
+    maxLength: 255
   })
   @IsNotEmpty()
-  @Length(12)
+  @MinLength(MIN_LENGTH)
+  @MaxLength(MAX_LENGTH)
+  @Matches(new RegExp(PASSWORD_PATTERN_RULE), { message: 'Password is too weak' })
   newPassword!: string;
 }
 
@@ -52,9 +59,9 @@ export class UpdateUserCredentialsDto extends IntersectionType(
 ) {}
 
 
-export class CreateNewUserResponseDto {
-  @ApiProperty({ description: 'The unique user identifier', type: String })
+export class SignedUserResponseDto {
+  @ApiProperty({ description: 'The JWT session token to use', type: String })
   @IsNotEmpty()
   @IsString()
-  userId!: string
+  accessToken: string
 }

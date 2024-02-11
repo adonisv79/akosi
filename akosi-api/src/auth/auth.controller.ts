@@ -13,6 +13,7 @@ import {
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiConflictResponse,
   ApiCreatedResponse,
   ApiNoContentResponse,
   ApiOkResponse,
@@ -21,7 +22,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import {
-  CreateNewUserResponseDto,
+  SignedUserResponseDto,
   PasswordDto,
   UpdateUserCredentialsDto,
   UserCredentialsDto,
@@ -46,19 +47,22 @@ export class AuthController {
     type: UserCredentialsDto,
     examples: {
       basic: {
-        value: { username: 'akosi_user', password: 'ThisIsNot@GoodPassword' },
+        value: { username: 'akosi_user', password: 'Th1sIsNot@GoodPassword' },
       },
     },
   })
   @ApiCreatedResponse({
     description:
       'User is registered successfully. Response body will also contain new user information such as unique identifier.',
-    type: CreateNewUserResponseDto,
+    type: SignedUserResponseDto,
+  })
+  @ApiConflictResponse({
+    description: 'Username is already in use'
   })
   @HttpCode(201)
   async registerNewUser(
     @Body() body: UserCredentialsDto,
-  ): Promise<CreateNewUserResponseDto> {
+  ): Promise<SignedUserResponseDto> {
     return this.auth.createNewUser(body);
   }
 
@@ -71,14 +75,14 @@ export class AuthController {
     examples: {
       basic1: {
         value: {
-          password: 'ThisIsNot@GoodPassword',
+          password: 'Th1sIsNot@GoodPassword',
           newPassword: '1dfs34f$dsf21!Fer',
         },
       },
       basic2: {
         value: {
           password: '1dfs34f$dsf21!Fer',
-          newPassword: 'ThisIsNot@GoodPassword',
+          newPassword: 'Th1sIsNot@GoodPassword',
         },
       },
     },
@@ -103,7 +107,7 @@ export class AuthController {
     type: UserCredentialsDto,
     examples: {
       basic: {
-        value: { password: 'ThisIsNot@GoodPassword' },
+        value: { password: 'Th1sIsNot@GoodPassword' },
       },
     },
   })
@@ -126,7 +130,7 @@ export class AuthController {
     type: UserCredentialsDto,
     examples: {
       basic: {
-        value: { username: 'akosi_user', password: 'ThisIsNot@GoodPassword' },
+        value: { username: 'akosi_user', password: 'Th1sIsNot@GoodPassword' },
       },
     },
   })
@@ -136,7 +140,7 @@ export class AuthController {
   @ApiUnauthorizedResponse({
     description: 'Provided credentials are invalid',
   })
-  async signInUser(@Body() body: UserCredentialsDto) {
+  async signInUser(@Body() body: UserCredentialsDto): Promise<SignedUserResponseDto> {
     return this.auth.signIn(body.username, body.password);
   }
 }

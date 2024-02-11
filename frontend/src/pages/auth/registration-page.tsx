@@ -1,30 +1,53 @@
 import { useTranslation } from "react-i18next";
 import { AkosiButton } from "../../_components/akosi/common/akosi-button";
 import { AkosiLanguagePicker } from "../../_components/akosi/common/akosi-lang-picker";
-import { AkosiTextBox } from "../../_components/akosi/common/akosi-textbox";
 import { ALVTypography } from "../../_components/core/alv/alv-typography";
 import { HTMLForm } from "../../_components/core/html/html-form";
 import { HTMLLabel } from "../../_components/core/html/html-label";
 import { HTMLLink } from "../../_components/core/html/html-link";
 import { HTMLSection } from "../../_components/core/html/html-section";
 import { AkosiTextBoxPassword } from "../../_components/akosi/common/akosi-textbox-password";
+import { AkosiTextBoxPasswordConfirm } from "../../_components/akosi/common/akosi-textbox-password-confirm";
+import { ChangeEvent, useEffect, useState } from "react";
+import { AkosiTextBoxUsername } from "../../_components/akosi/common/akosi-textbox-username";
+import { useCreateAccountMutation } from "../../api/queries/auth-query";
+import { useNavigate } from "react-router-dom";
 
 export const RegistrationPage = () => {
   const { t } = useTranslation();
+  const navigateTo = useNavigate();
+  const {
+    mutate: createUser,
+    data,
+    isError,
+    error: createAccountErrror,
+  } = useCreateAccountMutation();
+  const [newUsername, setNewUsername] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+
+  useEffect(() => {
+    if (data) {
+      sessionStorage.setItem("accessToken", data.accessToken);
+      navigateTo("/dash");
+    }
+  }, [data]);
+
+  const handleNewUsernameChanged = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewUsername(e.currentTarget.value);
+  };
+
+  const handleNewPasswordChanged = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewPassword(e.currentTarget.value);
+  };
 
   const handleSubmit = async (formData: Record<string, string>) => {
     try {
-      console.dir(formData);
-      //assume validation passed
-      // const result = await signIn.mutateAsync({
-      //   username: formData["username"],
-      //   password: formData["password"],
-      // });
-      // console.log(result.accessToken);
-      // sessionStorage.setItem("accessToken", result.accessToken);
-      // setIsSignedIn(true);
+      createUser({
+        username: formData["username"],
+        password: formData["password"],
+      });
     } catch (err) {
-      alert((err as Error).message);
+      if (err instanceof Error) console.error(err.message);
     }
   };
 
@@ -33,13 +56,26 @@ export const RegistrationPage = () => {
       id="akosi-login-container"
       className="min-w-96 bg-white p-8 rounded-md shadow-md"
     >
-      <dialog className="open">sadasdf asdfsadfdsaf sdff dsfs</dialog>
       <div className="text-right mb-5">
         <AkosiLanguagePicker className="text-black bg-white" />
       </div>
       <ALVTypography type="h4" className="mb-4">
         {t("registrationDialog.dialogHeaderText")}
       </ALVTypography>
+      {isError && (
+        <ALVTypography
+          id="registration-error"
+          type="span"
+          size="xs"
+          className="mb-4 text-red-500"
+        >
+          {createAccountErrror.response?.status === 409
+            ? t(`registrationDialog.apiErrors.response409`, {
+                preferredUsername: newUsername,
+              })
+            : t(`registrationDialog.apiErrors.response500`)}
+        </ALVTypography>
+      )}
       <HTMLForm id="login-form" className="min-w-90" onSubmit={handleSubmit}>
         <div className="my-2">
           <ALVTypography weight="semibold" size="sm" theme="light" type="p">
@@ -47,14 +83,13 @@ export const RegistrationPage = () => {
               {t("registrationDialog.usernameHeaderText")}
             </HTMLLabel>
           </ALVTypography>
-          <AkosiTextBox
-            id="login-username"
-            formId="username"
-            type="username"
-            size="sm"
-            className="mt-1 w-full"
-            placeholder={t("registrationDialog.usernamePlaceholderText")}
-            tootTip={t("registrationDialog.usernameTooltipText")}
+          <AkosiTextBoxUsername
+            texts={{
+              placeholder: t("registrationDialog.usernamePlaceholderText"),
+              title: t("registrationDialog.usernameTooltipText"),
+            }}
+            onChange={handleNewUsernameChanged}
+            value={newUsername}
           />
         </div>
         <div className="my-2">
@@ -63,7 +98,15 @@ export const RegistrationPage = () => {
               {t("registrationDialog.passwordHeaderText")}
             </HTMLLabel>
           </ALVTypography>
-          <AkosiTextBoxPassword/>
+          <AkosiTextBoxPassword
+            texts={{
+              btnShowPassword: { title: t("common.password.showPassword") },
+              placeholder: t("common.password.passwordPlaceholderText"),
+              title: t("common.password.passwordTitleText"),
+            }}
+            value={newPassword}
+            onChange={handleNewPasswordChanged}
+          />
         </div>
         <div className="my-2">
           <ALVTypography weight="semibold" size="sm" theme="light" type="p">
@@ -71,14 +114,15 @@ export const RegistrationPage = () => {
               {t("registrationDialog.passwordConfirmHeaderText")}
             </HTMLLabel>
           </ALVTypography>
-          <AkosiTextBox
-            id="login-password-confirm"
-            formId="password-confirm"
-            type="password"
-            size="sm"
-            className="mt-1 w-full"
-            placeholder={t("registrationDialog.passwordConfirmPlaceholderText")}
-            tootTip={t("registrationDialog.passwordConfirmTooltipText")}
+          <AkosiTextBoxPasswordConfirm
+            currentPassword={newPassword}
+            texts={{
+              placeholder: t(`common.password.passwordConfirmPlaceholderText`),
+              title: t(`common.password.passwordConfirmTitleText`),
+              isEmpty: t(`common.password.confirmIsEmpty`),
+              isMatching: t(`common.password.confirmIsMatch`),
+              isNotMatching: t(`common.password.confirmIsNotMatch`),
+            }}
           />
         </div>
         <AkosiButton

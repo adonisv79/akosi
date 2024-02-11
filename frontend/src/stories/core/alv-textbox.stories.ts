@@ -1,9 +1,9 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { AkosiTextBox } from "../../../_components/akosi/common/akosi-textbox";
+import { ALVTextBox } from "../../_components/core/alv/alv-textbox";
 
-const meta: Meta<typeof AkosiTextBox> = {
-  title: "Akosi/Basics/Textbox",
-  component: AkosiTextBox,
+const meta: Meta<typeof ALVTextBox> = {
+  title: "ALV/Basics/Textbox",
+  component: ALVTextBox,
   parameters: {
     layout: "centered",
   },
@@ -15,20 +15,20 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    id: "akosi-default-textbox",
+    id: "alv-default-textbox",
   },
 };
 
 export const Password: Story = {
   args: {
-    id: "akosi-default-textbox",
+    id: "alv-default-textbox",
     type: "password",
   },
 };
 
 export const Email: Story = {
   args: {
-    id: "akosi-default-textbox",
+    id: "alv-default-textbox",
     type: "email",
   },
 };

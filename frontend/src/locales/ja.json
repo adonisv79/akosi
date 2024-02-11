@@ -1,46 +1,63 @@
 {
+  "common": {
+    "password": {
+      "confirmIsEmpty": "正確なパスワードを再入力してください",
+      "confirmIsMatch": "パスワードが一致しています",
+      "confirmIsNotMatch": "パスワードが一致していません",
+      "passwordConfirmPlaceholderText": "ここに望むパスワードを再入力してください",
+      "passwordConfirmTitleText": "これは、望むパスワードを正しく入力したことを確認するために使用されます。",
+      "passwordPlaceholderText": "ここにパスワードを入力してください。",
+      "passwordTitleText": "パスワードには大文字と小文字が少なくとも1つ、数字と特殊文字が少なくとも1つ含まれている必要があります。 さらに、それは少なくとも8文字の長さでなければなりません。",
+      "showPassword": "パスワードを表示"
+    }
+  },
   "homePage": {
-    "welcomeHeader": "プロジェクトへようこそ！",
-    "underConstruction": "このサイトは現在工事中です... その間、<a>{{loginPageLink}}</a> をご覧ください。",
+    "welcomeHeader": "私のプロジェクトへようこそ！",
+    "underConstruction": "このサイトは工事中です...その間、<a>{{loginPageLink}}</a>をご覧ください。",
     "loginPageLinkText": "ログインページ"
   },
   "loginDialog": {
     "buttonLoginText": "ログイン",
     "buttonLogoutText": "ログアウト",
     "dialogHeaderText": "こんにちは！サインインしてください",
-    "notAMemberText": "会員でないですか？",
+    "notAMemberText": "まだメンバーではありませんか？",
+    "registerHereText": "こちらで登録",
     "passwordForgotLink": "パスワードをお忘れですか？",
     "passwordHeaderText": "パスワード",
-    "passwordPlaceholderText": "ここにパスワードを入力",
-    "passwordTooltipText": "パスワードはリソースにアクセスするための秘密のキーです。他の誰とも共有しないでください。",
-    "registerHereText": "こちらで登録",
     "usernameHeaderText": "ユーザー名",
-    "usernamePlaceholderText": "ここにユーザー名を入力",
-    "usernameTooltipText": "ユーザー名はユニークなアカウント名です"
+    "usernamePlaceholderText": "ここにユーザー名を入力してください",
+    "usernameTooltipText": "あなたのユーザー名は一意のアカウント名です"
   },
   "registrationDialog": {
+    "apiErrors": {
+      "response500": "未知のエラーが発生しました",
+      "response409": "ユーザー名 '{{preferredUsername}}' は既に使用されています"
+    },
     "buttonRegisterText": "登録",
     "dialogHeaderText": "登録",
     "alreadyAMemberText": "既にメンバーですか？",
     "loginHereText": "こちらでログイン",
-    "passwordConfirmHeaderText": "パスワード確認",
-    "passwordConfirmPlaceholderText": "ここに再度希望するパスワードを入力してください",
-    "passwordConfirmTooltipText": "これは希望するパスワードが正しく入力されていることを確認するために使用されます。",
+    "passwordConfirmHeaderText": "パスワードの確認",
     "passwordHeaderText": "パスワード",
-    "passwordPlaceholderText": "ここに希望するパスワードを入力してください",
-    "passwordTooltipText": "パスワードはリソースにアクセスするための秘密のキーです。他の人と共有しないでください。",
     "usernameHeaderText": "ユーザー名",
     "usernamePlaceholderText": "ここにユーザー名を入力してください",
-    "usernameTooltipText": "ユーザー名はユニークなアカウント名です"
-  },  
+    "usernameTooltipText": "あなたのユーザー名は一意のアカウント名です"
+  },
   "languageSelection": {
     "selectLanguage": "言語を選択",
-    "chinese": "中国語",
-    "english": "英語",
-    "filipino": "フィリピン語",
-    "japanese": "日本語",
-    "korean": "韓国語",
-    "spanish": "スペイン語",
-    "thai": "タイ語"
+    "burmese": "ビルマ語 (my)",
+    "chinese": "中国語 (zh)",
+    "english": "英語 (en)",
+    "filipino": "フィリピン語 (tl)",
+    "hindi": "ヒンディー語 (hi)",
+    "indonesian": "インドネシア語 (id)",
+    "japanese": "日本語 (ja)",
+    "khmer": "クメール語 (km)",
+    "korean": "韓国語 (ko)",
+    "laotian": "ラオ語 (lo)",
+    "malay": "マレー語 (ms)",
+    "spanish": "スペイン語 (es)",
+    "thai": "タイ語 (th)" ,
+    "vietnamese": "ベトナム語 (vi)"
   }
 }

@@ -1,46 +1,63 @@
 {
+  "common": {
+    "password": {
+      "confirmIsEmpty": "โปรดป้อนรหัสผ่านใหม่อีกครั้ง",
+      "confirmIsMatch": "รหัสผ่านตรงกัน",
+      "confirmIsNotMatch": "รหัสผ่านไม่ตรงกัน",
+      "passwordConfirmPlaceholderText": "กรุณาป้อนรหัสผ่านที่ต้องการอีกครั้งที่นี่",
+      "passwordConfirmTitleText": "สิ่งนี้ใช้เพื่อให้แน่ใจว่าคุณพิมพ์รหัสผ่านที่ต้องการได้ถูกต้อง",
+      "passwordPlaceholderText": "ป้อนรหัสผ่านที่นี่. ",
+      "passwordTitleText": "รหัสผ่านควรประกอบไปด้วยอักษรใหญ่อย่างน้อยหนึ่งตัวและอักษรเล็กอย่างน้อยหนึ่งตัว, รวมทั้งตัวเลขและอักขระพิเศษอย่างน้อยหนึ่งตัว นอกจากนี้, ต้องมีอย่างน้อย 8 ตัวอักษร",
+      "showPassword": "แสดงรหัสผ่าน"
+    }
+  },
   "homePage": {
-    "welcomeHeader": "ยินดีต้อนรับสู่โปรเจกต์ของฉัน!",
-    "underConstruction": "เว็บไซต์นี้กำลังอยู่ในระหว่างการก่อสร้าง... ในระหว่างนี้โปรดดูที่ <a>{{loginPageLink}}</a>",
+    "welcomeHeader": "ยินดีต้อนรับสู่โปรเจคของฉัน!",
+    "underConstruction": "เว็บไซต์นี้กำลังอยู่ในช่วงก่อสร้าง... ในระหว่างนี้, กรุณาดูที่ <a>{{loginPageLink}}</a>",
     "loginPageLinkText": "หน้าเข้าสู่ระบบ"
   },
   "loginDialog": {
     "buttonLoginText": "เข้าสู่ระบบ",
     "buttonLogoutText": "ออกจากระบบ",
-    "dialogHeaderText": "สวัสดีนั้น! กรุณาเข้าสู่ระบบ",
-    "notAMemberText": "ยังไม่ได้เป็นสมาชิก?",
-    "passwordForgotLink": "ลืมรหัสผ่านของคุณ?",
-    "passwordHeaderText": "รหัสผ่าน",
-    "passwordPlaceholderText": "ป้อนรหัสผ่านที่นี่",
-    "passwordTooltipText": "รหัสผ่านของคุณคือคีย์ลับเพื่อเข้าถึงทรัพยากร โปรดอย่าแชร์กับผู้อื่น",
+    "dialogHeaderText": "สวัสดี! กรุณาเข้าสู่ระบบ",
+    "notAMemberText": "ไม่ใช่สมาชิก?",
     "registerHereText": "ลงทะเบียนที่นี่",
+    "passwordForgotLink": "ลืมรหัสผ่าน?",
+    "passwordHeaderText": "รหัสผ่าน",
     "usernameHeaderText": "ชื่อผู้ใช้",
     "usernamePlaceholderText": "ป้อนชื่อผู้ใช้ที่นี่",
-    "usernameTooltipText": "ชื่อผู้ใช้ของคุณคือชื่อบัญชีที่ไม่ซ้ำ"
+    "usernameTooltipText": "ชื่อผู้ใช้ของคุณคือชื่อบัญชีที่ไม่ซ้ำกัน"
   },
   "registrationDialog": {
+    "apiErrors": {
+      "response500": "เกิดข้อผิดพลาดที่ไม่รู้จัก",
+      "response409": "ชื่อผู้ใช้ '{{preferredUsername}}' มีการใช้งานอยู่แล้ว"
+    },
     "buttonRegisterText": "ลงทะเบียน",
     "dialogHeaderText": "ลงทะเบียน",
-    "alreadyAMemberText": "เป็นสมาชิกแล้วหรือยัง?",
+    "alreadyAMemberText": "เป็นสมาชิกอยู่แล้ว?",
     "loginHereText": "เข้าสู่ระบบที่นี่",
     "passwordConfirmHeaderText": "ยืนยันรหัสผ่าน",
-    "passwordConfirmPlaceholderText": "ป้อนรหัสผ่านที่ต้องการอีกครั้งที่นี่",
-    "passwordConfirmTooltipText": "นี้ใช้ในการให้แน่ใจว่าคุณพิมพ์รหัสผ่านที่ต้องการได้ถูกต้อง",
     "passwordHeaderText": "รหัสผ่าน",
-    "passwordPlaceholderText": "ป้อนรหัสผ่านที่ต้องการที่นี่",
-    "passwordTooltipText": "รหัสผ่านของคุณคือคีย์ลับเพื่อเข้าถึงทรัพยากร โปรดอย่าแชร์กับผู้อื่น",
     "usernameHeaderText": "ชื่อผู้ใช้",
     "usernamePlaceholderText": "ป้อนชื่อผู้ใช้ที่นี่",
-    "usernameTooltipText": "ชื่อผู้ใช้ของคุณคือชื่อบัญชีที่เป็นเอกลักษณ์"
-  },  
+    "usernameTooltipText": "ชื่อผู้ใช้ของคุณคือชื่อบัญชีที่ไม่ซ้ำกัน"
+  },
   "languageSelection": {
     "selectLanguage": "เลือกภาษา",
-    "chinese": "จีน",
-    "english": "อังกฤษ",
-    "filipino": "ฟิลิปปินส์",
-    "japanese": "ญี่ปุ่น",
-    "korean": "เกาหลี",
-    "spanish": "สเปน",
-    "thai": "ไทย"
+    "burmese": "พม่า (my)",
+    "chinese": "จีน (zh)",
+    "english": "อังกฤษ (en)",
+    "filipino": "ฟิลิปปินส์ (tl)",
+    "hindi": "ภาษาฮินดี (hi)",
+    "indonesian": "อินโดนีเซีย (id)",
+    "japanese": "ญี่ปุ่น (ja)",
+    "khmer": "เขมร (km)",
+    "korean": "เกาหลี (ko)",
+    "laotian": "ลาว (lo)",
+    "malay": "มาเลย์ (ms)",
+    "spanish": "สเปน (es)",
+    "thai": "ไทย (th)" ,
+    "vietnamese": "เวียตนาม (vi)"
   }
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import { CommonElementProps, ParentalElementProps } from "../common.types";
 import { ALVSizes, ThemableElementProps } from "../../akosi/common.types";
 

@@ -33,7 +33,7 @@ export class UsersController {
 
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
-  @Get('/')
+  @Get('/self')
   async getCurrentUserInfo(@Req() req: Request) {
     return await this.users.findOneById(req.user.id);
   }
@@ -128,8 +128,7 @@ export class UsersController {
     @Ip() ip,
     @Body() body: UpdateUserInfoDto,
   ) {
-    return {
-    };
+    return {};
   }
 
   @Post('/lang')

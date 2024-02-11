@@ -1,4 +1,4 @@
-import { MouseEvent } from "react";
+import { FocusEvent, MouseEvent } from "react";
 import {
   CommonElementProps,
   NavigableElementProps,
@@ -13,10 +13,10 @@ export type HTMLButtonParams = CommonElementProps &
   NavigableElementProps & {
     /** Callback function when a click event is performed */
     onClick?: (e: MouseEvent) => void;
+    onFocus?: (e: FocusEvent<HTMLButtonElement>) => void;
     onMouseUp?: (e: MouseEvent) => void;
     onMouseDown?: (e: MouseEvent) => void;
     onMouseLeave?: (e: MouseEvent) => void;
-    toolTip?: string;
     /** The button type */
     type?: HTMLButtonTypes;
   };
@@ -31,9 +31,10 @@ export const HTMLButton = ({
   children,
   className,
   tabIndex,
-  toolTip,
+  title,
   type = "button",
   onClick,
+  onFocus,
   onMouseUp,
   onMouseDown,
   onMouseLeave,
@@ -43,10 +44,11 @@ export const HTMLButton = ({
       id={id}
       className={className}
       onClick={onClick}
+      onFocus={onFocus}
       onMouseUp={onMouseUp}
       onMouseDown={onMouseDown}
       onMouseLeave={onMouseLeave}
-      title={toolTip}
+      title={title}
       tabIndex={tabIndex}
       type={type}
     >

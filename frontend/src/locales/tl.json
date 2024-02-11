@@ -1,46 +1,63 @@
 {
+  "common": {
+    "password": {
+      "confirmIsEmpty": "Mangyaring muling maglagay ng eksaktong password",
+      "confirmIsMatch": "Ang mga password ay tumutugma",
+      "confirmIsNotMatch": "Ang mga password ay hindi tumutugma",
+      "passwordConfirmPlaceholderText": "Ilagay muli ang nais na password dito",
+      "passwordConfirmTitleText": "Ito ay ginagamit upang tiyakin na nang maayos mong na-type ang iyong nais na password.",
+      "passwordPlaceholderText": "Ilagay ang password dito. ",
+      "passwordTitleText": "Ang password ay dapat maglaman ng hindi bababa sa isang malaking titik at isang maliit na titik, pati na rin ng hindi bababa sa isang numerong digit at espesyal na character. Bukod dito, ito ay dapat na hindi bababa sa 8 na character ang haba.",
+      "showPassword": "Ipakita ang password"
+    }
+  },
   "homePage": {
     "welcomeHeader": "Maligayang pagdating sa aking proyekto!",
-    "underConstruction": "Ang website na ito ay kasalukuyang nasa ilalim ng konstruksiyon... sa pagitan ng mga oras na ito, mangyaring tingnan ang <a>{{loginPageLink}}</a>",
+    "underConstruction": "Ang site na ito ay kasalukuyang nasa ilalim ng konstruksyon... sa pagitan nito, mangyaring tingnan ang <a>{{loginPageLink}}</a>",
     "loginPageLinkText": "Pahina ng Login"
   },
   "loginDialog": {
     "buttonLoginText": "Mag-login",
     "buttonLogoutText": "Mag-logout",
-    "dialogHeaderText": "Kumusta! Mangyaring mag-sign in",
+    "dialogHeaderText": "Hi doon! Mangyaring mag-sign in",
     "notAMemberText": "Hindi pa miyembro?",
-    "passwordForgotLink": "Nakalimutan mo ba ang iyong password?",
+    "registerHereText": "Mag-register dito",
+    "passwordForgotLink": "Nakalimutan ang iyong password?",
     "passwordHeaderText": "Password",
-    "passwordPlaceholderText": "Ilagay ang password dito",
-    "passwordTooltipText": "Ang iyong password ay ang iyong lihim na susi para makapasok sa yaman. Huwag itong ipamahagi sa sinuman.",
-    "registerHereText": "Magrehistro dito",
     "usernameHeaderText": "Username",
     "usernamePlaceholderText": "Ilagay ang username dito",
-    "usernameTooltipText": "Ang iyong username ay ang kakaibang pangalan ng iyong account"
+    "usernameTooltipText": "Ang iyong username ay ang pambansang pangalan ng account"
   },
   "registrationDialog": {
+    "apiErrors": {
+      "response500": "Nangyaring hindi kilalaang error",
+      "response409": "Ang username '{{preferredUsername}}' ay mayroon nang gumagamit"
+    },
     "buttonRegisterText": "Mag-register",
-    "dialogHeaderText": "Rehistrasyon",
-    "alreadyAMemberText": "Isa ka nang miyembro?",
+    "dialogHeaderText": "Pang-registrasyon",
+    "alreadyAMemberText": "Mayroon nang miyembro?",
     "loginHereText": "Mag-login dito",
     "passwordConfirmHeaderText": "Kumpirmahin ang Password",
-    "passwordConfirmPlaceholderText": "Dito ulit ipasok ang ninanais na password",
-    "passwordConfirmTooltipText": "Ito ay ginagamit upang siguruhing tama ang iyong ini-type na ninanais na password.",
     "passwordHeaderText": "Password",
-    "passwordPlaceholderText": "Dito ipasok ang ninanais na password",
-    "passwordTooltipText": "Ang iyong password ay ang iyong lihim na susi upang mag-access sa resurso. Huwag ito ipamahagi sa iba.",
     "usernameHeaderText": "Username",
-    "usernamePlaceholderText": "Dito ipasok ang username",
+    "usernamePlaceholderText": "Ilagay ang username dito",
     "usernameTooltipText": "Ang iyong username ay ang pambansang pangalan ng account"
-  },  
+  },
   "languageSelection": {
     "selectLanguage": "Pumili ng Wika",
-    "chinese": "Intsik",
-    "english": "Ingles",
-    "filipino": "Filipino",
-    "japanese": "Hapones",
-    "korean": "Koreano",
-    "spanish": "Espanyol",
-    "thai": "Thai"
+    "burmese": "Burmese (my)",
+    "chinese": "Chinese (zh)",
+    "english": "English (en)",
+    "filipino": "Filipino (tl)",
+    "hindi": "Hindi (hi)",
+    "indonesian": "Indonesian (id)",
+    "japanese": "Japanese (ja)",
+    "khmer": "Khmer (km)",
+    "korean": "Korean (ko)",
+    "laotian": "Laotian (lo)",
+    "malay": "Malay (ms)",
+    "spanish": "Spanish (es)",
+    "thai": "Thai (th)" ,
+    "vietnamese": "Vietnamese (vi)"
   }
 }

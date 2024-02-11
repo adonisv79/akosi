@@ -47,8 +47,8 @@ export class AuthService {
       const accessToken = await this.jwtService.signAsync(
         {
           sub: result.id,
-          username: username,
-          member_since: result.createdDate,
+          username: result.username,
+          memberSince: result.createdDate,
         },
         { expiresIn: this.jwtExpiresIn },
       );
@@ -77,17 +77,26 @@ export class AuthService {
     this.req.logger.log(`Creating new user "${body.username}"`);
     try {
       if (await this.usersService.usernameExists(body.username))
-        throw new UsernameInUseException(body.username);
+        throw new UsernameInUseException();
       const hash = await this.encryptPassword(body.password);
 
       const result = await this.usersService.create(body.username, hash);
       this.userActivity.log(result.id, ActionLogCodes.userAuthRegistered);
 
+      const accessToken = await this.jwtService.signAsync(
+        {
+          sub: result.id,
+          username: result.username,
+          memberSince: result.createdDate,
+        },
+        { expiresIn: this.jwtExpiresIn },
+      );
+
       this.req.logger.log(
         `User ${result.id} created successfully`,
         LOGGER_CONTEXT,
       );
-      return { userId: result.id };
+      return { accessToken };
     } catch (err: any) {
       this.req.logger.error(err.message, err.stack, LOGGER_CONTEXT);
       throw err;

@@ -28,13 +28,13 @@ export class AuthGuard implements CanActivate {
       });
       // 💡 We're assigning the payload to the request object here
       // so that we can access it in our route handlers
-      request.user = payload;
+      request.user = { id: payload.sub, username: payload.username };
+      return true;
     } catch(err) {
       if (err instanceof TokenExpiredError)
         console.error(`Token expired ar ${err.expiredAt}`);
       throw new UnauthorizedException();
     }
-    return true;
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {

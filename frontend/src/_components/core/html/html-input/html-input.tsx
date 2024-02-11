@@ -1,13 +1,14 @@
+import { ChangeEvent } from "react";
 import {
   CommonElementProps,
   NavigableElementProps,
   ParentalElementProps,
   UniqueElementProps,
-} from '../../common.types';
+} from "../../common.types";
 import {
   HTMLInputElementAutoCompleteValues,
   HTMLInputElementTypes,
-} from './html-input.types';
+} from "./html-input.types";
 
 export type HTMLInputProps = CommonElementProps &
   UniqueElementProps &
@@ -26,12 +27,14 @@ export type HTMLInputProps = CommonElementProps &
     };
     /** Default helper text that appears when the input is empty*/
     placeholder?: string;
-    /** The helper popup text that appears on hover */
-    tootTip?: string;
+    /** Indicates if the form element is required to be set in order to submit */
+    required?: boolean;
     /** Input type */
     type: HTMLInputElementTypes;
     /** The value of the input */
     value?: string | number | string[];
+    /** fires when the value of the input changes */
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   };
 
 /**
@@ -40,15 +43,17 @@ export type HTMLInputProps = CommonElementProps &
  * @returns
  */
 export const HTMLInput = ({
-  autoComplete = 'off',
+  autoComplete = "off",
   className,
   id,
   length = { min: 0, max: 255 },
   name,
   placeholder,
-  tootTip,
+  required,
+  title,
   type,
   value,
+  onChange,
 }: HTMLInputProps) => {
   return (
     <input
@@ -57,11 +62,13 @@ export const HTMLInput = ({
       name={name ?? id}
       id={id}
       placeholder={placeholder}
-      title={tootTip}
+      title={title}
       type={type}
       value={value}
       minLength={length.min}
       maxLength={length.max}
+      onChange={onChange}
+      required={required}
     />
   );
 };

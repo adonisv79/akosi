@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../services/api-services";
+import { AxiosError } from "axios";
 
 type AuthData = {
   username: string;
@@ -21,6 +22,9 @@ export const useCreateAccountMutation = () => {
       const response = await api.post("/auth", authData);
       return response.data;
     },
+    onError: (error: AxiosError) => {      
+      throw error;
+    }
   });
 };
 

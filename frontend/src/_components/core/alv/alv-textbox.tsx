@@ -1,10 +1,17 @@
-import { ReactNode } from "react";
-import { HTMLInput } from "../../core/html/html-input/html-input";
+import { ChangeEvent, ReactNode } from "react";
 import {
   HTMLInputElementAutoCompleteValues,
   HTMLInputElementTypes,
-} from "../../core/html/html-input/html-input.types";
-import { SizeableElementProps, ThemableElementProps } from "../common.types";
+} from "../html/html-input/html-input.types";
+import {
+  SizeableElementProps,
+  ThemableElementProps,
+} from "../../akosi/common.types";
+import {
+  CommonElementProps,
+  FormElementProps,
+  UniqueElementProps,
+} from "../common.types";
 
 export type TextboxTypes =
   | "email"
@@ -13,30 +20,39 @@ export type TextboxTypes =
   | "password-update"
   | "username";
 
-export type AkosiTextBoxProps = ThemableElementProps &
+export type ALVTextBoxProps = CommonElementProps &
+  FormElementProps &
+  UniqueElementProps &
+  ThemableElementProps &
   SizeableElementProps & {
-    id: string;
-    className?: string;
-    formId?: string;
+    pattern?: string;
     placeholder?: string;
-    tootTip?: string;
     type: TextboxTypes;
     useAutocomplete?: boolean;
+    maxLength?: number;
+    minLength?: number;
     actionElement?: ReactNode;
+    value?: string | number | string[];
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   };
 
-export const AkosiTextBox = ({
+export const ALVTextBox = ({
   id,
   className,
-  formId,
+  form,
   size = "base",
   theme = "light",
+  pattern,
   placeholder,
-  tootTip,
+  title,
+  maxLength,
+  minLength,
   type = "text",
   useAutocomplete,
   actionElement,
-}: AkosiTextBoxProps) => {
+  value,
+  onChange,
+}: ALVTextBoxProps) => {
   let inputAutoComplete: HTMLInputElementAutoCompleteValues = "off";
   let inputType: HTMLInputElementTypes = "text";
   switch (type) {
@@ -73,14 +89,20 @@ export const AkosiTextBox = ({
 
   return (
     <span className="relative">
-      <HTMLInput
-        id={id}
-        name={formId ?? id}
+      <input
         autoComplete={inputAutoComplete}
         className={`mt-0 ${classesConsolidated}`}
+        name={form?.id ?? id}
+        id={id}
+        pattern={pattern}
         placeholder={placeholder}
-        tootTip={tootTip}
-        type={inputType}
+        title={title}
+        type={type}
+        value={value}
+        onChange={onChange}
+        required={form?.isRequiredToSubmit}
+        maxLength={maxLength}
+        minLength={minLength}
       />
       {actionElement && (
         <span className="absolute inset-y-0 right-0 px-2 flex border-l items-center">

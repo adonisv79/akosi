@@ -6,11 +6,21 @@ import { ReactNode } from "react";
 export type CommonElementProps = {
   /** Class identifier for the element. */
   className?: string;
+  /** The identifier (name attribute) of the element in the form */
+  id?: string;
+  /** Provides additional information about the element usualy supplied by browsers in the form of a tooltip */
+  title?: string;
 };
 
-export type UniqueElementProps = {
-  /** Unique identifier for the element. */
-  id: string;
+/** Use these props when an element is part of an html form */
+export type FormElementProps = {
+  /** form element configuration. */
+  form?: {
+    /** The identifier (name attribute) of the element in the form */
+    id: string;
+    /** If true, triggers the browser to block form submit is empty */
+    isRequiredToSubmit?: boolean;
+  };
 };
 
 /**
@@ -27,4 +37,10 @@ export type NavigableElementProps = {
 export type ParentalElementProps = {
   /** Contents or child elements for this element */
   children?: ReactNode;
+};
+
+/** Use these props when an element is uniquely identifiable */
+export type UniqueElementProps = {
+  /** Unique identifier for the element. */
+  id: string;
 };

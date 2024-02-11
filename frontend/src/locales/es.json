@@ -1,7 +1,19 @@
 {
+  "common": {
+    "password": {
+      "confirmIsEmpty": "Por favor, vuelva a ingresar la contraseña exacta",
+      "confirmIsMatch": "Las contraseñas coinciden",
+      "confirmIsNotMatch": "Las contraseñas no coinciden",
+      "passwordConfirmPlaceholderText": "Vuelva a ingresar la contraseña deseada aquí",
+      "passwordConfirmTitleText": "Esto se utiliza para asegurarse de que ha ingresado correctamente la contraseña deseada.",
+      "passwordPlaceholderText": "Ingrese la contraseña aquí. ",
+      "passwordTitleText": "La contraseña debe incluir al menos una letra mayúscula y una minúscula, así como al menos un dígito numérico y un carácter especial. Además, debe tener al menos 8 caracteres de longitud.",
+      "showPassword": "Mostrar contraseña"
+    }
+  },
   "homePage": {
     "welcomeHeader": "¡Bienvenido a mi proyecto!",
-    "underConstruction": "Este sitio está en construcción... por ahora, por favor visita <a>{{loginPageLink}}</a>",
+    "underConstruction": "Este sitio está en construcción... mientras tanto, por favor vea la <a>{{loginPageLink}}</a>",
     "loginPageLinkText": "Página de inicio de sesión"
   },
   "loginDialog": {
@@ -9,38 +21,43 @@
     "buttonLogoutText": "Cerrar sesión",
     "dialogHeaderText": "¡Hola! Por favor, inicia sesión",
     "notAMemberText": "¿No eres miembro?",
+    "registerHereText": "Regístrate aquí",
     "passwordForgotLink": "¿Olvidaste tu contraseña?",
     "passwordHeaderText": "Contraseña",
-    "passwordPlaceholderText": "Ingresa la contraseña aquí",
-    "passwordTooltipText": "Tu contraseña es tu clave secreta para acceder al recurso. No la compartas con nadie.",
-    "registerHereText": "Regístrate aquí",
     "usernameHeaderText": "Nombre de usuario",
-    "usernamePlaceholderText": "Ingresa el nombre de usuario aquí",
-    "usernameTooltipText": "Tu nombre de usuario es el nombre único de la cuenta"
+    "usernamePlaceholderText": "Ingrese el nombre de usuario aquí",
+    "usernameTooltipText": "Tu nombre de usuario es el nombre de cuenta único"
   },
   "registrationDialog": {
+    "apiErrors": {
+      "response500": "Error desconocido",
+      "response409": "El nombre de usuario '{{preferredUsername}}' ya está en uso"
+    },
     "buttonRegisterText": "Registrarse",
     "dialogHeaderText": "Registro",
     "alreadyAMemberText": "¿Ya eres miembro?",
     "loginHereText": "Inicia sesión aquí",
     "passwordConfirmHeaderText": "Confirmar contraseña",
-    "passwordConfirmPlaceholderText": "Vuelva a ingresar la contraseña deseada aquí",
-    "passwordConfirmTooltipText": "Esto se utiliza para asegurarse de que haya ingresado correctamente su contraseña deseada.",
     "passwordHeaderText": "Contraseña",
-    "passwordPlaceholderText": "Ingrese la contraseña deseada aquí",
-    "passwordTooltipText": "Tu contraseña es la clave secreta para acceder al recurso. No la compartas con nadie.",
     "usernameHeaderText": "Nombre de usuario",
     "usernamePlaceholderText": "Ingrese el nombre de usuario aquí",
-    "usernameTooltipText": "Tu nombre de usuario es el nombre único de la cuenta"
-  },  
+    "usernameTooltipText": "Tu nombre de usuario es el nombre de cuenta único"
+  },
   "languageSelection": {
-    "selectLanguage": "Selecciona el idioma",
-    "chinese": "Chino",
-    "english": "Inglés",
-    "filipino": "Filipino",
-    "japanese": "Japonés",
-    "korean": "Coreano",
-    "spanish": "Español",
-    "thai": "Tailandés"
+    "selectLanguage": "Selecciona idioma",
+    "burmese": "Birmano (my)",
+    "chinese": "Chino (zh)",
+    "english": "Inglés (en)",
+    "filipino": "Filipino (tl)",
+    "hindi": "Hindi (hi)",
+    "indonesian": "Indonesio (id)",
+    "japanese": "Japonés (ja)",
+    "khmer": "Jemer (km)",
+    "korean": "Coreano (ko)",
+    "laotian": "Laosiano (lo)",
+    "malay": "Malayo (ms)",
+    "spanish": "Español (es)",
+    "thai": "Tailandés (th)" ,
+    "vietnamese": "Vietnamita (vi)"
   }
 }

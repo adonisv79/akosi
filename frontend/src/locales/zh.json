@@ -1,7 +1,19 @@
 {
+  "common": {
+    "password": {
+      "confirmIsEmpty": "请重新输入确切的密码",
+      "confirmIsMatch": "密码匹配",
+      "confirmIsNotMatch": "密码不匹配",
+      "passwordConfirmPlaceholderText": "在此重新输入所需的密码",
+      "passwordConfirmTitleText": "这是为了确保您正确输入所需的密码。",
+      "passwordPlaceholderText": "在此输入密码。",
+      "passwordTitleText": "密码应包括至少一个大写字母和一个小写字母，以及至少一个数字和特殊字符。此外，它必须至少为8个字符长。",
+      "showPassword": "显示密码"
+    }
+  },
   "homePage": {
     "welcomeHeader": "欢迎来到我的项目！",
-    "underConstruction": "该网站正在建设中... 请暂时查看<a>{{loginPageLink}}</a>",
+    "underConstruction": "该站点正在建设中...与此同时，请查看 <a>{{loginPageLink}}</a>",
     "loginPageLinkText": "登录页面"
   },
   "loginDialog": {
@@ -9,38 +21,43 @@
     "buttonLogoutText": "登出",
     "dialogHeaderText": "嗨！请登录",
     "notAMemberText": "还不是会员？",
+    "registerHereText": "在这里注册",
     "passwordForgotLink": "忘记密码？",
     "passwordHeaderText": "密码",
-    "passwordPlaceholderText": "在此输入密码",
-    "passwordTooltipText": "您的密码是访问资源的秘钥。请勿与任何人分享。",
-    "registerHereText": "在这里注册",
-    "usernameHeaderText": "用户名",
-    "usernamePlaceholderText": "在此输入用户名",
-    "usernameTooltipText": "您的用户名是唯一的帐户名称"
-  },
-  "registrationDialog": {
-    "buttonRegisterText": "注册",
-    "dialogHeaderText": "注册",
-    "alreadyAMemberText": "已经是会员了吗？",
-    "loginHereText": "在此登录",
-    "passwordConfirmHeaderText": "确认密码",
-    "passwordConfirmPlaceholderText": "在此重新输入所需密码",
-    "passwordConfirmTooltipText": "这用于确保您正确输入了所需的密码。",
-    "passwordHeaderText": "密码",
-    "passwordPlaceholderText": "在此输入所需的密码",
-    "passwordTooltipText": "您的密码是访问资源的秘钥，请不要与他人分享。",
     "usernameHeaderText": "用户名",
     "usernamePlaceholderText": "在此输入用户名",
     "usernameTooltipText": "您的用户名是唯一的账户名"
-  },  
+  },
+  "registrationDialog": {
+    "apiErrors": {
+      "response500": "发生未知错误",
+      "response409": "用户名 '{{preferredUsername}}' 已在使用中"
+    },
+    "buttonRegisterText": "注册",
+    "dialogHeaderText": "注册",
+    "alreadyAMemberText": "已经是会员？",
+    "loginHereText": "在这里登录",
+    "passwordConfirmHeaderText": "确认密码",
+    "passwordHeaderText": "密码",
+    "usernameHeaderText": "用户名",
+    "usernamePlaceholderText": "在此输入用户名",
+    "usernameTooltipText": "您的用户名是唯一的账户名"
+  },
   "languageSelection": {
     "selectLanguage": "选择语言",
-    "chinese": "中文",
-    "english": "英语",
-    "filipino": "菲律宾语",
-    "japanese": "日语",
-    "korean": "韩语",
-    "spanish": "西班牙语",
-    "thai": "泰语"
+    "burmese": "缅甸语 (my)",
+    "chinese": "中文 (zh)",
+    "english": "英文 (en)",
+    "filipino": "菲律宾语 (tl)",
+    "hindi": "印地语 (hi)",
+    "indonesian": "印尼语 (id)",
+    "japanese": "日语 (ja)",
+    "khmer": "高棉语 (km)",
+    "korean": "韩语 (ko)",
+    "laotian": "老挝语 (lo)",
+    "malay": "马来语 (ms)",
+    "spanish": "西班牙语 (es)",
+    "thai": "泰语 (th)" ,
+    "vietnamese": "越南语 (vi)"
   }
 }

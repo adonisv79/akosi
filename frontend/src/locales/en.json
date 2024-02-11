@@ -1,4 +1,16 @@
 {
+  "common": {
+    "password": {
+      "confirmIsEmpty": "Please re-enter exact password",
+      "confirmIsMatch": "Passwords are matching",
+      "confirmIsNotMatch": "Passwords are not matching",
+      "passwordConfirmPlaceholderText": "Re-enter desired password here",
+      "passwordConfirmTitleText": "This is used to ensure that you correctly typed in your desired password.",
+      "passwordPlaceholderText": "Enter password here. ",
+      "passwordTitleText": "The password should include at least one uppercase and one lowercase letter, as well as a minimum of one numerical digit and special character. Additionally, it must be at least 8 characters in length.",
+      "showPassword": "Show password"
+    }
+  },
   "homePage": {
     "welcomeHeader": "Welcome to my project!",
     "underConstruction": "This site is under construction... for the meantime, please see the <a>{{loginPageLink}}</a>",
@@ -12,35 +24,40 @@
     "registerHereText": "Register here",
     "passwordForgotLink": "Forgot your password?",
     "passwordHeaderText": "Password",
-    "passwordPlaceholderText": "Enter password here",
-    "passwordTooltipText": "Your password is your secret key to access the resource. Do not share it with annyone.",
     "usernameHeaderText": "Username",
     "usernamePlaceholderText": "Enter username here",
     "usernameTooltipText": "Your username is the unique account name"
   },
   "registrationDialog": {
+    "apiErrors": {
+      "response500": "Unknown error occured",
+      "response409": "Username '{{preferredUsername}}' already in use"
+    },
     "buttonRegisterText": "Register",
     "dialogHeaderText": "Registration",
     "alreadyAMemberText": "Already a member?",
     "loginHereText": "Login here",
     "passwordConfirmHeaderText": "Confirm Password",
-    "passwordConfirmPlaceholderText": "Re-enter desired password here",
-    "passwordConfirmTooltipText": "This is used to ensure that you correctly typed in your desired password.",
     "passwordHeaderText": "Password",
-    "passwordPlaceholderText": "Enter desired password here",
-    "passwordTooltipText": "Your password is your secret key to access the resource. Do not share it with annyone.",
     "usernameHeaderText": "Username",
     "usernamePlaceholderText": "Enter username here",
     "usernameTooltipText": "Your username is the unique account name"
   },
   "languageSelection": {
     "selectLanguage": "Select language",
-    "chinese": "Chinese",
-    "english": "English",
-    "filipino": "Filipino",
-    "japanese": "Japanese",
-    "korean": "Korean",
-    "spanish": "Spanish",
-    "thai": "Thai"
+    "burmese": "Burmese (my)",
+    "chinese": "Chinese (zh)",
+    "english": "English (en)",
+    "filipino": "Filipino (tl)",
+    "hindi": "Hindi (hi)",
+    "indonesian": "Indonesian (id)",
+    "japanese": "Japanese (ja)",
+    "khmer": "Khmer (km)",
+    "korean": "Korean (ko)",
+    "laotian": "Laotian (lo)",
+    "malay": "Malay (ms)",
+    "spanish": "Spanish (es)",
+    "thai": "Thai (th)" ,
+    "vietnamese": "Vietnamese (vi)"
   }
 }

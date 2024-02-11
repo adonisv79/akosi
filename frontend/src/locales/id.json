@@ -1,0 +1,63 @@
+{
+  "common": {
+    "password": {
+      "confirmIsEmpty": "Harap masukkan kembali kata sandi yang tepat",
+      "confirmIsMatch": "Kata sandi cocok",
+      "confirmIsNotMatch": "Kata sandi tidak cocok",
+      "passwordConfirmPlaceholderText": "Masukkan kembali kata sandi yang diinginkan di sini",
+      "passwordConfirmTitleText": "Ini digunakan untuk memastikan bahwa Anda mengetik kata sandi yang diinginkan dengan benar.",
+      "passwordPlaceholderText": "Masukkan kata sandi di sini. ",
+      "passwordTitleText": "Kata sandi harus mengandung setidaknya satu huruf besar dan satu huruf kecil, serta setidaknya satu digit numerik dan karakter khusus. Selain itu, panjangnya harus minimal 8 karakter.",
+      "showPassword": "Tampilkan kata sandi"
+    }
+  },
+  "homePage": {
+    "welcomeHeader": "Selamat datang di proyek saya!",
+    "underConstruction": "Situs ini sedang dalam konstruksi... sementara itu, silakan lihat <a>{{loginPageLink}}</a>",
+    "loginPageLinkText": "Halaman masuk"
+  },
+  "loginDialog": {
+    "buttonLoginText": "Masuk",
+    "buttonLogoutText": "Keluar",
+    "dialogHeaderText": "Hai! Silakan masuk",
+    "notAMemberText": "Bukan anggota?",
+    "registerHereText": "Daftar di sini",
+    "passwordForgotLink": "Lupa kata sandi?",
+    "passwordHeaderText": "Kata sandi",
+    "usernameHeaderText": "Nama pengguna",
+    "usernamePlaceholderText": "Masukkan nama pengguna di sini",
+    "usernameTooltipText": "Nama pengguna Anda adalah nama akun yang unik"
+  },
+  "registrationDialog": {
+    "apiErrors": {
+      "response500": "Terjadi kesalahan tidak dikenal",
+      "response409": "Nama pengguna '{{preferredUsername}}' sudah digunakan"
+    },
+    "buttonRegisterText": "Daftar",
+    "dialogHeaderText": "Pendaftaran",
+    "alreadyAMemberText": "Sudah menjadi anggota?",
+    "loginHereText": "Masuk di sini",
+    "passwordConfirmHeaderText": "Konfirmasi Kata Sandi",
+    "passwordHeaderText": "Kata Sandi",
+    "usernameHeaderText": "Nama pengguna",
+    "usernamePlaceholderText": "Masukkan nama pengguna di sini",
+    "usernameTooltipText": "Nama pengguna Anda adalah nama akun yang unik"
+  },
+  "languageSelection": {
+    "selectLanguage": "Pilih bahasa",
+    "burmese": "Burmese (my)",
+    "chinese": "Chinese (zh)",
+    "english": "English (en)",
+    "filipino": "Filipino (tl)",
+    "hindi": "Hindi (hi)",
+    "indonesian": "Indonesian (id)",
+    "japanese": "Japanese (ja)",
+    "khmer": "Khmer (km)",
+    "korean": "Korean (ko)",
+    "laotian": "Laotian (lo)",
+    "malay": "Malay (ms)",
+    "spanish": "Spanish (es)",
+    "thai": "Thai (th)" ,
+    "vietnamese": "Vietnamese (vi)"
+  }
+}
