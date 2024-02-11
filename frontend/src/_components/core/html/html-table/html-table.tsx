@@ -3,11 +3,17 @@ import { TableConfig } from "./html-table.types";
 export type HTMLTableProps = {
   id: string;
   className?: string;
+  classNameCells?: string;
   data: object[];
   config: TableConfig;
 };
 
-export const HTMLTable = ({ id, className, config }: HTMLTableProps) => {
+export const HTMLTable = ({
+  id,
+  className,
+  classNameCells,
+  config,
+}: HTMLTableProps) => {
   return (
     <table id={id} className={className}>
       {config.caption && (
@@ -21,7 +27,9 @@ export const HTMLTable = ({ id, className, config }: HTMLTableProps) => {
           {config.header.rows.map((rowConfig) => (
             <tr className={rowConfig.className}>
               {rowConfig.cells.map((cellConfig) => (
-                <th className={cellConfig.className}>{cellConfig.children}</th>
+                <th className={`${classNameCells} ${cellConfig.className}`}>
+                  {cellConfig.children}
+                </th>
               ))}
             </tr>
           ))}
@@ -32,7 +40,7 @@ export const HTMLTable = ({ id, className, config }: HTMLTableProps) => {
         {config.body.rows.map((rowConfig) => (
           <tr className={rowConfig.className}>
             {rowConfig.cells.map((cellConfig) => (
-              <td className={cellConfig.className}>{cellConfig.children}</td>
+              <td className={`${classNameCells} ${cellConfig.className}`}>{cellConfig.children}</td>
             ))}
           </tr>
         ))}
@@ -43,7 +51,7 @@ export const HTMLTable = ({ id, className, config }: HTMLTableProps) => {
           {config.footer.rows.map((rowConfig) => (
             <tr className={rowConfig.className}>
               {rowConfig.cells.map((cellConfig) => (
-                <td className={cellConfig.className}>{cellConfig.children}</td>
+                <td className={`${classNameCells} ${cellConfig.className}`}>{cellConfig.children}</td>
               ))}
             </tr>
           ))}

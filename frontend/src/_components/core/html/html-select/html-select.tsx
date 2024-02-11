@@ -4,6 +4,7 @@ import { HTMLSelectConfig } from "./html-select.types";
 
 export type HTMLSelectProps = CommonElementProps &
   UniqueElementProps & {
+    classNameOption?: string;
     name: string;
     config: HTMLSelectConfig;
     defaultValue?: string;
@@ -12,6 +13,7 @@ export type HTMLSelectProps = CommonElementProps &
 
 export const HTMLSelect = ({
   className,
+  classNameOption,
   config,
   defaultValue,
   id,
@@ -19,16 +21,16 @@ export const HTMLSelect = ({
   onChange,
 }: HTMLSelectProps) => {
   return (
-    <select id={id} className={className} name={name} defaultValue={defaultValue} onChange={onChange}>
+    <select id={id} className={`${className}`} name={name} defaultValue={defaultValue} onChange={onChange}>
       {config.options.map((optionGroup) => {
         if ("options" in optionGroup) {
           return (
             <optgroup
-              className={optionGroup.className}
+              className={`${classNameOption} ${optionGroup.className}`}
               label={optionGroup.label}
             >
               {optionGroup.options.map((option) => (
-                <option className={option.className} value={option.value}>
+                <option className={`${classNameOption} ${option.className}`} value={option.value}>
                   {option.text}
                 </option>
               ))}
@@ -36,7 +38,7 @@ export const HTMLSelect = ({
           );
         } else {
           return (
-            <option className={optionGroup.className} value={optionGroup.value}>
+            <option className={`${classNameOption} ${optionGroup.className}`} value={optionGroup.value}>
               {optionGroup.text}
             </option>
           );

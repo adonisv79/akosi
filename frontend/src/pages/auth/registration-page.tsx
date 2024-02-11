@@ -54,7 +54,7 @@ export const RegistrationPage = () => {
   return (
     <HTMLSection
       id="akosi-login-container"
-      className="min-w-96 bg-white p-8 rounded-md shadow-md"
+      className="min-w-96 bg-white text-black p-8 rounded-md shadow-md"
     >
       <div className="text-right mb-5">
         <AkosiLanguagePicker className="text-black bg-white" />

@@ -7,10 +7,9 @@ import { HTMLLink } from "../_components/core/html/html-link";
 export const HomePage = () => {
   const { t } = useTranslation();
   return (
-    <HTMLSection id="homepage-container">
-      <AkosiLanguagePicker />
-      <ALVTypography type="h1">{t("homePage.welcomeHeader")}</ALVTypography>
-
+    <HTMLSection id="homepage-container" className="text-white">
+      <AkosiLanguagePicker classNameOption="bg-red-500" />
+      <ALVTypography type="h1" className="my-6 p-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">{t("homePage.welcomeHeader")}</ALVTypography>
       <ALVTypography>
         <Trans
           t={t}

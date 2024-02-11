@@ -26,7 +26,7 @@ export const AkosiTextBoxUsername = ({
       className="mt-1 w-full"
       placeholder={texts.placeholder}
       title={texts.title}
-      actionElement={<span className="w-6"> :)</span>}
+      actionElement={<span className="w-6"> </span>}
       value={value}
       minLength={MIN_LENGTH}
       maxLength={MAX_LENGTH}

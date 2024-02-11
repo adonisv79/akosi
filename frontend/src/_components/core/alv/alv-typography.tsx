@@ -59,7 +59,7 @@ export const ALVTypography = ({
       ? " text-gray-100"
       : theme === "primary"
       ? " text-white"
-      : " text-gray-900";
+      : " text-inherit";
 
   const consolidatedClasses = `${classSize} ${classBoldened} ${classItalicized} ${classTheme} ${className}`;
   switch (type) {
