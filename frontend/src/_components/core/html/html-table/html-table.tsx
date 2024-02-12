@@ -4,7 +4,6 @@ export type HTMLTableProps = {
   id: string;
   className?: string;
   classNameCells?: string;
-  data: object[];
   config: TableConfig;
 };
 

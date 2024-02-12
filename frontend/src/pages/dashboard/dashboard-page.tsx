@@ -2,17 +2,16 @@ import { useTranslation } from "react-i18next";
 import { AkosiButton } from "../../_components/akosi/common/akosi-button";
 import { HTMLTable } from "../../_components/core/html/html-table/html-table";
 import { TableConfig } from "../../_components/core/html/html-table/html-table.types";
-import { getUserSession } from "../../helpers/get-user-session";
 import { useNavigate } from "react-router-dom";
 import { AkosiLanguagePicker } from "../../_components/akosi/common/akosi-lang-picker";
 import { ALVTypography } from "../../_components/core/alv/alv-typography";
-import { useUserHistoryQuery } from "../../api/queries/users-query";
+import useUserSession from "../../hooks/use-user-session";
+import { UseerHistoriesTable } from "./user-histories-table";
 
 export const DashboardPage = () => {
   const { t } = useTranslation();
   const navigateTo = useNavigate();
-  const session = getUserSession();
-  const {data} = useUserHistoryQuery(session?.userId)
+  const session = useUserSession()
   const handleSignOut = async () => {
     // send a delete session request to backend
     sessionStorage.removeItem("accessToken");
@@ -85,7 +84,6 @@ export const DashboardPage = () => {
     },
   };
 
-  console.log(JSON.stringify(data));
   return (
     <>
       <AkosiLanguagePicker
@@ -97,10 +95,10 @@ export const DashboardPage = () => {
           {" "}
           HELLO {session?.username}
         </ALVTypography>
+
         <HTMLTable
           id="user-information"
           config={config}
-          data={[]}
           className="bg-gray-800"
           classNameCells="border px-2"
         />
@@ -112,6 +110,7 @@ export const DashboardPage = () => {
             🏠
           </AkosiButton>
         </div>
+        <UseerHistoriesTable />
       </div>
     </>
   );

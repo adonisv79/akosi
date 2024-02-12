@@ -1,4 +1,6 @@
-export function getUserSession() {
+import { useState } from 'react';
+
+function getUserSession() {
   try {
     const token = sessionStorage.getItem("accessToken");
     if (!token) return null;
@@ -19,4 +21,10 @@ export function getUserSession() {
       exp: jsonPayload.exp,
     };
   } catch (err) {}
+}
+
+export default function useUserSession() {
+  const [value] = useState(getUserSession());
+
+  return value;
 }
