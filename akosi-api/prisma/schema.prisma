@@ -6,46 +6,95 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id              String    @id @default(uuid()) @db.Uuid
-  username        String    @db.VarChar(255) @unique  @map(name: "user_name")
-  passwordHash    String    @db.VarChar(255) @map(name: "password_hash")
-  createdDate     DateTime  @db.Timestamp()  @map(name: "created_date")         @default(now())
-  lastUpdateDate  DateTime  @db.Timestamp()  @map(name: "last_updated_date")    @default(now())
-  profileNames    UserProfileName[]
-  activities      UserActivityLog[]
-  
-  @@map("users")
-  @@index([id], name: "idx_users_id") 
-  @@index([username], name: "idx_users_username") 
+model Email {
+  id      String @id @default(uuid()) @db.Char(36)
+  address String @unique @map(name: "address") @db.VarChar(255)
+
+  activities EmailActivityLog[]
+  users      UserEmail[]
+
+  @@index([id], name: "idx_email_id")
+  @@index([address], name: "idx_emails_address")
+  @@map("emails")
 }
 
-model UserProfileName {
-  userId          String    @id @db.Uuid @map(name: "user_id")
-  givenName       String    @db.VarChar(255) @map(name: "given_name")
-  middleName      String?   @db.VarChar(255) @map(name: "middle_name")
-  surname         String?   @db.VarChar(255) @map(name: "surname")
-  patronymicName  String?   @db.VarChar(255) @map(name: "patronymic_name")
-  honorificTitle  String?   @db.VarChar(255) @map(name: "honorific_title")
-  nameSuffix      String?   @db.VarChar(255) @map(name: "name_suffix")
-  createdDate     DateTime  @db.Timestamp()  @map(name: "created_date")         @default(now())
-  lastUpdateDate  DateTime  @db.Timestamp()  @map(name: "last_updated_date")    @default(now())
+model EmailActivityLog {
+  id          Int      @id @default(autoincrement())
+  emailId     String   @map(name: "email_id") @db.Char(36)
+  activityId  Int      @map(name: "activity_id") @db.SmallInt
+  data        Json?    @db.Json
+  createdDate DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @map(name: "created_date") @db.Timestamp()
 
-  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  @@map("user_profile_names")
-  @@index([userId], name: "idx_user_profile_names_userid") 
+  email Email @relation(fields: [emailId], references: [id], onDelete: Cascade)
+
+  @@index([emailId], name: "idx_emailactivitylogs_emailid")
+  @@map("email_activity_logs")
+}
+
+model User {
+  id             String   @id @default(uuid()) @db.Char(36)
+  username       String   @unique @map(name: "user_name") @db.VarChar(255)
+  passwordHash   String   @map(name: "password_hash") @db.VarChar(255)
+  createdDate    DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @map(name: "created_date") @db.Timestamp()
+  lastUpdateDate DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @map(name: "last_updated_date") @db.Timestamp()
+
+  activities UserActivityLog[]
+  emails     UserEmail[]
+  profiles   UserProfile[]
+
+  @@index([id], name: "idx_users_id")
+  @@index([username], name: "idx_users_username")
+  @@map("users")
+}
+
+model UserEmail {
+  userId           String    @map(name: "user_id") @db.Char(36)
+  emailId          String    @map(name: "email_id") @db.Char(36)
+  verifiedDate     DateTime? @map(name: "verified_date")
+  verificationCode String    @map(name: "vcode") @db.VarChar(10)
+
+  user        User          @relation(fields: [userId], references: [id])
+  Email       Email         @relation(fields: [emailId], references: [id])
+  UserProfile UserProfile[]
+
+  @@id([userId, emailId])
+  @@map("user_emails")
 }
 
 model UserActivityLog {
-  userId          String    @db.Uuid @map(name: "user_id")
-  activityId      Int       @db.Integer @map(name: "activity_id")
-  createdDate     DateTime  @db.Timestamp()  @map(name: "created_date")    @default(now())
-  
-  user            User      @relation(fields: [userId], references: [id] , onDelete: Cascade)
-  @@id([userId, createdDate])
+  id          Int      @id @default(autoincrement())
+  userId      String   @map(name: "user_id") @db.Char(36)
+  activityId  Int      @map(name: "activity_id") @db.SmallInt
+  data        Json?    @db.Json
+  createdDate DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @map(name: "created_date") @db.Timestamp()
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], name: "idx_useractivitylogs_userid")
   @@map("user_activity_logs")
+}
+
+model UserProfile {
+  id             String   @id @default(uuid()) @db.Char(36)
+  userId         String   @map(name: "user_id") @db.Char(36)
+  isPrimary      Boolean  @map(name: "is_primary") @db.Bit(1)
+  givenName      String   @map(name: "given_name") @db.VarChar(255)
+  middleName     String?  @map(name: "middle_name") @db.VarChar(255)
+  surname        String?  @map(name: "surname") @db.VarChar(255)
+  patronymicName String?  @map(name: "patronymic_name") @db.VarChar(255)
+  honorificTitle String?  @map(name: "honorific_title") @db.VarChar(255)
+  nameSuffix     String?  @map(name: "name_suffix") @db.VarChar(255)
+  createdDate    DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @map(name: "created_date") @db.Timestamp()
+  lastUpdateDate DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @map(name: "last_updated_date") @db.Timestamp()
+  primaryEmailId String?  @unique @map(name: "primary_email_id") @db.Char(36)
+
+  primaryEmail UserEmail? @relation(fields: [userId, primaryEmailId], references: [userId, emailId])
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], name: "idx_userprofiles_userid")
+  @@map("user_profiles")
 }

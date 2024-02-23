@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   async signIn(username: string, password: string) {
-    this.req.logger.warn(`authenticating user "${username}"`);
+    this.req.logger.log(`authenticating user "${username}"`);
     try {
       const userId = await this.usersService.validateUserAndGetId(
         username,

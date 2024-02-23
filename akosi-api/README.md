@@ -43,3 +43,14 @@ This project relies heavily on swagger not only for documentation but also for t
 
 - Author - [Adonis Villamor](https://bytecommander.com)
 - Website - [https://bytecommander.com](https://bytecommander.com/)
+
+
+# MYSQL
+
+## Install mysql via docker
+
+To easily setup your local environment using docker, run the following
+
+```
+docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=admin -d mysql:8.3
+```

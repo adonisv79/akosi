@@ -17,9 +17,21 @@ AKOSI is a centralized IAM (Identity and Access Management) and Authorization Se
 * Nonce - A random value included in the authentication request to prevent replay attacks.
 * Redirect URI - The URI to which the Authorization service will redirect to (with the authorization code) once user has approved or rejecting granting access to required information scopes.
 
-## How it works
+## User Data
 
-### Creating user accounts
+Users by default would start with a basic user record containing bare minimum credential infromations. This record can be expanded further by associating it with emails, profiles, etc.
+
+### Emails
+
+- A user by default does not need to have a primary email. This works in situations where some people do not actualy have one (elderlies, children and people who are not as adept in using modern technologies). This however is recommended as the primary email serves as their account restoration fallback (in case you forgot your credentials) as well as for verification/MFA.
+
+- You can also set multiple emails in a user account. This works in situations where a user's secondary or other profiles should not provide their primary email. (ex: they have a gamer profile, work profile,  personal or financial and these might need separate email accounts)
+
+### Profiles
+
+- A user can have different profiles. Unlike most user authentication systems, we allow multiple profiles to help users abstract private information that they may deem irrelevant. For example, they may have 'gaming' profile where they would prefer not to provide their real name and PII details (unlike in a 'financial' account profile) and instead use aliases or secondary names. They can also have a different primary email address for each of their profiles.
+
+## Creating user accounts
 
 The very first step needed to access the system is by having a user account. Whether your goal is to register for a specific application or server, or create one yourself, you will need to have a user account existing in the database. This accounts can be created independently from any applications or services (clients). Once you have an account, you can join any client or even create your own. 
 
