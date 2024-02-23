@@ -31,7 +31,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from 'src/common/guards/auth.guard';
 import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 
-@ApiTags('User Authentication')
+@ApiTags('Authentication')
 @UseFilters(new HttpExceptionFilter())
 @Controller('/auth')
 export class AuthController {

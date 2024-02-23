@@ -51,6 +51,19 @@ model User {
   @@map("users")
 }
 
+model UserActivityLog {
+  id          Int      @id @default(autoincrement())
+  userId      String   @map(name: "user_id") @db.Char(36)
+  activityId  Int      @map(name: "activity_id") @db.SmallInt
+  data        Json?    @db.Json
+  createdDate DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @map(name: "created_date") @db.Timestamp()
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], name: "idx_useractivitylogs_userid")
+  @@map("user_activity_logs")
+}
+
 model UserEmail {
   userId           String    @map(name: "user_id") @db.Char(36)
   emailId          String    @map(name: "email_id") @db.Char(36)
@@ -63,19 +76,6 @@ model UserEmail {
 
   @@id([userId, emailId])
   @@map("user_emails")
-}
-
-model UserActivityLog {
-  id          Int      @id @default(autoincrement())
-  userId      String   @map(name: "user_id") @db.Char(36)
-  activityId  Int      @map(name: "activity_id") @db.SmallInt
-  data        Json?    @db.Json
-  createdDate DateTime @default(dbgenerated("CURRENT_TIMESTAMP")) @map(name: "created_date") @db.Timestamp()
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId], name: "idx_useractivitylogs_userid")
-  @@map("user_activity_logs")
 }
 
 model UserProfile {
