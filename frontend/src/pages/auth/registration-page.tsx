@@ -56,6 +56,8 @@ export const RegistrationPage = () => {
 
   const handleSubmit = async (formData: Record<string, string>) => {
     try {
+      if (formData["password"] !== formData["password-confirm"])
+        throw new Error('Passwords do not match')
       createUser({
         username: formData["username"],
         password: formData["password"],

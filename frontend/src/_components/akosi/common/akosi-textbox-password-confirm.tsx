@@ -48,7 +48,8 @@ export const AkosiTextBoxPasswordConfirm = ({
             <span title={texts.isEmpty}>☑️</span>
           )}
         </span>
-      }
+      }      
+      pattern={`^${currentPassword}$`}
       value={confirmValue}
       onChange={handleOnChange}
     />

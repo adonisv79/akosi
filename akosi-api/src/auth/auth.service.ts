@@ -60,8 +60,6 @@ export class AuthService {
       );
       return { accessToken };
     } catch (err) {
-      // this.errors.handlePrismaConnectivityErrors(err, LOGGER_CONTEXT);
-      // this.errors.handleGeneralError(err, LOGGER_CONTEXT);
       throw err;
     }
   }

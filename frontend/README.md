@@ -12,6 +12,7 @@ This serves as the official documentation for the AKOSI UI/UX
 * pages - this folder contains main components that act as route landing pages
 * stories - this folder contains all the stories for storybook.
 
+
 ## Running the project
 
 Install dependencies by running the following
@@ -28,6 +29,19 @@ Run storybook (if you want to test and feel the components)
 ```
 pnpm storybook
 ```
+
+## Syncing with the API
+
+### Types
+
+This project utilizes OpenAPI-Typescript module to sync data types with the backend via Swagger. To generate/sync the latest type updates (if any), first make sure the backend server is runing in the local machine. Then run the following
+
+```
+pnpm generate:types
+```
+
+This will run the package.json script to generate or update `api.types.ts`
+
 
 ## Data Storages
 

@@ -104,7 +104,7 @@ export class AuthController {
   })
   @ApiBearerAuth()
   @ApiBody({
-    type: UserCredentialsDto,
+    type: PasswordDto,
     examples: {
       basic: {
         value: { password: 'Th1sIsNot@GoodPassword' },

@@ -7,8 +7,10 @@ import { AkosiLanguagePicker } from "../../_components/akosi/common/akosi-lang-p
 import { ALVTypography } from "../../_components/core/alv/alv-typography";
 import { UserHistoriesTable } from "./user-histories-table";
 import { Logger } from "../../helpers/logger";
-import { useContext } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { UserSessionContext } from "../../hooks/user-session.context";
+import { useDeleteAccountMutation } from "../../api/queries/auth-query";
+import { AkosiTextBoxPassword } from "../../_components/akosi/common/akosi-textbox-password";
 
 const COMPONENT_NAME = 'MainDashboard'
 
@@ -18,11 +20,23 @@ export const DashboardPage = () => {
   const session = useContext(UserSessionContext);
   const { t } = useTranslation();
   const navigateTo = useNavigate();
+  const accountDelete = useDeleteAccountMutation();
+  const [password, setPassword] = useState('');
+
   const handleSignOut = async () => {
     if (!session) return;
     // todo: send a delete session request to backend
     session.killSession();
   };
+
+  const handlePassChanged = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.currentTarget.value);
+  }
+
+  const handleDelete = async () => {
+    await accountDelete.mutateAsync({ password });
+    await handleSignOut();
+  }
 
   if (!session.token) return null;
 
@@ -118,6 +132,12 @@ export const DashboardPage = () => {
           </AkosiButton>
         </div>
         <UserHistoriesTable />
+      </div>
+      <div>
+        <AkosiTextBoxPassword onChange={handlePassChanged} value={password} texts={{title: 'ENter password', btnShowPassword: { title: 'sad'}, placeholder: 'ss'}} />
+      <AkosiButton id="delete-user" onClick={handleDelete}>
+            Delete
+          </AkosiButton>
       </div>
     </>
   );
