@@ -1,9 +1,14 @@
 import { useState } from 'react';
+import { Logger } from '../helpers/logger';
+import { UserSessionTokenType } from './user-session.context';
 
-function getUserSession() {
+const COMPONENT_NAME = 'useUserSession' 
+
+
+function getUserSessionToken(): UserSessionTokenType | undefined {
   try {
     const token = sessionStorage.getItem("accessToken");
-    if (!token) return null;
+    if (!token) return undefined;
     const base64Url = token.split(".")[1];
     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
     const jsonPayloadString = decodeURIComponent(
@@ -24,7 +29,24 @@ function getUserSession() {
 }
 
 export default function useUserSession() {
-  const [value] = useState(getUserSession());
+  const logger = new Logger(COMPONENT_NAME)
+  const [sessionToken, setSessionToken] = useState(getUserSessionToken());
 
-  return value;
+  const setToken = (accessToken: string) => {
+    logger.info('Session Access token is being set');
+    sessionStorage.setItem("accessToken", accessToken);
+    setSessionToken(getUserSessionToken());
+  }
+
+  const killSession = () => {
+    logger.warn('Session Access token is being unset');
+    sessionStorage.removeItem("accessToken");
+    setSessionToken(undefined);
+  }
+
+  return {
+    token: sessionToken,
+    setToken,
+    killSession,
+  }
 }

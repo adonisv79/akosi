@@ -31,7 +31,7 @@ export const AkosiTextBoxPasswordConfirm = ({
 
   return (
     <ALVTextBox
-      id={`login-password-confirm"}`}
+      id={'login-password-confirm'}
       form={{ id: "password-confirm", isRequiredToSubmit: true }}
       type="password"
       size="sm"

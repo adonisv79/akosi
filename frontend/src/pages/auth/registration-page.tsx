@@ -8,12 +8,20 @@ import { HTMLLink } from "../../_components/core/html/html-link";
 import { HTMLSection } from "../../_components/core/html/html-section";
 import { AkosiTextBoxPassword } from "../../_components/akosi/common/akosi-textbox-password";
 import { AkosiTextBoxPasswordConfirm } from "../../_components/akosi/common/akosi-textbox-password-confirm";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { AkosiTextBoxUsername } from "../../_components/akosi/common/akosi-textbox-username";
 import { useCreateAccountMutation } from "../../api/queries/auth-query";
 import { useNavigate } from "react-router-dom";
+import { Logger } from "../../helpers/logger";
+import { UserSessionContext } from "../../hooks/user-session.context";
+
+const COMPONENT_NAME = "RegistrationPage";
 
 export const RegistrationPage = () => {
+  const logger = new Logger(COMPONENT_NAME);
+  logger.info(`Mounting ${COMPONENT_NAME}`);
+  const session = useContext(UserSessionContext);
+
   const { t } = useTranslation();
   const navigateTo = useNavigate();
   const {
@@ -26,9 +34,15 @@ export const RegistrationPage = () => {
   const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
-    if (data) {
-      sessionStorage.setItem("accessToken", data.accessToken);
+    if (session.token) {
+      logger.info(`Session exists, redirecting to home screen`);
       navigateTo("/dash");
+    }
+  }, [session.token]);
+
+  useEffect(() => {
+    if (data) {
+      session.setToken(data.accessToken);
     }
   }, [data]);
 
@@ -47,7 +61,7 @@ export const RegistrationPage = () => {
         password: formData["password"],
       });
     } catch (err) {
-      if (err instanceof Error) console.error(err.message);
+      if (err instanceof Error) logger.error(err.message, err);
     }
   };
 

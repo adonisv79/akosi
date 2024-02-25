@@ -1,11 +1,17 @@
+import { useContext } from "react";
 import { HTMLTable } from "../../_components/core/html/html-table/html-table";
 import { TableConfig } from "../../_components/core/html/html-table/html-table.types";
 import { useUserHistoryQuery } from "../../api/queries/users-query";
-import useUserSession from "../../hooks/use-user-session";
+import { Logger } from "../../helpers/logger";
+import { UserSessionContext } from "../../hooks/user-session.context";
 
-export const UseerHistoriesTable = () => {
-  const session = useUserSession();
-  const { data: histories } = useUserHistoryQuery(session?.userId);
+const COMPONENT_NAME = "UserHistoriesTable";
+
+export const UserHistoriesTable = () => {
+  const logger = new Logger(COMPONENT_NAME);
+  logger.info(`Mounting ${COMPONENT_NAME}`);
+  const session = useContext(UserSessionContext);
+  const { data: histories } = useUserHistoryQuery(session.token?.userId);
 
   if (!histories) return null;
 
@@ -17,7 +23,7 @@ export const UseerHistoriesTable = () => {
     rows: [
       {
         cells: [
-          { children: <>Date</>},
+          { children: <>Date</> },
           { children: <>User</> },
           { children: <>Action</> },
         ],

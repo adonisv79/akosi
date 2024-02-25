@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import api from "../services/api-services";
 import { AxiosError } from "axios";
+import { useAPI } from "../services/use-api";
 
 type AuthData = {
   username: string;
@@ -8,6 +8,7 @@ type AuthData = {
 };
 
 export const useSignInAccountMutation = () => {
+  const api = useAPI();
   return useMutation({
     mutationFn: async (authData: AuthData) => {
       const response = await api.post("/auth/login", authData);
@@ -17,6 +18,7 @@ export const useSignInAccountMutation = () => {
 };
 
 export const useCreateAccountMutation = () => {
+  const api = useAPI();
   return useMutation({
     mutationFn: async (authData: AuthData) => {
       const response = await api.post("/auth", authData);
@@ -29,6 +31,7 @@ export const useCreateAccountMutation = () => {
 };
 
 export const useUpdateCredentialsMutation = () => {
+  const api = useAPI();
   return useMutation({
     mutationFn: async (updatedAuthData: AuthData) => {
       const response = await api.put("/auth", updatedAuthData);
@@ -38,6 +41,7 @@ export const useUpdateCredentialsMutation = () => {
 };
 
 export const useDeleteAccountMutation = () => {
+  const api = useAPI();
   return useMutation({
     mutationFn: async () => {
       const response = await api.delete("/auth");

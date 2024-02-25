@@ -5,25 +5,32 @@ import { TableConfig } from "../../_components/core/html/html-table/html-table.t
 import { useNavigate } from "react-router-dom";
 import { AkosiLanguagePicker } from "../../_components/akosi/common/akosi-lang-picker";
 import { ALVTypography } from "../../_components/core/alv/alv-typography";
-import useUserSession from "../../hooks/use-user-session";
-import { UseerHistoriesTable } from "./user-histories-table";
+import { UserHistoriesTable } from "./user-histories-table";
+import { Logger } from "../../helpers/logger";
+import { useContext } from "react";
+import { UserSessionContext } from "../../hooks/user-session.context";
+
+const COMPONENT_NAME = 'MainDashboard'
 
 export const DashboardPage = () => {
+  const logger = new Logger(COMPONENT_NAME);
+  logger.info(`Mounting ${COMPONENT_NAME}`);
+  const session = useContext(UserSessionContext);
   const { t } = useTranslation();
   const navigateTo = useNavigate();
-  const session = useUserSession()
   const handleSignOut = async () => {
-    // send a delete session request to backend
-    sessionStorage.removeItem("accessToken");
-    navigateTo("/");
+    if (!session) return;
+    // todo: send a delete session request to backend
+    session.killSession();
   };
 
-  if (!session) return null;
+  if (!session.token) return null;
+
   const minutesRemaining = Math.round(
-    (session.exp * 1000 - Date.now()) / 60000
+    (session.token.exp * 1000 - Date.now()) / 60000
   );
   const secondsRemaining =
-    Math.round(session.exp * 1000 - Date.now()) - minutesRemaining * 60000;
+    Math.round(session.token.exp * 1000 - Date.now()) - minutesRemaining * 60000;
   const config: TableConfig = {
     header: {
       className: "border",
@@ -35,31 +42,31 @@ export const DashboardPage = () => {
         {
           cells: [
             { children: <>Username: </> },
-            { children: <>{session.username}</> },
+            { children: <>{session.token.username}</> },
           ],
         },
         {
           cells: [
             { children: <>User Id: </> },
-            { children: <>{session.userId}</> },
+            { children: <>{session.token.userId}</> },
           ],
         },
         {
           cells: [
             { children: <>Member Since: </> },
-            { children: <>{session.memberSince}</> },
+            { children: <>{session.token.memberSince}</> },
           ],
         },
         {
           cells: [
             { children: <>Session Token Issued at: </> },
-            { children: <>{new Date(session.iat * 1000).toISOString()}</> },
+            { children: <>{new Date(session.token.iat * 1000).toISOString()}</> },
           ],
         },
         {
           cells: [
             { children: <>Session Token Expires at: </> },
-            { children: <>{new Date(session.exp * 1000).toISOString()}</> },
+            { children: <>{new Date(session.token.exp * 1000).toISOString()}</> },
           ],
         },
         {
@@ -93,7 +100,7 @@ export const DashboardPage = () => {
       <div>
         <ALVTypography type="h3" className="py-4">
           {" "}
-          HELLO {session?.username}
+          HELLO {session.token.username}
         </ALVTypography>
 
         <HTMLTable
@@ -110,7 +117,7 @@ export const DashboardPage = () => {
             🏠
           </AkosiButton>
         </div>
-        <UseerHistoriesTable />
+        <UserHistoriesTable />
       </div>
     </>
   );

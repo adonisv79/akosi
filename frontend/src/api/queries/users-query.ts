@@ -1,15 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
-import api from "../services/api-services";
 import { UsersHistoriesResponseDto } from "../api.types";
+import { useAPI } from "../services/use-api";
 
-const fetchHistories = async (userId: string): Promise<UsersHistoriesResponseDto[]> => {
-  const response = await api.get(`/users/${userId}/histories`);
-  return response.data;
-}
+export const useUserHistoryQuery = (userId?: string) => {
+  const api = useAPI();
 
-export const useUserHistoryQuery = (userId: string) => {
+  const fetchHistories = async (
+    userId?: string,
+  ): Promise<UsersHistoriesResponseDto[]> => {
+    if (!userId) return [];
+    const response = await api.get(`/users/${userId}/histories`);
+    return response.data;
+  };
+  
   return useQuery({
-    queryKey: ['get-user-histories', userId],
-    queryFn: async () => await fetchHistories(userId)
+    queryKey: ["get-user-histories", userId],
+    queryFn: async () => await fetchHistories(userId),
+    throwOnError: true,
   });
 };
