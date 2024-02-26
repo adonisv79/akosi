@@ -11,6 +11,7 @@ import { ChangeEvent, useContext, useState } from "react";
 import { UserSessionContext } from "../../hooks/user-session.context";
 import { useDeleteAccountMutation } from "../../api/queries/auth-query";
 import { AkosiTextBoxPassword } from "../../_components/akosi/common/akosi-textbox-password";
+import { UserProfilesList } from "../user/user-profile/user-profiles-list";
 
 const COMPONENT_NAME = 'MainDashboard'
 
@@ -116,6 +117,8 @@ export const DashboardPage = () => {
           {" "}
           HELLO {session.token.username}
         </ALVTypography>
+
+        <UserProfilesList />
 
         <HTMLTable
           id="user-information"

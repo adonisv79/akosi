@@ -33,6 +33,11 @@ export interface paths {
   };
   "/users/{userId}/profiles": {
     /**
+     * Fetches the profile for the user
+     * @description This allows a user to fetch all of their profiles. Default sorted by primary profile flag, given name then surname.
+     */
+    get: operations["UserProfilesController_GetUserProfiles"];
+    /**
      * Creates a new profile for the user
      * @description This allows a user to add a new profile to their account. If this is the first profile they made, it becomes the user's primary profile
      */
@@ -78,7 +83,23 @@ export interface components {
        */
       createdDate: string;
     };
-    CreateUserProfileBody: {
+    UserProfileDto: {
+      /** @description The given, personal or primary name. This includes second name if you have one. */
+      givenName: string;
+      /** @description The middle name (if applicable) is a part of a name that may derive from your mother's maiden surname or both parents depending on your culture. */
+      middleName?: string;
+      /** @description The surname (a.k.a. lastname, family name, patrymonic or matrynomic name) is the part of the name that is passed down to indicate ancestry and is what is used by most cultures */
+      surname?: string;
+      /** @description (In cases patronymic names are not part of ones surname) The patronymic name is part of the name to indicate relation to the father which is applied in some culture (i.e. Russia, Greece, Armenia, and Georgia). For Iceland, use surname for patronymic or matronymic fields */
+      patronymicName?: string;
+      /** @description Honorific titles are part of names to formaly convey status */
+      honorificTitle?: string;
+      /** @description Name suffixes, like honorific titles, are elements added to the end of a person's name to convey additional information or respect. Suffixes can serve various purposes and may indicate factors such as academic degrees, professional qualifications, or hereditary titles */
+      nameSuffix?: string;
+      /** @description Unique record identifier for the profile */
+      id: string;
+    };
+    UserProfileFieldsDto: {
       /** @description The given, personal or primary name. This includes second name if you have one. */
       givenName: string;
       /** @description The middle name (if applicable) is a part of a name that may derive from your mother's maiden surname or both parents depending on your culture. */
@@ -216,6 +237,26 @@ export interface operations {
     };
   };
   /**
+   * Fetches the profile for the user
+   * @description This allows a user to fetch all of their profiles. Default sorted by primary profile flag, given name then surname.
+   */
+  UserProfilesController_GetUserProfiles: {
+    parameters: {
+      path: {
+        /** @description The unique user identifier */
+        userId: string;
+      };
+    };
+    responses: {
+      /** @description Successfully retrieverd the user profiles */
+      200: {
+        content: {
+          "application/json": components["schemas"]["UserProfileDto"][];
+        };
+      };
+    };
+  };
+  /**
    * Creates a new profile for the user
    * @description This allows a user to add a new profile to their account. If this is the first profile they made, it becomes the user's primary profile
    */
@@ -228,12 +269,15 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["CreateUserProfileBody"];
+        "application/json": components["schemas"]["UserProfileFieldsDto"];
       };
     };
     responses: {
-      201: {
-        content: never;
+      /** @description Successfully created the user profiles */
+      200: {
+        content: {
+          "application/json": components["schemas"]["UserProfileDto"];
+        };
       };
     };
   };

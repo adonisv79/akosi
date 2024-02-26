@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsNotEmpty, IsOptional } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
-export class CreateUserProfileBody {
+export class UserProfileFieldsDto {
   @ApiProperty({
     description: 'The given, personal or primary name. This includes second name if you have one.',
     required: true,
@@ -55,4 +55,15 @@ export class CreateUserProfileBody {
   })
   @IsOptional()
   nameSuffix?: string;
+}
+
+export class UserProfileDto extends UserProfileFieldsDto {
+  @ApiProperty({
+    description: 'Unique record identifier for the profile',
+    type: String,
+    required: true,
+  })
+  @IsNotEmpty()
+  @IsString()
+  id!: string;
 }

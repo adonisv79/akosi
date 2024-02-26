@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { UsersParamsDto } from '../dto/users.dto';
-import { CreateUserProfileBody } from './user-profiles.dto';
+import { UserProfileFieldsDto } from './user-profiles.dto';
 import { PrismaService } from 'src/prisma.service';
 import { Request } from 'express';
 import { REQUEST } from '@nestjs/core';
@@ -17,19 +17,34 @@ export class UserProfilesService {
     private prisma: PrismaService,
   ) {}
 
-  private isUserIdCurrentUser(param: UsersParamsDto) {
-    return this.req.user?.id === param.userId;
+  private validateIsUserIdCurrentUser(param: UsersParamsDto) {
+    if (this.req.user?.id !== param.userId) {
+      this.req.logger.warn(
+        `User with id#${this.req.user.id} attempted to access user with id#${param.userId}'s profiles`,
+      );
+      throw new ForbiddenException();
+    }
   }
 
-  async addUserProfile(param: UsersParamsDto, body: CreateUserProfileBody) {
+  async getUserProfiles(param: UsersParamsDto) {
+    this.req.logger.log(`Adding profile for userid:${param.userId}`);
+    this.validateIsUserIdCurrentUser(param);
+    return await this.prisma.userProfile.findMany({
+      where: {
+        userId: param.userId
+      },
+      orderBy: [
+        { isPrimary: 'desc' },
+        { givenName: 'asc' },
+        { surname: 'asc' }
+      ]
+    });
+  }
+
+  async addUserProfile(param: UsersParamsDto, body: UserProfileFieldsDto) {
     try {
       this.req.logger.log(`Adding profile for userid:${param.userId}`);
-      if (!this.isUserIdCurrentUser(param)) {
-        this.req.logger.warn(
-          `User with id#${this.req.user.id} attempted to access user with id#${param.userId}'s profiles`,
-        );
-        throw new ForbiddenException();
-      }
+      this.validateIsUserIdCurrentUser(param);
       const user = await this.prisma.user.findFirst({
         select: { id: true, profiles: true },
         where: { id: param.userId },

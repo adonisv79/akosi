@@ -62,6 +62,7 @@
   },
   "profiles": {
     "form": {
+      "createProfileButton": "Create profile",
       "headerCreate": "Create new profile",
       "headerUpdate": "Update profile",
       "firstNameLabel": "First name",

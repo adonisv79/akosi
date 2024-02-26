@@ -4,12 +4,24 @@ import { ALVTypography } from "../../../_components/core/alv/alv-typography";
 import { HTMLSection } from "../../../_components/core/html/html-section";
 import { HTMLForm } from "../../../_components/core/html/html-form";
 import { HTMLLabel } from "../../../_components/core/html/html-label";
-import { AkosiTextBoxUsername } from "../../../_components/akosi/common/akosi-textbox-username";
+import { AkosiTextBox } from "../../../_components/akosi/common/akosi-textbox";
+import { AkosiButton } from "../../../_components/akosi/common/akosi-button";
+import { useUserProfilesMutation } from "../../../api/queries/user-profiles-mutation";
+import { useContext, useEffect } from "react";
+import { UserSessionContext } from "../../../hooks/user-session.context";
 
 export const CreateUserProfile = () => {
   const { t } = useTranslation();
+  const session = useContext(UserSessionContext);
+  const { data: newProfile, mutate: createProfile } = useUserProfilesMutation(session.token?.userId)
 
-  const handleSubmit = () => {};
+  useEffect(() => {
+    if (newProfile) alert(JSON.stringify(newProfile));
+  }, [newProfile])
+
+  const handleSubmit = (formData: Record<string, string>) => {
+    createProfile({ givenName: formData['firstname'], middleName: formData['middlename'], surname: formData['lastname'] })
+  };
 
   return (
     <HTMLSection
@@ -30,7 +42,11 @@ export const CreateUserProfile = () => {
               {t("profiles.form.firstNameLabel")}
             </HTMLLabel>
           </ALVTypography>
-          <AkosiTextBoxUsername
+          <AkosiTextBox
+            id="firstname"
+            minLength={2}
+            maxLength={150}
+            isRequiredToSubmit
             texts={{
               placeholder: t("profiles.form.firstNamePlaceholder"),
               title: t("profiles.form.firstNameTooltip"),
@@ -44,7 +60,9 @@ export const CreateUserProfile = () => {
               {t("profiles.form.middleNameLabel")}
             </HTMLLabel>
           </ALVTypography>
-          <AkosiTextBoxUsername
+          <AkosiTextBox
+            id="middlename"
+            maxLength={150}
             texts={{
               placeholder: t("profiles.form.middleNamePlaceholder"),
               title: t("profiles.form.middleNameTooltip"),
@@ -58,13 +76,25 @@ export const CreateUserProfile = () => {
               {t("profiles.form.lastNameLabel")}
             </HTMLLabel>
           </ALVTypography>
-          <AkosiTextBoxUsername
+          <AkosiTextBox
+            id="lastname"
+            maxLength={150}
             texts={{
               placeholder: t("profiles.form.lastNamePlaceholder"),
               title: t("profiles.form.lastNameTooltip"),
             }}
           />
         </div>
+
+        <AkosiButton
+          type="submit"
+          id="create-profile-button"
+          theme="primary"
+          borderRounding="full"
+          className="mb-4 px-4 py-2 w-full"
+        >
+          {t("profiles.form.createProfileButton")}
+        </AkosiButton>
       </HTMLForm>
     </HTMLSection>
   );

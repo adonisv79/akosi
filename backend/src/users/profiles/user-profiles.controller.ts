@@ -1,6 +1,6 @@
-import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
-import { CreateUserProfileBody } from './user-profiles.dto';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { UserProfileFieldsDto, UserProfileDto } from './user-profiles.dto';
+import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UsersParamsDto } from '../dto/users.dto';
 import { AuthGuard } from 'src/common/guards/auth.guard';
 import { UserProfilesService } from './user-profiles.service';
@@ -14,11 +14,23 @@ export class UserProfilesController {
 
   @ApiOperation({
     summary:
+      "Fetches the profile for the user",
+      description: "This allows a user to fetch all of their profiles. Default sorted by primary profile flag, given name then surname."
+  })
+  @Get('/')
+  @ApiOkResponse({ description: 'Successfully retrieverd the user profiles', type: [UserProfileDto]})
+  async GetUserProfiles(
+    @Param() param: UsersParamsDto): Promise<UserProfileDto[]> {
+      return await this.profiles.getUserProfiles(param);
+  }
+
+  @ApiOperation({
+    summary:
       "Creates a new profile for the user",
       description: "This allows a user to add a new profile to their account. If this is the first profile they made, it becomes the user's primary profile"
   })
   @ApiBody({
-    type: CreateUserProfileBody,
+    type: UserProfileFieldsDto,
     required: true,
     examples: {
       basicWestern: {
@@ -90,11 +102,12 @@ export class UserProfilesController {
       },
     },
   })
+  @ApiOkResponse({ description: 'Successfully created the user profiles', type: UserProfileDto})
   @Post('/')
   async createUserProfile(
     @Param() param: UsersParamsDto,
-    @Body() body: CreateUserProfileBody,
-  ) {
+    @Body() body: UserProfileFieldsDto,
+  ): Promise<UserProfileDto> {
     return await this.profiles.addUserProfile(param, body);
   }
 }
