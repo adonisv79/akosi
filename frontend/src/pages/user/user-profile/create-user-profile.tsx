@@ -9,9 +9,7 @@ import { AkosiTextBoxUsername } from "../../../_components/akosi/common/akosi-te
 export const CreateUserProfile = () => {
   const { t } = useTranslation();
 
-  const handleSubmit = () => {
-
-  }
+  const handleSubmit = () => {};
 
   return (
     <HTMLSection
@@ -22,25 +20,51 @@ export const CreateUserProfile = () => {
         <AkosiLanguagePicker className="text-black bg-white" />
       </div>
       <ALVTypography type="h4" className="mb-4">
-        AHHHHHHHHAHAHAHHA
+        {t("profiles.form.headerCreate")}
       </ALVTypography>
-      
-      <HTMLForm id="login-form" className="min-w-full" onSubmit={handleSubmit}>
 
+      <HTMLForm id="login-form" className="min-w-full" onSubmit={handleSubmit}>
         <div className="mb-4">
           <ALVTypography weight="semibold" size="sm" theme="light" type="p">
-            <HTMLLabel targetElementId="login-username">
-              Pangalaaannnnn
+            <HTMLLabel targetElementId="profile-firstname">
+              {t("profiles.form.firstNameLabel")}
             </HTMLLabel>
           </ALVTypography>
           <AkosiTextBoxUsername
             texts={{
-              placeholder: 'asdasjhd jkhkjasdhj falh',
-              title: 'jkhsadkjfhkj fhkjsldahflkkj',
+              placeholder: t("profiles.form.firstNamePlaceholder"),
+              title: t("profiles.form.firstNameTooltip"),
             }}
           />
         </div>
 
+        <div className="mb-4">
+          <ALVTypography weight="semibold" size="sm" theme="light" type="p">
+            <HTMLLabel targetElementId="profile-middlename">
+              {t("profiles.form.middleNameLabel")}
+            </HTMLLabel>
+          </ALVTypography>
+          <AkosiTextBoxUsername
+            texts={{
+              placeholder: t("profiles.form.middleNamePlaceholder"),
+              title: t("profiles.form.middleNameTooltip"),
+            }}
+          />
+        </div>
+
+        <div className="mb-4">
+          <ALVTypography weight="semibold" size="sm" theme="light" type="p">
+            <HTMLLabel targetElementId="profile-lastname">
+              {t("profiles.form.lastNameLabel")}
+            </HTMLLabel>
+          </ALVTypography>
+          <AkosiTextBoxUsername
+            texts={{
+              placeholder: t("profiles.form.lastNamePlaceholder"),
+              title: t("profiles.form.lastNameTooltip"),
+            }}
+          />
+        </div>
       </HTMLForm>
     </HTMLSection>
   );

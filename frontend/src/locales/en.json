@@ -59,5 +59,20 @@
     "spanish": "Spanish (es)",
     "thai": "Thai (th)" ,
     "vietnamese": "Vietnamese (vi)"
+  },
+  "profiles": {
+    "form": {
+      "headerCreate": "Create new profile",
+      "headerUpdate": "Update profile",
+      "firstNameLabel": "First name",
+      "firstNamePlaceholder": "Your given name or first name",
+      "firstNameTooltip": "Your given name or first name (Should be 1-256 characters in length)",
+      "middleNameLabel": "Middle name",
+      "middleNamePlaceholder": "Your middle name",
+      "middleNameTooltip": "Your middle name (Mother's maiden surname) (Should be 1-256 characters in length)",
+      "lastNameLabel": "Last name",
+      "lastNamePlaceholder": "Your surname or last name",
+      "lastNameTooltip": "Your surname or last name (Ancestral name) (Should be 1-256 characters in length)"
+    }
   }
 }
