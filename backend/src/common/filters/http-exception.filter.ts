@@ -21,13 +21,20 @@ export class HttpExceptionFilter implements ExceptionFilter{
     const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
     const status = error instanceof HttpException ? error.getStatus() : 500;
-    this.handlePrismaConnectivityErrors(request, error);
-    this.handleGeneralError(request, error);
-    response.status(status).json({ statusCode: status, name: error.name || 'unknown' })
+    try {
+      if (error instanceof HttpException === false ) {
+        this.handlePrismaConnectivityErrors(request, error);
+      }
+    } catch (err) {
+      // do nothing for now
+    } finally {
+      request.logger.error(error.message, error.stack, LOGGER_CONTEXT);
+      response.status(status).json({ statusCode: status, name: error.name || 'unknown' })
+    }
   }
 
   /**
-   * Handles any known service related errors and throws a proper nestjs response.
+   * Handles any known service related errors and throws a proper nestjs HTTPError.
    * @param error the error object from a catch
    */
   private handlePrismaConnectivityErrors(request: Request, error: unknown) {
@@ -45,26 +52,17 @@ export class HttpExceptionFilter implements ExceptionFilter{
       throw new ServiceUnavailableException();
     } else if (error instanceof PrismaClientKnownRequestError) {
       request.logger.error(
-        `[${error.code}] ${error.message}`,
+        `PRISMA_ERROR[${error.code}] ${error.message}`,
         error.stack,
         LOGGER_CONTEXT,
       );
       switch (error.code) {
         case '1001':
-          throw new ServiceUnavailableException();
+        case 'P1017': // Prisma Connectivity error (Check if DB is alive)
+          throw new ServiceUnavailableException({ code: error.code });
         default:
-          throw new InternalServerErrorException();
+          throw new InternalServerErrorException({ code: error.code });
       }
     }
-  }
-
-  private handleGeneralError(
-    request: Request,
-    error: unknown,
-  ) {
-    if (error instanceof HttpException) return;
-
-    if (error instanceof Error)
-      request.logger.error(error.message, error.stack, LOGGER_CONTEXT);
   }
 }

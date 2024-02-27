@@ -21,7 +21,7 @@ export class UserProfilesController {
   @ApiOkResponse({ description: 'Successfully retrieverd the user profiles', type: [UserProfileDto]})
   async GetUserProfiles(
     @Param() param: UsersParamsDto): Promise<UserProfileDto[]> {
-      return await this.profiles.getUserProfiles(param);
+      return await this.profiles.getUserProfiles(param.userId);
   }
 
   @ApiOperation({
@@ -108,6 +108,6 @@ export class UserProfilesController {
     @Param() param: UsersParamsDto,
     @Body() body: UserProfileFieldsDto,
   ): Promise<UserProfileDto> {
-    return await this.profiles.addUserProfile(param, body);
+    return await this.profiles.addUserProfile(param.userId, body);
   }
 }

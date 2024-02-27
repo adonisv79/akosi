@@ -17,37 +17,46 @@ export class UserProfilesService {
     private prisma: PrismaService,
   ) {}
 
-  private validateIsUserIdCurrentUser(param: UsersParamsDto) {
-    if (this.req.user?.id !== param.userId) {
+  private validateIsUserIdCurrentUser(userId: string) {
+    if (!this.req.user) {
       this.req.logger.warn(
-        `User with id#${this.req.user.id} attempted to access user with id#${param.userId}'s profiles`,
+        `Unsigned user attempted to access user with id#${userId}'s profiles`,
+      );
+      throw new UnauthorizedException();
+    } else if (this.req.user?.id !== userId) {
+      this.req.logger.warn(
+        `User with id#${this.req.user.id} attempted to access user with id#${userId}'s profiles`,
       );
       throw new ForbiddenException();
     }
   }
 
-  async getUserProfiles(param: UsersParamsDto) {
-    this.req.logger.log(`Adding profile for userid:${param.userId}`);
-    this.validateIsUserIdCurrentUser(param);
+  async getUserProfiles(
+    userId: string,
+    options?: { isPrimary?: boolean; skipUserMatchValidation?: boolean },
+  ) {
+    this.req.logger.log(`Adding profile for userid:${userId}`);
+    if (!options?.skipUserMatchValidation) this.validateIsUserIdCurrentUser(userId);
     return await this.prisma.userProfile.findMany({
       where: {
-        userId: param.userId
+        userId,
+        isPrimary: options?.isPrimary ?? undefined,
       },
       orderBy: [
         { isPrimary: 'desc' },
         { givenName: 'asc' },
-        { surname: 'asc' }
-      ]
+        { surname: 'asc' },
+      ],
     });
   }
 
-  async addUserProfile(param: UsersParamsDto, body: UserProfileFieldsDto) {
+  async addUserProfile(userId: string, body: UserProfileFieldsDto) {
     try {
-      this.req.logger.log(`Adding profile for userid:${param.userId}`);
-      this.validateIsUserIdCurrentUser(param);
+      this.req.logger.log(`Adding profile for userid:${userId}`);
+      this.validateIsUserIdCurrentUser(userId);
       const user = await this.prisma.user.findFirst({
         select: { id: true, profiles: true },
-        where: { id: param.userId },
+        where: { id: userId },
       });
       if (!user) {
         this.req.logger.warn(
@@ -67,7 +76,7 @@ export class UserProfilesService {
           surname: body.surname,
           patronymicName: body.patronymicName,
           honorificTitle: body.honorificTitle,
-          nameSuffix: body.nameSuffix
+          nameSuffix: body.nameSuffix,
         },
       });
     } catch (err) {

@@ -15,6 +15,7 @@ import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Configuration } from 'src/config/configuration';
+import { UserProfilesService } from 'src/users/profiles/user-profiles.service';
 
 const LOGGER_CONTEXT = 'AuthService';
 
@@ -29,9 +30,10 @@ export class AuthService {
     private jwtService: JwtService,
     private userActivity: UserActivitiesService,
     private usersService: UsersService,
+    private userProfiles: UserProfilesService,
     private config: ConfigService<Configuration>,
   ) {
-    this.jwtExpiresIn = this.config.get('api', { infer: true }).jwt.expiresIn
+    this.jwtExpiresIn = this.config.get('api', { infer: true }).jwt.expiresIn;
   }
 
   async signIn(username: string, password: string) {
@@ -43,19 +45,42 @@ export class AuthService {
       );
       if (!userId) throw new UserCredentialsInvalidException();
 
-      const result = await this.usersService.findOne(username);
-      const accessToken = await this.jwtService.signAsync(
-        {
-          sub: result.id,
-          username: result.username,
-          memberSince: result.createdDate,
-        },
-        { expiresIn: this.jwtExpiresIn },
-      );
+      const user = await this.usersService.findOne(username);
+      let token = {
+        sub: user.id,
+        username: user.username,
+        memberSince: user.createdDate,
+      };
+      const profiles =
+        (await this.userProfiles.getUserProfiles(user.id, {
+          isPrimary: true,
+          skipUserMatchValidation: true,
+        })) || [];
 
-      this.userActivity.log(result.id, ActionLogCodes.userAuthSignedIn);
+      if (profiles && profiles.length !== 0) {
+        token = {
+          ...token,
+          ...{
+            profile: {
+              id: profiles[0].id,
+              firstname: profiles[0].givenName,
+              middlename: profiles[0].middleName,
+              lastname: profiles[0].surname,
+              email: {
+                id: profiles[0].primaryEmailId,
+              }
+            },
+          },
+        };
+      }
+
+      const accessToken = await this.jwtService.signAsync(token, {
+        expiresIn: this.jwtExpiresIn,
+      });
+
+      this.userActivity.log(user.id, ActionLogCodes.userAuthSignedIn);
       this.req.logger.log(
-        `User ${result.id} authenticated successfully`,
+        `User ${user.id} authenticated successfully`,
         LOGGER_CONTEXT,
       );
       return { accessToken };
