@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { UserProfileFieldsDto, UserProfileDto } from './user-profiles.dto';
+import { UserProfileFieldsDto, UserProfileDto, GetUserProfilesResponseDto } from './user-profiles.dto';
 import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UsersParamsDto } from '../dto/users.dto';
 import { AuthGuard } from 'src/common/guards/auth.guard';
@@ -18,9 +18,9 @@ export class UserProfilesController {
       description: "This allows a user to fetch all of their profiles. Default sorted by primary profile flag, given name then surname."
   })
   @Get('/')
-  @ApiOkResponse({ description: 'Successfully retrieverd the user profiles', type: [UserProfileDto]})
+  @ApiOkResponse({ description: 'Successfully retrieverd the user profiles', type: [GetUserProfilesResponseDto]})
   async GetUserProfiles(
-    @Param() param: UsersParamsDto): Promise<UserProfileDto[]> {
+    @Param() param: UsersParamsDto): Promise<GetUserProfilesResponseDto[]> {
       return await this.profiles.getUserProfiles(param.userId);
   }
 

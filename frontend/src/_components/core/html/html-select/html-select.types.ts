@@ -6,8 +6,8 @@ export type HTMLOptionConfig = CommonElementProps & {
 };
 
 export type HTMLOptionGroupConfig = CommonElementProps & {
-  label: string;
-  options: HTMLOptionConfig[];
+  groupLabel: string;
+  groupOptions: HTMLOptionConfig[];
 };
 
 export type HTMLSelectConfig = CommonElementProps & {

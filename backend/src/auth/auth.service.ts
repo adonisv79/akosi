@@ -63,9 +63,9 @@ export class AuthService {
           ...{
             profile: {
               id: profiles[0].id,
-              firstname: profiles[0].givenName,
+              givenName: profiles[0].givenName,
               middlename: profiles[0].middleName,
-              lastname: profiles[0].surname,
+              surname: profiles[0].surname,
               email: {
                 id: profiles[0].primaryEmailId,
               }

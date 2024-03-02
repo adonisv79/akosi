@@ -29,15 +29,15 @@ export const HTMLSelect = ({
       onChange={onChange}
     >
       {config.options.map((optionGroup, index) => {
-        if ("options" in optionGroup) {
+        if ("groupOptions" in optionGroup) {
           return (
             <optgroup
               id={optionGroup.id}
               key={`${optionGroup.id}${index}`}
               className={`${classNameOption} ${optionGroup.className}`}
-              label={optionGroup.label}
+              label={optionGroup.groupLabel}
             >
-              {optionGroup.options.map((option) => (
+              {optionGroup.groupOptions.map((option) => (
                 <option
                   id={option.id}
                   key={`${option.id}${index}`}

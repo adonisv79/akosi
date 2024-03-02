@@ -73,7 +73,10 @@
       "middleNameTooltip": "Your middle name (Mother's maiden surname) (Should be 1-256 characters in length)",
       "lastNameLabel": "Last name",
       "lastNamePlaceholder": "Your surname or last name",
-      "lastNameTooltip": "Your surname or last name (Ancestral name) (Should be 1-256 characters in length)"
+      "lastNameTooltip": "Your surname or last name (Ancestral name) (Should be 1-256 characters in length)",
+      "profileNameLabel": "Profile name",
+      "profileNamePlaceholder": "This profile's name identifier",
+      "profileNameTooltip": "The profile name or alias to help you identify and organize them. (Ex: 'work profile', 'gaming', 'personal')"
     }
   }
 }

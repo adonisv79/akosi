@@ -4,7 +4,6 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UsersParamsDto } from '../dto/users.dto';
 import { UserProfileFieldsDto } from './user-profiles.dto';
 import { PrismaService } from 'src/prisma.service';
 import { Request } from 'express';
@@ -35,9 +34,34 @@ export class UserProfilesService {
     userId: string,
     options?: { isPrimary?: boolean; skipUserMatchValidation?: boolean },
   ) {
-    this.req.logger.log(`Adding profile for userid:${userId}`);
+    this.req.logger.log(`Retrieving profiles of userid:${userId}`);
     if (!options?.skipUserMatchValidation) this.validateIsUserIdCurrentUser(userId);
     return await this.prisma.userProfile.findMany({
+      select: {
+        id: true,
+        name: true,
+        isPrimary: true,
+        givenName: true,
+        middleName: true,
+        surname: true,
+        patronymicName: true,
+        honorificTitle: true,
+        nameSuffix: true,
+        createdDate: true,
+        lastUpdateDate: true,
+        primaryEmailId: true,
+        primaryEmail: {
+          select: {
+            emailId: true,
+            verifiedDate: true,
+            Email: {
+              select: {
+                address: true,
+              }
+            },
+          }
+        },
+      },
       where: {
         userId,
         isPrimary: options?.isPrimary ?? undefined,
@@ -69,6 +93,7 @@ export class UserProfilesService {
 
       return await this.prisma.userProfile.create({
         data: {
+          name: body.name,
           isPrimary,
           userId: user.id,
           givenName: body.givenName,

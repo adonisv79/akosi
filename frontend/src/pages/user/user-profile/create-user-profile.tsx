@@ -13,14 +13,21 @@ import { UserSessionContext } from "../../../hooks/user-session.context";
 export const CreateUserProfile = () => {
   const { t } = useTranslation();
   const session = useContext(UserSessionContext);
-  const { data: newProfile, mutate: createProfile } = useUserProfilesMutation(session.token?.userId)
+  const { data: newProfile, mutate: createProfile } = useUserProfilesMutation(
+    session.token?.userId
+  );
 
   useEffect(() => {
     if (newProfile) alert(JSON.stringify(newProfile));
-  }, [newProfile])
+  }, [newProfile]);
 
   const handleSubmit = (formData: Record<string, string>) => {
-    createProfile({ givenName: formData['firstname'], middleName: formData['middlename'], surname: formData['lastname'] })
+    createProfile({
+      name: formData["name"],
+      givenName: formData["firstname"],
+      middleName: formData["middlename"],
+      surname: formData["lastname"],
+    });
   };
 
   return (
@@ -36,6 +43,24 @@ export const CreateUserProfile = () => {
       </ALVTypography>
 
       <HTMLForm id="login-form" className="min-w-full" onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <ALVTypography weight="semibold" size="sm" theme="light" type="p">
+            <HTMLLabel targetElementId="profile-name">
+              {t("profiles.form.profileNameLabel")}
+            </HTMLLabel>
+          </ALVTypography>
+          <AkosiTextBox
+            id="name"
+            minLength={3}
+            maxLength={30}
+            isRequiredToSubmit
+            texts={{
+              placeholder: t("profiles.form.profileNamePlaceholder"),
+              title: t("profiles.form.profileNameTooltip"),
+            }}
+          />
+        </div>
+
         <div className="mb-4">
           <ALVTypography weight="semibold" size="sm" theme="light" type="p">
             <HTMLLabel targetElementId="profile-firstname">

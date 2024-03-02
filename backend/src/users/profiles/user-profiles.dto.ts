@@ -1,7 +1,18 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsOptional, IsString, IsUUID, MaxLength } from "class-validator";
 
 export class UserProfileFieldsDto {
+  @ApiProperty({
+    description: 'The user profile name.',
+    required: true,
+    type: String,
+    maxLength: 30,
+  })
+  @IsNotEmpty()
+  @MaxLength(30)
+  @IsString()
+  name!: string;
+
   @ApiProperty({
     description: 'The given, personal or primary name. This includes second name if you have one.',
     required: true,
@@ -9,6 +20,8 @@ export class UserProfileFieldsDto {
     minimum: 1
   })
   @IsNotEmpty()
+  @MaxLength(255)
+  @IsString()
   givenName!: string;
 
   @ApiProperty({
@@ -18,6 +31,8 @@ export class UserProfileFieldsDto {
     minimum: 1
   })
   @IsOptional()
+  @MaxLength(255)
+  @IsString()
   middleName?: string;
 
   @ApiProperty({
@@ -27,6 +42,8 @@ export class UserProfileFieldsDto {
     minimum: 1
   })
   @IsOptional()
+  @MaxLength(255)
+  @IsString()
   surname?: string;
 
   @ApiProperty({
@@ -36,6 +53,8 @@ export class UserProfileFieldsDto {
     minimum: 1
   })
   @IsOptional()
+  @MaxLength(255)
+  @IsString()
   patronymicName?: string;
   
   @ApiProperty({
@@ -45,6 +64,8 @@ export class UserProfileFieldsDto {
     minimum: 1
   })
   @IsOptional()
+  @MaxLength(255)
+  @IsString()
   honorificTitle?: string;
 
   @ApiProperty({
@@ -54,6 +75,8 @@ export class UserProfileFieldsDto {
     minimum: 1
   })
   @IsOptional()
+  @MaxLength(255)
+  @IsString()
   nameSuffix?: string;
 }
 
@@ -64,6 +87,17 @@ export class UserProfileDto extends UserProfileFieldsDto {
     required: true,
   })
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   id!: string;
+}
+
+export class GetUserProfilesResponseDto extends UserProfileDto {
+  @ApiProperty({
+    description: 'Indicates if this is the user\'s primary profile',
+    type: Boolean,
+    required: true,
+    default: false,
+  })
+  @IsBoolean()
+  isPrimary!: boolean;
 }
