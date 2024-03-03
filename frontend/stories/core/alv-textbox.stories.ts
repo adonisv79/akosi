@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { ALVTextBox } from "../../_components/core/alv/alv-textbox";
+import { ALVTextBox } from "../../src/_components/core/alv/alv-textbox";
 
 const meta: Meta<typeof ALVTextBox> = {
   title: "ALV/Basics/Textbox",

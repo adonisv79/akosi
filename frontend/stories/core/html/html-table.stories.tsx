@@ -1,35 +1,36 @@
-import { StoryObj, Meta } from '@storybook/react';
-import { HTMLTable } from '../../../_components/core/html/html-table/html-table';
+import { StoryObj, Meta } from "@storybook/react";
+import { HTMLTable } from "../../../src/_components/core/html/html-table/html-table";
+import React from "react";
 
 const meta: Meta<typeof HTMLTable> = {
-  title: 'Core/HTML/Table',
+  title: "Core/HTML/Table",
   component: HTMLTable,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   args: {
-    className: 'border',
+    className: "border",
     config: {
       caption: {
-        children: 'Quarterly Sales',
-        className: 'border bg-black text-white italic p-2',
+        children: "Quarterly Sales",
+        className: "border bg-black text-white italic p-2",
       },
       header: {
-        className: 'border',
+        className: "border",
         rows: [
           {
             cells: [
               { children: <></> },
-              { children: <>Year 1</>, className: 'px-5 center border' },
-              { children: <>Year 2</>, className: 'px-5 center border' },
-              { children: <>Year 3</>, className: 'px-5 center border' },
+              { children: <>Year 1</>, className: "px-5 center border" },
+              { children: <>Year 2</>, className: "px-5 center border" },
+              { children: <>Year 3</>, className: "px-5 center border" },
             ],
           },
         ],
       },
       body: {
-        className: 'bg-green-500 ',
+        className: "bg-green-500 ",
         rows: [
           {
             cells: [
@@ -66,7 +67,7 @@ const meta: Meta<typeof HTMLTable> = {
         ],
       },
       footer: {
-        className: 'bg-black text-white',
+        className: "bg-black text-white",
         rows: [
           {
             cells: [
@@ -87,6 +88,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    id: 'storybook-table-default',
+    id: "storybook-table-default",
   },
 };

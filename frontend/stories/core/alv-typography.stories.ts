@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from '@storybook/react';
-import { ALVTypography } from '../../_components/core/alv/alv-typography';
+import { ALVTypography } from '../../src/_components/core/alv/alv-typography';
 
 const meta: Meta<typeof ALVTypography> = {
   title: 'Core/ALV Basic Typography',

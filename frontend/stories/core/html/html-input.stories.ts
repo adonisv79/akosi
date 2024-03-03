@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from '@storybook/react';
-import { HTMLInput } from '../../../_components/core/html/html-input/html-input';
+import { HTMLInput } from '../../../src/_components/core/html/html-input/html-input';
 
 const meta: Meta<typeof HTMLInput> = {
   title: 'Core/HTML/Input',

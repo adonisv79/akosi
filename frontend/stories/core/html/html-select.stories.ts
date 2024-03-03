@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { HTMLSelect } from "../../../_components/core/html/html-select/html-select";
+import { HTMLSelect } from "../../../src/_components/core/html/html-select/html-select";
 
 const meta: Meta<typeof HTMLSelect> = {
   title: "Core/HTML/Select",
@@ -13,16 +13,16 @@ const meta: Meta<typeof HTMLSelect> = {
       options: [
         { text: 'Unknown', value: 'x'},
         {
-          label: "Asia",
-          options: [
+          groupLabel: "Asia",
+          groupOptions: [
             { text: "Philippines", value: "ph" },
             { text: "Japan", value: "jp" },
             { text: "China", value: "zh" },
           ],
         },
         {
-          label: "Europe",
-          options: [
+          groupLabel: "Europe",
+          groupOptions: [
             { text: "France", value: "fr" },
             { text: "Germany", value: "de" },
             { text: "Spain", value: "es" },

@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from '@storybook/react';
-import { HTMLButton } from '../../../_components/core/html/html-button/html-button';
+import { HTMLButton } from '../../../src/_components/core/html/html-button/html-button';
 
 const meta: Meta<typeof HTMLButton> = {
   title: 'Core/HTML/Button',
