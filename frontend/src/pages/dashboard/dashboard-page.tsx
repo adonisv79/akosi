@@ -118,8 +118,6 @@ export const DashboardPage = () => {
           HELLO {session.token.username}
         </ALVTypography>
 
-        <UserProfilesList />
-
         <HTMLTable
           id="user-information"
           config={config}

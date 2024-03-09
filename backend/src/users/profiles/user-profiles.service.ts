@@ -1,7 +1,9 @@
 import {
+  ConflictException,
   ForbiddenException,
   Inject,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { UserProfileFieldsDto } from './user-profiles.dto';
@@ -35,7 +37,8 @@ export class UserProfilesService {
     options?: { isPrimary?: boolean; skipUserMatchValidation?: boolean },
   ) {
     this.req.logger.log(`Retrieving profiles of userid:${userId}`);
-    if (!options?.skipUserMatchValidation) this.validateIsUserIdCurrentUser(userId);
+    if (!options?.skipUserMatchValidation)
+      this.validateIsUserIdCurrentUser(userId);
     return await this.prisma.userProfile.findMany({
       select: {
         id: true,
@@ -57,9 +60,9 @@ export class UserProfilesService {
             Email: {
               select: {
                 address: true,
-              }
+              },
             },
-          }
+          },
         },
       },
       where: {
@@ -92,6 +95,76 @@ export class UserProfilesService {
       const isPrimary = user.profiles.length === 0;
 
       return await this.prisma.userProfile.create({
+        data: {
+          name: body.name,
+          isPrimary,
+          userId: user.id,
+          givenName: body.givenName,
+          middleName: body.middleName,
+          surname: body.surname,
+          patronymicName: body.patronymicName,
+          honorificTitle: body.honorificTitle,
+          nameSuffix: body.nameSuffix,
+        },
+      });
+    } catch (err) {
+      this.req.logger.error(err.message, err);
+      throw err;
+    }
+  }
+
+  async deleteUserProfile(userId: string, profileId: string) {
+    this.req.logger.log(`Deleting profile#${profileId} for userid:${userId}`);
+    this.validateIsUserIdCurrentUser(userId);
+    const user = await this.prisma.user.findFirst({
+      select: { id: true, profiles: true },
+      where: { id: userId },
+    });
+    if (!user) {
+      this.req.logger.warn(
+        `User with id#${this.req.user.id} has active session but has no user record`,
+      );
+      throw new UnauthorizedException();
+    }
+
+    const profile = this.prisma.userProfile.findFirst({ where: { id: profileId, userId }})
+    if (!profile) throw new NotFoundException();
+    if((await profile).isPrimary) throw new ConflictException()
+
+    return await this.prisma.userProfile.delete({
+      where: {
+        id: profileId,
+        userId,
+      },
+    });
+  }
+
+  async updateUserProfile(
+    userId: string,
+    profileId: string,
+    body: UserProfileFieldsDto,
+  ) {
+    try {
+      this.req.logger.log(`Updating profile#${profileId} for userid:${userId}`);
+      this.validateIsUserIdCurrentUser(userId);
+      const user = await this.prisma.user.findFirst({
+        select: { id: true, profiles: true },
+        where: { id: userId },
+      });
+      if (!user) {
+        this.req.logger.warn(
+          `User with id#${this.req.user.id} has active session but has no user record`,
+        );
+        throw new UnauthorizedException();
+      }
+
+      const isPrimary = user.profiles.length === 0;
+
+      return await this.prisma.userProfile.update({
+        where: {
+          id: profileId,
+          userId,
+        },
         data: {
           name: body.name,
           isPrimary,

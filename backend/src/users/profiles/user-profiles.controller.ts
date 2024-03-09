@@ -1,6 +1,27 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { UserProfileFieldsDto, UserProfileDto, GetUserProfilesResponseDto } from './user-profiles.dto';
-import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  UserProfileFieldsDto,
+  UserProfileDto,
+  GetUserProfilesResponseDto,
+  UserProfileParamsDto,
+} from './user-profiles.dto';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConflictResponse,
+  ApiNoContentResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { UsersParamsDto } from '../dto/users.dto';
 import { AuthGuard } from 'src/common/guards/auth.guard';
 import { UserProfilesService } from './user-profiles.service';
@@ -13,21 +34,25 @@ export class UserProfilesController {
   constructor(private profiles: UserProfilesService) {}
 
   @ApiOperation({
-    summary:
-      "Fetches the profile for the user",
-      description: "This allows a user to fetch all of their profiles. Default sorted by primary profile flag, given name then surname."
+    summary: 'Fetches the profile for the user',
+    description:
+      'This allows a user to fetch all of their profiles. Default sorted by primary profile flag, given name then surname.',
+  })
+  @ApiOkResponse({
+    description: 'Successfully retrieverd the user profiles',
+    type: [GetUserProfilesResponseDto],
   })
   @Get('/')
-  @ApiOkResponse({ description: 'Successfully retrieverd the user profiles', type: [GetUserProfilesResponseDto]})
   async GetUserProfiles(
-    @Param() param: UsersParamsDto): Promise<GetUserProfilesResponseDto[]> {
-      return await this.profiles.getUserProfiles(param.userId);
+    @Param() param: UsersParamsDto,
+  ): Promise<GetUserProfilesResponseDto[]> {
+    return await this.profiles.getUserProfiles(param.userId);
   }
 
   @ApiOperation({
-    summary:
-      "Creates a new profile for the user",
-      description: "This allows a user to add a new profile to their account. If this is the first profile they made, it becomes the user's primary profile"
+    summary: 'Creates a new profile for the user',
+    description:
+      "This allows a user to add a new profile to their account. If this is the first profile they made, it becomes the user's primary profile",
   })
   @ApiBody({
     type: UserProfileFieldsDto,
@@ -102,12 +127,30 @@ export class UserProfilesController {
       },
     },
   })
-  @ApiOkResponse({ description: 'Successfully created the user profiles', type: UserProfileDto})
+  @ApiOkResponse({
+    description: 'Successfully created the user profiles',
+    type: UserProfileDto,
+  })
   @Post('/')
   async createUserProfile(
     @Param() param: UsersParamsDto,
     @Body() body: UserProfileFieldsDto,
   ): Promise<UserProfileDto> {
     return await this.profiles.addUserProfile(param.userId, body);
+  }
+
+  @ApiOperation({
+    summary: 'Deletes a user profile',
+    description:
+      'Deletes a non-primary user profile. Note that this deletes any permissions granted by the profile as well.',
+  })
+  @ApiNoContentResponse({ description: 'Successfully deleted the profile' })
+  @ApiConflictResponse({
+    description:
+      'The profile cannot be deleted. Possibly due to it being a primary profile',
+  })
+  @Delete()
+  async deleteUserProfile(@Param() param: UserProfileParamsDto) {
+    return await this.profiles.deleteUserProfile(param.userId, param.profileId);
   }
 }

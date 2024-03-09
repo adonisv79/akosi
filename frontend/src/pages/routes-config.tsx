@@ -5,6 +5,7 @@ import { RegistrationPage } from "./auth/registration-page";
 import { DashboardPage } from "./dashboard/dashboard-page";
 import ProtectedRoute from "./routing/protected-route";
 import { CreateUserProfile } from "./user/user-profile/create-user-profile";
+import { ProfilesPage } from "./user/user-profile/profiles.page";
 
 export const routeConfig = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const routeConfig = createBrowserRouter([
   {
     path: "/dash",
     element: <ProtectedRoute element={<DashboardPage />} />,
+  },
+  {
+    path: "/profiles",
+    element: <ProtectedRoute element={<ProfilesPage />} />,
   },
   {
     path: "/profiles/create",

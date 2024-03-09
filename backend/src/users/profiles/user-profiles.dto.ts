@@ -1,5 +1,17 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { IsBoolean, IsNotEmpty, IsOptional, IsString, IsUUID, MaxLength } from "class-validator";
+import { UsersParamsDto } from "../dto/users.dto";
+
+export class UserProfileParamsDto extends UsersParamsDto {
+  @ApiProperty({
+    description: "The unique user profile identifier",
+    required: true,
+    format: 'uuid_v4',
+    type: String,
+  })
+  @IsUUID('4')
+  profileId: string;
+}
 
 export class UserProfileFieldsDto {
   @ApiProperty({

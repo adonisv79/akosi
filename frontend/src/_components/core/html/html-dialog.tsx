@@ -1,41 +1,43 @@
-import { useEffect, useRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import {
   CommonElementProps,
   ParentalElementProps,
   UniqueElementProps,
 } from "../common.types";
 
+export type HTMLDialogReference = {
+  show: () => void;
+  close: () => void;
+};
+
 export type HTMLDialogProps = CommonElementProps &
   UniqueElementProps &
   ParentalElementProps & {
-    isVisible?: boolean;
     onClose?: (id: string) => {};
     onShow?: (id: string) => {};
   };
 
-export const HTMLDialog = ({
-  children,
-  className,
-  isVisible = false,
-  id,
-  onClose,
-  onShow,
-}: HTMLDialogProps) => {
-  const modalRef = useRef<HTMLDialogElement | null>(null);
-  useEffect(() => {
-    const modalElement = modalRef.current;
-    if (isVisible) {
-      modalElement?.showModal();
-      onShow && onShow(id);
-    } else if (!isVisible) {
-      modalElement?.close();
-      onClose && onClose(id);
-    }
-  }, [isVisible]);
+export const HTMLDialog = forwardRef<HTMLDialogReference, HTMLDialogProps>(
+  ({ children, className, id, onClose, onShow }, ref) => {
+    const modalRef = useRef<HTMLDialogElement | null>(null);
 
-  return (
-    <dialog id={id} ref={modalRef} className={className}>
-      {children}
-    </dialog>
-  );
-};
+    useImperativeHandle(ref, () => ({
+      show: () => {
+        const modalElement = modalRef.current;
+        modalElement?.showModal();
+        onShow && onShow(id);
+      },
+      close: () => {
+        const modalElement = modalRef.current;
+        modalElement?.close();
+        onClose && onClose(id);
+      },
+    }));
+
+    return (
+      <dialog id={id} ref={modalRef} className={className}>
+        {children}
+      </dialog>
+    );
+  }
+);
