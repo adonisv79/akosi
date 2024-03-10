@@ -8,8 +8,10 @@ import { HTMLSelect } from "../../../_components/core/html/html-select/html-sele
 import { HTMLOptionConfig, HTMLSelectConfig } from "../../../_components/core/html/html-select/html-select.types";
 import { TableConfig } from "../../../_components/core/html/html-table/html-table.types";
 import { HTMLTable } from "../../../_components/core/html/html-table/html-table";
+import { useTranslation } from "react-i18next";
 
 export const UserProfilesList = () => {
+  const { t } = useTranslation();
   const session = useContext(UserSessionContext);
   const { data: userProfiles, refetch } = useUserProfilesQuery(session.token?.userId);
   const [selectedProfile, setSelectedProfile] =
@@ -59,38 +61,38 @@ export const UserProfilesList = () => {
       rows: [
         {
           cells: [
-            { children: <>Given name: </> },
+            { children: <>{t(`profiles.form.firstNameLabel`)}</> },
             { children: <>{selectedProfile?.givenName}</> },
           ],
         },
         {
           cells: [
-            { children: <>Middle name: </> },
+            { children: <>{t(`profiles.form.middleNameLabel`)}</> },
             { children: <>{selectedProfile?.middleName}</> },
           ],
         },
         {
           cells: [
-            { children: <>Surname: </> },
+            { children: <>{t(`profiles.form.lastNameLabel`)}</> },
             { children: <>{selectedProfile?.surname}</> },
           ],
         },
         {
           cells: [
-            { children: <>Patronymic Name: </> },
+            { children: <>{t(`profiles.form.patronymicNameLabel`)}</> },
             { children: <>{selectedProfile?.patronymicName}</> },
           ],
         },
         {
           cells: [
-            { children: <>Name Suffix: </> },
+            { children: <>{t(`profiles.form.suffixNameLabel`)}</> },
             { children: <>{selectedProfile?.nameSuffix}</> },
           ],
         },
         {
           cells: [
-            { children: <>Primary profile: </> },
-            { children: <>{selectedProfile?.isPrimary ? 'Yes': 'No'}</> },
+            { children: <>{t(`profiles.form.isPrimaryProfile`)}</> },
+            { children: <>{selectedProfile?.isPrimary ? t(`common.yes`): t(`common.no`)}</> },
           ],
         },
       ],
@@ -108,7 +110,7 @@ export const UserProfilesList = () => {
       <HTMLTable
         id="user-profile-information"
         config={config}
-        className="bg-gray-800"
+        className="bg-gray-100 "
         classNameCells="border px-2"
       />
     </div>

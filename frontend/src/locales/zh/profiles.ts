@@ -1,0 +1,31 @@
+export default {
+  link: {
+    text: "个人资料",
+    title: "转到个人资料页面",
+  },
+  form: {
+    createProfileButton: "创建个人资料",
+    headerCreate: "创建新个人资料",
+    headerUpdate: "更新个人资料",
+    firstNameLabel: "名字",
+    firstNamePlaceholder: "您的名字或名字",
+    firstNameTooltip: "您的名字或名字（长度应为1-256个字符）",
+    middleNameLabel: "中间名",
+    middleNamePlaceholder: "您的中间名",
+    middleNameTooltip: "您的中间名（母亲的婚前姓氏）（长度应为1-256个字符）",
+    lastNameLabel: "姓",
+    lastNamePlaceholder: "您的姓氏或姓氏",
+    lastNameTooltip: "您的姓氏或姓氏（祖先的名字）（长度应为1-256个字符）",
+    patronymicNameLabel: "父称",
+    patronymicPlaceholder: "您的父称",
+    patronymicTooltip: "您的父称（长度应为1-256个字符）",
+    suffixNameLabel: "名字后缀",
+    suffixPlaceholder: "您的名字后缀",
+    suffixTooltip: "您的名字后缀（长度应为1-256个字符）",
+    profileNameLabel: "个人资料名称",
+    profileNamePlaceholder: "此个人资料的名称标识符",
+    profileNameTooltip:
+      "个人资料的名称或别名，以帮助您识别和组织它们。（例如：'工作个人资料'，'游戏'，'个人'）",
+    isPrimaryProfile: "主要个人资料",
+  },
+};

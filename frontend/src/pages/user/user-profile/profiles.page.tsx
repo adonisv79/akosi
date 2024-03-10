@@ -1,19 +1,26 @@
-import { useRef } from "react"
-import { ALVModal, ALVModalReference, ModalConfig } from "../../../_components/core/alv/alv-modal"
-import { HTMLButton } from "../../../_components/core/html/html-button/html-button"
-import { CreateUserProfile } from "./create-user-profile"
-import { UserProfilesList } from "./user-profiles-list"
+import { useRef } from "react";
+import { HTMLButton } from "../../../_components/core/html/html-button/html-button";
+import { CreateUserProfileForm } from "./create-user-profile-form";
+import { UserProfilesList } from "./user-profiles-list";
+import { ALVDialog } from "../../../_components/core/alv/alv-dialog/alv-dialog";
+import { useTranslation } from "react-i18next";
 
 export const ProfilesPage = () => {
-  const modalRef = useRef<ALVModalReference>(null);
+  const { t } = useTranslation();
+  const modalRef = useRef<HTMLDialogElement>(null);
   const handleOnCreateButtonClicked = () => {
-    modalRef.current?.show();
-  }
+    modalRef.current?.showModal();
+  };
 
-  const modals:ModalConfig[] = [{ id: 'xx', children: <CreateUserProfile /> }]
-
-  return <><UserProfilesList />
-  <HTMLButton id="create" onClick={handleOnCreateButtonClicked}>Create</HTMLButton>
-  <ALVModal ref={modalRef} modalId="xx" modals={modals}></ALVModal>
-  </>
-}
+  return (
+    <div className="bg-white text-black w-screen h-screen">
+      <UserProfilesList />
+      <HTMLButton id="create" onClick={handleOnCreateButtonClicked}>
+        {t(`profiles.form.createProfileButton`)}
+      </HTMLButton>
+      <ALVDialog text={{ title: t(`profiles.form.headerCreate`)}} id="profile-dialog" modalRef={modalRef}>
+        <CreateUserProfileForm />
+      </ALVDialog>
+    </div>
+  );
+};

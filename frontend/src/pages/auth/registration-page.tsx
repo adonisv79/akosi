@@ -76,7 +76,7 @@ export const RegistrationPage = () => {
         <AkosiLanguagePicker className="text-black bg-white" />
       </div>
       <ALVTypography type="h4" className="mb-4">
-        {t("registrationDialog.dialogHeaderText")}
+        {t("authentication.registrationDialog.dialogHeaderText")}
       </ALVTypography>
       {isError && (
         <ALVTypography
@@ -86,23 +86,23 @@ export const RegistrationPage = () => {
           className="mb-4 text-red-500"
         >
           {createAccountErrror.response?.status === 409
-            ? t(`registrationDialog.apiErrors.response409`, {
+            ? t(`authentication.registrationDialog.apiErrors.response409`, {
                 preferredUsername: newUsername,
               })
-            : t(`registrationDialog.apiErrors.response500`)}
+            : t(`authentication.registrationDialog.apiErrors.response500`)}
         </ALVTypography>
       )}
       <HTMLForm id="login-form" className="min-w-90" onSubmit={handleSubmit}>
         <div className="my-2">
           <ALVTypography weight="semibold" size="sm" theme="light" type="p">
             <HTMLLabel targetElementId="login-username">
-              {t("registrationDialog.usernameHeaderText")}
+              {t("authentication.registrationDialog.usernameHeaderText")}
             </HTMLLabel>
           </ALVTypography>
           <AkosiTextBoxUsername
             texts={{
-              placeholder: t("registrationDialog.usernamePlaceholderText"),
-              title: t("registrationDialog.usernameTooltipText"),
+              placeholder: t("authentication.registrationDialog.usernamePlaceholderText"),
+              title: t("authentication.registrationDialog.usernameTooltipText"),
             }}
             onChange={handleNewUsernameChanged}
             value={newUsername}
@@ -111,7 +111,7 @@ export const RegistrationPage = () => {
         <div className="my-2">
           <ALVTypography weight="semibold" size="sm" theme="light" type="p">
             <HTMLLabel targetElementId="login-password">
-              {t("registrationDialog.passwordHeaderText")}
+              {t("authentication.registrationDialog.passwordHeaderText")}
             </HTMLLabel>
           </ALVTypography>
           <AkosiTextBoxPassword
@@ -127,7 +127,7 @@ export const RegistrationPage = () => {
         <div className="my-2">
           <ALVTypography weight="semibold" size="sm" theme="light" type="p">
             <HTMLLabel targetElementId="login-password-confirm">
-              {t("registrationDialog.passwordConfirmHeaderText")}
+              {t("authentication.registrationDialog.passwordConfirmHeaderText")}
             </HTMLLabel>
           </ALVTypography>
           <AkosiTextBoxPasswordConfirm
@@ -148,16 +148,16 @@ export const RegistrationPage = () => {
           borderRounding="full"
           className="m-2 px-4 py-2 w-full"
         >
-          {t("registrationDialog.buttonRegisterText")}
+          {t("authentication.registrationDialog.buttonRegisterText")}
         </AkosiButton>
         <div className="w-full text-center">
           <ALVTypography italic size="sm" theme="light" className="pt-5">
-            {t("registrationDialog.alreadyAMemberText")}
+            {t("authentication.registrationDialog.alreadyAMemberText")}
             <HTMLLink
               targetUrl={"/auth"}
               className="text-blue-400 hover:text-blue-600"
             >
-              {` ${t("registrationDialog.loginHereText")}`}
+              {` ${t("authentication.registrationDialog.loginHereText")}`}
             </HTMLLink>
           </ALVTypography>
         </div>

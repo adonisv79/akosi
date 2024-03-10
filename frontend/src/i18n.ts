@@ -1,20 +1,20 @@
 // i18n.ts
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import enTranslation from "./locales/en.json";
-import esTranslation from "./locales/es.json";
-import hiTranslation from "./locales/hi.json";
-import idTranslation from "./locales/id.json";
-import jaTranslation from "./locales/ja.json";
-import kmTranslation from "./locales/km.json";
-import koTranslation from "./locales/ko.json";
-import loTranslation from "./locales/lo.json";
-import msTranslation from "./locales/ms.json";
-import myTranslation from "./locales/my.json";
-import thTranslation from "./locales/th.json";
-import tlTranslation from "./locales/tl.json";
-import viTranslation from "./locales/vi.json";
-import zhTranslation from "./locales/zh.json";
+import enTranslation from "./locales/en";
+import esTranslation from "./locales/es";
+import hiTranslation from "./locales/hi";
+import idTranslation from "./locales/id";
+import jaTranslation from "./locales/ja";
+import kmTranslation from "./locales/km";
+import koTranslation from "./locales/ko";
+import loTranslation from "./locales/lo";
+import msTranslation from "./locales/ms";
+import myTranslation from "./locales/my";
+import thTranslation from "./locales/th";
+import tlTranslation from "./locales/tl";
+import viTranslation from "./locales/vi";
+import zhTranslation from "./locales/zh";
 
 i18n.use(initReactI18next).init({
   resources: {

@@ -4,7 +4,7 @@ import { LoginPage } from "./auth/login-page";
 import { RegistrationPage } from "./auth/registration-page";
 import { DashboardPage } from "./dashboard/dashboard-page";
 import ProtectedRoute from "./routing/protected-route";
-import { CreateUserProfile } from "./user/user-profile/create-user-profile";
+import { CreateUserProfileForm } from "./user/user-profile/create-user-profile-form";
 import { ProfilesPage } from "./user/user-profile/profiles.page";
 
 export const routeConfig = createBrowserRouter([
@@ -30,6 +30,6 @@ export const routeConfig = createBrowserRouter([
   },
   {
     path: "/profiles/create",
-    element: <ProtectedRoute element={<CreateUserProfile />} />,
+    element: <ProtectedRoute element={<CreateUserProfileForm />} />,
   },
 ]);

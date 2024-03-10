@@ -19,7 +19,7 @@ export const AkosiErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) =
         }
       } else setError('unhandled');
       // You can log the error or send it to a server for analysis
-      console.error(error.error);
+      console.error(error.error, error);
     };
 
     // Assign the error handler

@@ -54,26 +54,26 @@ export const LoginPage = () => {
         <AkosiLanguagePicker className="text-black bg-white" />
       </div>
       <ALVTypography type="h4" className="mb-4">
-        {t("loginDialog.dialogHeaderText")}
+        {t("authentication.loginDialog.dialogHeaderText")}
       </ALVTypography>
       <HTMLForm id="login-form" className="min-w-full" onSubmit={handleSubmit}>
         <div className="mb-4">
           <ALVTypography weight="semibold" size="sm" theme="light" type="p">
             <HTMLLabel targetElementId="login-username">
-              {t("loginDialog.usernameHeaderText")}
+              {t("authentication.loginDialog.usernameHeaderText")}
             </HTMLLabel>
           </ALVTypography>
           <AkosiTextBoxUsername
             texts={{
-              placeholder: t("loginDialog.usernamePlaceholderText"),
-              title: t("loginDialog.usernameTooltipText"),
+              placeholder: t("authentication.loginDialog.usernamePlaceholderText"),
+              title: t("authentication.loginDialog.usernameTooltipText"),
             }}
           />
         </div>
         <div>
           <ALVTypography weight="semibold" size="sm" theme="light" type="p">
             <HTMLLabel targetElementId="login-password">
-              {t("loginDialog.passwordHeaderText")}
+              {t("authentication.loginDialog.passwordHeaderText")}
             </HTMLLabel>
           </ALVTypography>
           <AkosiTextBoxPassword
@@ -95,7 +95,7 @@ export const LoginPage = () => {
             targetUrl={"/"}
             className="text-blue-400 hover:text-blue-600"
           >
-            {t("loginDialog.passwordForgotLink")}
+            {t("authentication.loginDialog.passwordForgotLink")}
           </HTMLLink>
         </ALVTypography>
         <AkosiButton
@@ -105,16 +105,16 @@ export const LoginPage = () => {
           borderRounding="full"
           className="mb-4 px-4 py-2 w-full"
         >
-          {t("loginDialog.buttonLoginText")}
+          {t("authentication.loginDialog.buttonLoginText")}
         </AkosiButton>
         <div className="w-full text-center">
           <ALVTypography italic size="sm" theme="light" className="pt-5">
-            {t("loginDialog.notAMemberText")}
+            {t("authentication.loginDialog.notAMemberText")}
             <HTMLLink
               targetUrl={"/auth/register"}
               className="text-blue-400 hover:text-blue-600"
             >
-              {` ${t("loginDialog.registerHereText")}`}
+              {` ${t("authentication.loginDialog.registerHereText")}`}
             </HTMLLink>
           </ALVTypography>
         </div>

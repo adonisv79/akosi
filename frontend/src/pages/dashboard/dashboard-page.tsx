@@ -12,6 +12,7 @@ import { UserSessionContext } from "../../hooks/user-session.context";
 import { useDeleteAccountMutation } from "../../api/queries/auth-query";
 import { AkosiTextBoxPassword } from "../../_components/akosi/common/akosi-textbox-password";
 import { UserProfilesList } from "../user/user-profile/user-profiles-list";
+import { HTMLLink } from "../../_components/core/html/html-link";
 
 const COMPONENT_NAME = 'MainDashboard'
 
@@ -118,6 +119,8 @@ export const DashboardPage = () => {
           HELLO {session.token.username}
         </ALVTypography>
 
+        <HTMLLink targetUrl="/profiles" title={t(`profiles.link.title`)}>{t(`profiles.link.text`)}</HTMLLink>
+
         <HTMLTable
           id="user-information"
           config={config}
@@ -126,7 +129,7 @@ export const DashboardPage = () => {
         />
         <div className="p-4 flex gap-5">
           <AkosiButton id="sign-out" onClick={handleSignOut}>
-            {t("loginDialog.buttonLogoutText")}
+            {t("authentication.loginDialog.buttonLogoutText")}
           </AkosiButton>
           <AkosiButton id="home-button" onClick={() => navigateTo("/")}>
             🏠

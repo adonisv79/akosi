@@ -4,7 +4,7 @@ export type HTMLLinkProps = CommonElementProps &
   ParentalElementProps & {
     targetEmail?: string;
     targetUrl?: string;
-    toolTip?: string;
+    title?: string;
   };
 
 export const HTMLLink = ({
@@ -12,7 +12,7 @@ export const HTMLLink = ({
   className,
   targetEmail,
   targetUrl,
-  toolTip,
+  title,
 }: HTMLLinkProps) => {
   if (!targetEmail && !targetUrl)
     throw new Error('Must have at least a targetUrl or targetEmail');
@@ -21,7 +21,7 @@ export const HTMLLink = ({
   return (
     <a
       className={className}
-      title={toolTip}
+      title={title}
       href={targetUrl ?? `mailto:${targetEmail}`}
     >
       {children}

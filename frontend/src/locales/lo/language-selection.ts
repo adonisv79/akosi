@@ -1,0 +1,17 @@
+export default {
+  selectLanguage: "ເລືອກພາສາ",
+  burmese: "ພາສາເບົາ (my)",
+  chinese: "ພາສາຈີນ (zh)",
+  english: "ພາສາອັງກິດ (en)",
+  filipino: "ພາສາຟີລິປິນ (tl)",
+  hindi: "ພາສາຮິນດິ (hi)",
+  indonesian: "ພາສາອິນໂດເນຍ (id)",
+  japanese: "ພາສາຍີ່ປຸ່ນ (ja)",
+  khmer: "ພາສາເກມ (km)",
+  korean: "ພາສາເກົາ (ko)",
+  laotian: "ພາສາລາວ (lo)",
+  malay: "ພາສາມາເລ (ms)",
+  spanish: "ພາສາສະເປນ (es)",
+  thai: "ພາສາໄທ (th)",
+  vietnamese: "ພາສາຫວຽດນາມ (vi)",
+};

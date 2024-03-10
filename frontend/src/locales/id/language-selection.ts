@@ -1,0 +1,17 @@
+export default {
+  selectLanguage: "Pilih bahasa",
+  burmese: "Burma (my)",
+  chinese: "Cina (zh)",
+  english: "Inggris (en)",
+  filipino: "Filipina (tl)",
+  hindi: "Hindi (hi)",
+  indonesian: "Indonesia (id)",
+  japanese: "Jepang (ja)",
+  khmer: "Khmer (km)",
+  korean: "Korea (ko)",
+  laotian: "Laos (lo)",
+  malay: "Melayu (ms)",
+  spanish: "Spanyol (es)",
+  thai: "Thai (th)",
+  vietnamese: "Vietnam (vi)",
+};
