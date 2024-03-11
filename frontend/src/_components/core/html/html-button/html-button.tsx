@@ -42,7 +42,7 @@ export const HTMLButton = ({
   return (
     <button
       id={id}
-      className={className}
+      className={`justify-center items-center select-none ${className}`}
       onClick={onClick}
       onFocus={onFocus}
       onMouseUp={onMouseUp}

@@ -15,11 +15,11 @@ export const ALVDialogheader = ({ className, text, onClose }: ALVDialogheaderPro
       <ALVTypography type="h4">{text.title}</ALVTypography>
       <HTMLButton
         id="modal-close-button"
-        className="p-0"
+        className="rounded-full w-6 h-6 hover:bg-gray-200 flex"
         title="Close this dialog"
         onClick={onClose}
       >
-        <i className="material-icons text-sm m-0 p-0">close</i>
+        <i className="material-icons text-sm">close</i>
       </HTMLButton>
     </div>
   );

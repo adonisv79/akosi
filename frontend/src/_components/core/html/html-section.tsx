@@ -41,7 +41,7 @@ export const HTMLSection = ({
   ].join(' ');
 
   return (
-    <section id={id} className={classes}>
+    <section id={id} className={`block ${classes}`}>
       {children}
     </section>
   );

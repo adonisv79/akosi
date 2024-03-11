@@ -1,55 +1,18 @@
-import { ChangeEvent, useContext, useEffect, useMemo, useState } from "react";
-import {
-  GetUserProfilesResponseDto,
-  useUserProfilesQuery,
-} from "../../../api/queries/user-profiles-query";
-import { UserSessionContext } from "../../../hooks/user-session.context";
-import { HTMLSelect } from "../../../_components/core/html/html-select/html-select";
-import { HTMLOptionConfig, HTMLSelectConfig } from "../../../_components/core/html/html-select/html-select.types";
+import { GetUserProfilesResponseDto } from "../../../api/queries/user-profiles-query";
 import { TableConfig } from "../../../_components/core/html/html-table/html-table.types";
 import { HTMLTable } from "../../../_components/core/html/html-table/html-table";
 import { useTranslation } from "react-i18next";
 
-export const UserProfilesList = () => {
+type UserProfilesListProps = {
+  selectedProfile: GetUserProfilesResponseDto | null;
+};
+
+export const UserProfilesList = ({
+  selectedProfile,
+}: UserProfilesListProps) => {
   const { t } = useTranslation();
-  const session = useContext(UserSessionContext);
-  const { data: userProfiles, refetch } = useUserProfilesQuery(session.token?.userId);
-  const [selectedProfile, setSelectedProfile] =
-    useState<GetUserProfilesResponseDto | null>(null);
 
-  const keyedProfilesById: Record<string, GetUserProfilesResponseDto> = useMemo(
-    () => userProfiles ? Object.fromEntries(userProfiles.map((p) => [p.id, p])) : {},
-    [userProfiles]
-  );
-
-  const selectOptions: HTMLSelectConfig = useMemo(
-    () => ({
-      options: userProfiles
-        ? userProfiles.map((p) => ({
-            text: p.name,
-            value: p.id,
-          }))
-        : [],
-    }),
-    [userProfiles]
-  );
-
-  useEffect(() => {
-    refetch();
-  }, [])
-
-  useEffect(() => {
-    if (!selectedProfile && !!selectOptions && selectOptions.options.length > 0) {
-      setSelectedProfile(keyedProfilesById[(selectOptions.options[0] as HTMLOptionConfig).value])
-    }
-  }, [selectOptions])
-
-  if (!userProfiles) return null;
-
-  const handleProfileChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const productId = e.currentTarget.value;
-    setSelectedProfile(keyedProfilesById[productId]);
-  };
+  if (!selectedProfile) return null;
 
   const config: TableConfig = {
     header: {
@@ -92,7 +55,15 @@ export const UserProfilesList = () => {
         {
           cells: [
             { children: <>{t(`profiles.form.isPrimaryProfile`)}</> },
-            { children: <>{selectedProfile?.isPrimary ? t(`common.yes`): t(`common.no`)}</> },
+            {
+              children: (
+                <>
+                  {selectedProfile?.isPrimary
+                    ? t(`common.yes`)
+                    : t(`common.no`)}
+                </>
+              ),
+            },
           ],
         },
       ],
@@ -101,12 +72,6 @@ export const UserProfilesList = () => {
 
   return (
     <div>
-      <HTMLSelect
-        id="select-profile"
-        name="select-profile"
-        config={selectOptions}
-        onChange={handleProfileChange}
-      />
       <HTMLTable
         id="user-profile-information"
         config={config}

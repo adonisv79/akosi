@@ -10,7 +10,13 @@ import { useUserProfilesMutation } from "../../../api/queries/user-profiles-muta
 import { useContext, useEffect } from "react";
 import { UserSessionContext } from "../../../hooks/user-session.context";
 
-export const CreateUserProfileForm = () => {
+type CreateUserProfileFormProps = {
+  onCreated: () => void;
+};
+
+export const CreateUserProfileForm = ({
+  onCreated,
+}: CreateUserProfileFormProps) => {
   const { t } = useTranslation();
   const session = useContext(UserSessionContext);
   const { data: newProfile, mutate: createProfile } = useUserProfilesMutation(
@@ -18,7 +24,7 @@ export const CreateUserProfileForm = () => {
   );
 
   useEffect(() => {
-    if (newProfile) alert(JSON.stringify(newProfile));
+    if (newProfile) onCreated();
   }, [newProfile]);
 
   const handleSubmit = async (formData: Record<string, string>) => {
@@ -33,7 +39,7 @@ export const CreateUserProfileForm = () => {
   return (
     <HTMLSection
       id="akosi-create-user-profile"
-      className="min-w-96 bg-white text-black p-2"
+      className="min-w-[300px] sm:min-w-[500px] bg-white text-black p-2"
     >
       <div className="text-right mb-5">
         <AkosiLanguagePicker className="text-black bg-white" />

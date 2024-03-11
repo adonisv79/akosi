@@ -27,7 +27,7 @@ export const HTMLForm = ({ id, children, onSubmit }: HTMLFormProps) => {
   };
 
   return (
-    <form id={id} onSubmit={handleSubmit}>
+    <form id={id} className="w-auto" onSubmit={handleSubmit}>
       {children}
     </form>
   );
