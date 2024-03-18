@@ -20,5 +20,6 @@ export const useUserProfilesQuery = (userId?: string) => {
     queryFn: async () => await fetchProfiles(),
     throwOnError: true,
     enabled: false,
+    staleTime: 0,
   });
 };

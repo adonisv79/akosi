@@ -43,6 +43,13 @@ export interface paths {
      */
     post: operations["UserProfilesController_createUserProfile"];
   };
+  "/users/{userId}/profiles/{profileId}": {
+    /**
+     * Deletes a user profile
+     * @description Deletes a non-primary user profile. Note that this deletes any permissions granted by the profile as well.
+     */
+    delete: operations["UserProfilesController_deleteUserProfile"];
+  };
   "/email": {
     post: operations["EmailController_sendEmail"];
   };
@@ -305,6 +312,30 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["UserProfileDto"];
         };
+      };
+    };
+  };
+  /**
+   * Deletes a user profile
+   * @description Deletes a non-primary user profile. Note that this deletes any permissions granted by the profile as well.
+   */
+  UserProfilesController_deleteUserProfile: {
+    parameters: {
+      path: {
+        /** @description The unique user identifier */
+        userId: string;
+        /** @description The unique user profile identifier */
+        profileId: string;
+      };
+    };
+    responses: {
+      /** @description Successfully deleted the profile */
+      204: {
+        content: never;
+      };
+      /** @description The profile cannot be deleted. Possibly due to it being a primary profile */
+      409: {
+        content: never;
       };
     };
   };

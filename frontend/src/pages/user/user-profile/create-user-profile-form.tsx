@@ -19,7 +19,7 @@ export const CreateUserProfileForm = ({
 }: CreateUserProfileFormProps) => {
   const { t } = useTranslation();
   const session = useContext(UserSessionContext);
-  const { data: newProfile, mutate: createProfile } = useUserProfilesMutation(
+  const { data: newProfile, mutateAsync: createProfile } = useUserProfilesMutation(
     session.token?.userId
   );
 

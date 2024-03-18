@@ -149,7 +149,7 @@ export class UserProfilesController {
     description:
       'The profile cannot be deleted. Possibly due to it being a primary profile',
   })
-  @Delete()
+  @Delete('/:profileId')
   async deleteUserProfile(@Param() param: UserProfileParamsDto) {
     return await this.profiles.deleteUserProfile(param.userId, param.profileId);
   }
