@@ -37,11 +37,6 @@ jobs:
         with:
           version: ${{ env.HOST_PNPM_VERSION }}
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: ${{ env.HOST_PNPM_VERSION }}
-
       - name: 🤝 Installing dependencies
         working-directory: ./backend
         run: pnpm i
@@ -83,11 +78,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.HOST_NODE_VERSION }}
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: ${{ env.HOST_PNPM_VERSION }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
