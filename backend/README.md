@@ -54,3 +54,18 @@ To easily setup your local environment using docker, run the following
 ```
 docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=admin -d mysql:8.3
 ```
+
+# Docker
+
+We use docker for this nodejs project. Build a new image by running `pnpm docker:build` ( use `pnpm docker:build-win` if you are on windows). make sure to upgrade the package version when building a new image for deployment.
+
+Once the image is created, we can test run it locally using the following. (Do not forget to update the tag `vX.Y.Z` to the right version). Make sure to also set the DATABASE_URL to connect to the correct mysql IP. if this is a MYSQL instalnce hosted in your local docker, the IP will be found when you inspect the container.
+
+```
+docker run -d -p 3000:3000 --name akosi-api \
+  -e DATABASE_URL=mysql://dbusername:dbpassword@255.255.255.255:3306/akosi \
+  -e JWT_SECRET=hakunamatata
+  akosi-api:vX.Y.Z
+```
+
+To publish, run `docker:publish` or `docker:publish-win` for windows

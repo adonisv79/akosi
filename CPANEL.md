@@ -110,11 +110,11 @@ jobs:
 
 Notice that the 2 has minimal difference. We will modify it in a while to make it deploy. For now, what this does is go thru the same test as the PR steps. There are some steps we need to apply in our repository however before we apply the necessary changes. This is adding the "Secrets" or "Variables" for our SSH access to CPANEL. for now commit the changes into your repo and try creating a new branch and PR to see if everything works. if not adjust accordingly.
 
-![Failed workflow1](/docs/images/guides//GITHUB_workflow_failed.png "Failed workflow")
+![Failed workflow1](/docs/images/guides/cicd_cpanel/GITHUB_workflow_failed.png "Failed workflow")
 
 You can see what caused the issue further by clicking more on the details. Fix any build issue before proceeding. (Do not forget to update this guide to help future "you-sir"). Once your validations have passed, it should show the folling.
 
-![Success workflow1](/docs/images/guides//GITHUB_workflow_passed.png "Succeess workflow")
+![Success workflow1](/docs/images/guides/cicd_cpanel/GITHUB_workflow_passed.png "Succeess workflow")
 
 ## cPanel NodeJS App and FTP accounts.
 
@@ -124,15 +124,15 @@ Our current hosting account allows NodeJS. So make sure to check yours if they a
 
 First we must create the nodejs app. (Skip this step if you already have a nodejs app in cPanel and you already know where its working directory is). 
 
-![CPanel new app](/docs/images/guides//CPANEL_new_nodeapp.png "CPanel new app")
+![CPanel new app](/docs/images/guides/cicd_cpanel/CPANEL_new_nodeapp.png "CPanel new app")
 
 once it is created, you should be able to go to the domain/sub-domain you assigned it to
 
-![CPanel new app created](/docs/images/guides//CPANEL_nodejsapp_created.png "CPanel new app created")
+![CPanel new app created](/docs/images/guides/cicd_cpanel/CPANEL_nodejsapp_created.png "CPanel new app created")
 
 Using the cPanel file explorer, you will find that the nodejs directory we are runing in has the similar basic structure in dist that we use.
 
-![CPanel new app folder](/docs/images/guides//CPANEL_new_nodejs_files.png "CPanel new app folder")
+![CPanel new app folder](/docs/images/guides/cicd_cpanel/CPANEL_new_nodejs_files.png "CPanel new app folder")
 
 This is where we want our FTP account to point into and we will clear this out and update whenever we automatically deploy.
 
@@ -140,13 +140,13 @@ This is where we want our FTP account to point into and we will clear this out a
 
 The next step is we need to have an FTP account so we can have access to our file NodeJS App's folder. In cPanel, fo to FTP Accounts section and create one. remember the credentials as this will be used later in configuring github
 
-![CPanel new ftp account](/docs/images/guides//CPANEL_ftp_account_create.png "CPanel new ftp account")
+![CPanel new ftp account](/docs/images/guides/cicd_cpanel/CPANEL_ftp_account_create.png "CPanel new ftp account")
 
 Once you have created your ftp account, you should be able to access it using ftp tools such as Filezilla
 
-![Filezilla connection test](/docs/images/guides//FILEZILLA_ftp_test.png "Filezilla connection test")
+![Filezilla connection test](/docs/images/guides/cicd_cpanel/FILEZILLA_ftp_test.png "Filezilla connection test")
 
-![Filezilla connected](/docs/images/guides//FILEZILLA_ftp_success.png "Filezilla connected")
+![Filezilla connected](/docs/images/guides/cicd_cpanel/FILEZILLA_ftp_success.png "Filezilla connected")
 
 
 
@@ -156,7 +156,7 @@ Before we can make the automated deployment work, we need to setup our repositor
 
 In GitHub, go to Settings, on the side, select `Secrets and variables` and in the dropdown, select `Actions`
 
-![GITHUB Secrets and Variables](/docs/images/guides//GITHUB_secrets_and_vars.png "GITHUB Secrets and Variables")
+![GITHUB Secrets and Variables](/docs/images/guides/cicd_cpanel/GITHUB_secrets_and_vars.png "GITHUB Secrets and Variables")
 
 We need to create the following.
 
@@ -189,15 +189,15 @@ With everything setup, we must now update the deployment script. Open the `maste
 
 this should automatically deploy your dist files to your host via FTP. Merge this into your master branch via PR and see if it runs successfully. You should be able to see that the commit status in your master branch was a success
 
-![Github CICD deployed](/docs/images/guides//GITHUB_CICD_deployed.png "Github CICD deployed")
+![Github CICD deployed](/docs/images/guides/cicd_cpanel/GITHUB_CICD_deployed.png "Github CICD deployed")
 
 you can also check your nodejs folder in cPanel if the distributable files were uploaded.
 
-![cPanel upload success](/docs/images/guides//CPANEL_ftp_success.png "cPanel upload success")
+![cPanel upload success](/docs/images/guides/cicd_cpanel/CPANEL_ftp_success.png "cPanel upload success")
 
 The updated codes are there but you still need to manually trigger some things in cPanel. Go back to the NodeJs apps page in cPanel, select the app and click manage/edit. the following screen appears where you can trigger npm install and after that, trigger a restart to run 'node /src/main.js'
 
-![cPanel restart nodejs app](/docs/images/guides//CPANEL_restart_nodejsapp.png "cPanel restart nodejs app")
+![cPanel restart nodejs app](/docs/images/guides/cicd_cpanel/CPANEL_restart_nodejsapp.png "cPanel restart nodejs app")
 
 # Troubleshooting
 
@@ -206,7 +206,7 @@ In case there are errors in deployment, depending on the stages, go to the respe
 * GitHub branch/PR - this will be obvious as these are visible in the Github Web Page UI. You can click to open and status and see the errors during build up to deployment via FTP
 * host log file - The host writes errors in the stderr.log file found in the root folder of your ftp path. Here you will be able to see errors during `npm install` and other nodejs events
 
-![cPanel deploy fail log file](/docs/images/guides//CPANEL_stderr_file.png "cPanel deploy fail log file")
+![cPanel deploy fail log file](/docs/images/guides/cicd_cpanel/CPANEL_stderr_file.png "cPanel deploy fail log file")
 
 # references
 
