@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Req,
-  UseFilters,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Param, UseFilters, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOkResponse,
@@ -15,7 +8,6 @@ import {
 import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 import { AuthGuard } from 'src/common/guards/auth.guard';
 import { UsersParamsDto } from '../dto/users.dto';
-import { Request } from 'express';
 import { UserHistoriesService } from './user-histories.service';
 import { UsersHistoriesResponseDto } from './user-histories.dto';
 
@@ -35,7 +27,6 @@ export class UserHistoriesController {
   @Get('/')
   async getUserHistories(
     @Param() params: UsersParamsDto,
-    @Req() req: Request,
   ): Promise<UsersHistoriesResponseDto[]> {
     // todo: make this secured where you can only view yours and accounts that granted you history access
     return await this.history.getUserHistory(params.userId);

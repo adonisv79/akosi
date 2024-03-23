@@ -68,7 +68,7 @@ export class AuthService {
               surname: profiles[0].surname,
               email: {
                 id: profiles[0].primaryEmailId,
-              }
+              },
             },
           },
         };

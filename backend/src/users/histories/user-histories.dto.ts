@@ -1,9 +1,15 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsNotEmpty, IsNumber, IsUUID, MinLength } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsNumber,
+  IsUUID,
+  MinLength,
+} from 'class-validator';
 
 export class UsersHistoriesResponseDto {
   @ApiProperty({
-    description: "The unique user identifier (UUIDv4)",
+    description: 'The unique user identifier (UUIDv4)',
     required: true,
     type: String,
   })
@@ -13,7 +19,7 @@ export class UsersHistoriesResponseDto {
   userId: string;
 
   @ApiProperty({
-    description: "The activity code",
+    description: 'The activity code',
     required: true,
     type: Number,
   })
@@ -21,7 +27,7 @@ export class UsersHistoriesResponseDto {
   activityId: number;
 
   @ApiProperty({
-    description: "The date the activity occured",
+    description: 'The date the activity occured',
     required: true,
     type: Date,
   })

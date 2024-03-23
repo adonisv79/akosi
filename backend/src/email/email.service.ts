@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Transporter, createTransport } from 'nodemailer';
-import Mail from "nodemailer/lib/mailer";
-import SMTPTransport from "nodemailer/lib/smtp-transport";
-import { Configuration } from "src/config/configuration";
+import Mail from 'nodemailer/lib/mailer';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
+import { Configuration } from 'src/config/configuration';
 
 @Injectable()
 export class EmailService {
@@ -16,13 +16,13 @@ export class EmailService {
       secure: true,
       auth: {
         user: smtpConfig.user,
-        pass: smtpConfig.pass
-      }
+        pass: smtpConfig.pass,
+      },
     });
   }
 
   async sendEmail(mailOptions: Mail.Options) {
     const info = await this.transporter.sendMail(mailOptions);
-    return { id: info.messageId }
+    return { id: info.messageId };
   }
 }

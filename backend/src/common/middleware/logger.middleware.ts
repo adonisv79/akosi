@@ -17,11 +17,3 @@ export function LoggerMiddleware(
   req.logger.log(`${req.method} ${req.originalUrl}`);
   next();
 }
-
-declare global {
-  namespace Express {
-    interface Request {
-      logger: Logger;
-    }
-  }
-}

@@ -14,12 +14,14 @@ async function bootstrap() {
   const apiConfig = configService.get('api', { infer: true });
   app.use(LoggerMiddleware);
   app.use(SecurityMiddleware);
-  app.useGlobalPipes(new ValidationPipe({
-    disableErrorMessages: (apiConfig.nodeEnv.toString() !== 'development'),
-    transform: true,
-    enableDebugMessages: true,
-    whitelist: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      disableErrorMessages: apiConfig.nodeEnv.toString() !== 'development',
+      transform: true,
+      enableDebugMessages: true,
+      whitelist: true,
+    }),
+  );
 
   const packageInfo = await import('../package.json');
 

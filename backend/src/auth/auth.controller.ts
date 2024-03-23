@@ -3,10 +3,8 @@ import {
   Controller,
   Delete,
   HttpCode,
-  Ip,
   Post,
   Put,
-  Req,
   UseFilters,
   UseGuards,
 } from '@nestjs/common';
@@ -57,7 +55,7 @@ export class AuthController {
     type: SignedUserResponseDto,
   })
   @ApiConflictResponse({
-    description: 'Username is already in use'
+    description: 'Username is already in use',
   })
   @HttpCode(201)
   async registerNewUser(
@@ -140,7 +138,9 @@ export class AuthController {
   @ApiUnauthorizedResponse({
     description: 'Provided credentials are invalid',
   })
-  async signInUser(@Body() body: UserCredentialsDto): Promise<SignedUserResponseDto> {
+  async signInUser(
+    @Body() body: UserCredentialsDto,
+  ): Promise<SignedUserResponseDto> {
     return this.auth.signIn(body.username, body.password);
   }
 }
