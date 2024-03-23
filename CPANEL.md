@@ -37,7 +37,7 @@ jobs:
 
       - name: 🤝 Installing dependencies
         working-directory: ./backend
-        run: pnpm ci
+        run: pnpm i
 
       - name: 🧦 Checking adherence to coding standards
         working-directory: ./backend
@@ -82,7 +82,7 @@ jobs:
             version: 8 
 
       - name: 🤝 Installing dependencies
-        run: pnpm ci
+        run: pnpm i
 
       - name: 🧦 Checking adherence to coding standards
         run: pnpm run lint
@@ -95,7 +95,11 @@ jobs:
 
 ```
 
-Notice that the 2 has minimal difference. We will modify it in a while to make it deploy. For now, what this does is go thru the same test as the PR steps. There are some steps we need to apply in our repository however before we apply the necessary changes. This is adding the "Secrets" or "Variables" for our SSH access to CPANEL. for now commit the changes into your repo and try creating a new branch and PR to see if everything works.
+Notice that the 2 has minimal difference. We will modify it in a while to make it deploy. For now, what this does is go thru the same test as the PR steps. There are some steps we need to apply in our repository however before we apply the necessary changes. This is adding the "Secrets" or "Variables" for our SSH access to CPANEL. for now commit the changes into your repo and try creating a new branch and PR to see if everything works. if not adjust accordingly.
+
+![Failed workflow1](/docs/images/guides//CPANEL_failed_workflow1.png "Failed workflow")
+
+You can see what caused the issue further by clicking more on the details. Fix any build issue before proceeding. (Do not forget to update this guide to help future "you-sir")
 
 # references
 

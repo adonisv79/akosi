@@ -24,7 +24,7 @@ jobs:
 
       - name: 🤝 Installing dependencies
         working-directory: ./backend
-        run: pnpm ci
+        run: pnpm i
 
       - name: 🧦 Checking adherence to coding standards
         working-directory: ./backend
