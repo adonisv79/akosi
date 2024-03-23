@@ -157,7 +157,7 @@ We need to create the following.
 * Variables
   * BACKEND_BUILD_DIR - The directory where the distributable files will be stored. This is technically our DIST folder where you add every file you want to be sent to the host. Since we have a monorepo and this is for `backend`, we name it with the `BACKEND_` prefix. The value for this would normaly be found in your CICD build output. ex: `/home/runner/work/akosi/akosi/backend/dist/`
   * FTP_HOST - The FTP Host URL where we will send the files. Either this is provided in your CPanel or you have to contact host as to what it is. in our case it can be as simple as `ftp.yourdomain.com`
-  * FTP_HOST_DIR - The target directory in the FTP host where the files will exist. In our existing nodejs folder on the host, we must set this to '/src' 
+  * FTP_HOST_DIR - The target directory in the FTP host where the files will exist. we must set this to '/'
 * Secrets
   * FTP_USERNAME - Your FTP User account name
   * FTP_PASSWORD - Your FTP Password
@@ -169,19 +169,26 @@ Variables can be created using the Variables Tab. Click `New repository variable
 With everything setup, we must now update the deployment script. Open the `master_merge_deployment.yaml` file and add the following new steps
 
 ```
+      - name: ⏰ Create restart.txt file
+        run: echo "This file triggers cPanel nodeJS to restart" > ./backend/dist/tmp/restart.txt
+
       - name: 📂 Uploading distributable files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           dangerous-clean-slate: true
           server: ${{ vars.FTP_HOST }}
+          server-dir: ${{ vars.FTP_HOST_DIR }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ${{ vars.BACKEND_BUILD_DIR }}
-          server-dir: ${{ vars.HOST_DIR }}
 
 ```
 
-this should automatically deploy your dist files to your host. Merge this into your master branch via PR and see if it runs successfully.
+this should automatically deploy your dist files to your host. Merge this into your master branch via PR and see if it runs successfully. You should be able to see that the commit status in your master branch was a success
+
+you can also check your nodejs folder in cPanel if the distributable files were uploaded.
+
+![cPanel upload success](/docs/images/guides//CPANEL_ftp_success.png "cPanel upload success")
 
 # references
 
