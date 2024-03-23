@@ -15,8 +15,6 @@ import { UserProfilesService } from 'src/users/profiles/user-profiles.service';
     UserActivitiesService,
     UserProfilesService,
   ],
-  exports: [
-    AuthService,
-  ]
+  exports: [AuthService],
 })
 export class AuthModule {}

@@ -21,8 +21,12 @@ export function SecurityMiddleware(
   // Secure web content sources
   res.setHeader('Content-Security-Policy', csp);
 
-  if (!isDevelopment) { // Ensure https is used in production
-    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  if (!isDevelopment) {
+    // Ensure https is used in production
+    res.setHeader(
+      'Strict-Transport-Security',
+      'max-age=31536000; includeSubDomains; preload',
+    );
   }
 
   // Prevent browser from content-type assumptions (MIME Type Confusion Attacks)
@@ -33,9 +37,12 @@ export function SecurityMiddleware(
 
   // No need to send referer as it can be used to track users origin but is also useless even for validation as it can be spoofed
   res.setHeader('Referrer-Policy', 'no-referrer');
-  
+
   // Browser features config
-  res.setHeader('Feature-Policy', "geolocation 'self'; microphone 'none'; camera 'none'");
+  res.setHeader(
+    'Feature-Policy',
+    "geolocation 'self'; microphone 'none'; camera 'none'",
+  );
 
   next();
 }

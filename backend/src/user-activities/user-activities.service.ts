@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { ActionLogCodes } from "src/common/enums/log_actions";
-import { PrismaService } from "src/prisma.service";
+import { Injectable } from '@nestjs/common';
+import { ActionLogCodes } from 'src/common/enums/log_actions';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class UserActivitiesService {
@@ -11,7 +11,7 @@ export class UserActivitiesService {
       data: {
         userId,
         activityId,
-      }
-    })
+      },
+    });
   }
 }

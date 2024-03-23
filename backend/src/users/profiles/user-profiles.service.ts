@@ -127,9 +127,11 @@ export class UserProfilesService {
       throw new UnauthorizedException();
     }
 
-    const profile = this.prisma.userProfile.findFirst({ where: { id: profileId, userId }})
+    const profile = this.prisma.userProfile.findFirst({
+      where: { id: profileId, userId },
+    });
     if (!profile) throw new NotFoundException();
-    if((await profile).isPrimary) throw new ConflictException()
+    if ((await profile).isPrimary) throw new ConflictException();
 
     return await this.prisma.userProfile.delete({
       where: {

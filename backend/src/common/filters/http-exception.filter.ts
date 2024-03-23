@@ -15,21 +15,23 @@ import { Request, Response } from 'express';
 const LOGGER_CONTEXT = 'HttpExceptionFilter';
 
 @Catch()
-export class HttpExceptionFilter implements ExceptionFilter{
+export class HttpExceptionFilter implements ExceptionFilter {
   catch(error: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
     const status = error instanceof HttpException ? error.getStatus() : 500;
     try {
-      if (error instanceof HttpException === false ) {
+      if (error instanceof HttpException === false) {
         this.handlePrismaConnectivityErrors(request, error);
       }
     } catch (err) {
       // do nothing for now
     } finally {
       request.logger.error(error.message, error.stack, LOGGER_CONTEXT);
-      response.status(status).json({ statusCode: status, name: error.name || 'unknown' })
+      response
+        .status(status)
+        .json({ statusCode: status, name: error.name || 'unknown' });
     }
   }
 

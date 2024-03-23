@@ -1,11 +1,9 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { BiologicalSex } from "src/common/enums/biological_sex";
-import { Languages } from "src/common/enums/languages";
-import { IsNotEmpty, IsString, IsUUID, Length, MinLength, isUUID } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsUUID } from 'class-validator';
 
 export class UsersParamsDto {
   @ApiProperty({
-    description: "The unique user identifier",
+    description: 'The unique user identifier',
     required: true,
     format: 'uuid_v4',
     type: String,
@@ -13,7 +11,6 @@ export class UsersParamsDto {
   @IsUUID('4')
   userId: string;
 }
-
 
 // export class UpdateUserInfoDto extends UserNameDto {
 //   @ApiProperty({

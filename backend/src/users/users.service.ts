@@ -2,8 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
 
-const LOGGER_CONTEXT = 'UsersService';
-
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
@@ -20,14 +18,24 @@ export class UsersService {
 
   async findOne(username: string) {
     return await this.prisma.user.findFirst({
-      select: { id: true, username: true, createdDate: true, lastUpdateDate: true },
+      select: {
+        id: true,
+        username: true,
+        createdDate: true,
+        lastUpdateDate: true,
+      },
       where: { username },
     });
   }
 
   async findOneById(userId: string) {
     return await this.prisma.user.findFirst({
-      select: { id: true, username: true, createdDate: true, lastUpdateDate: true },
+      select: {
+        id: true,
+        username: true,
+        createdDate: true,
+        lastUpdateDate: true,
+      },
       where: { id: userId },
     });
   }

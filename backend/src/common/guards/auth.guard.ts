@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate {
       // so that we can access it in our route handlers
       request.user = { id: payload.sub, username: payload.username };
       return true;
-    } catch(err) {
+    } catch (err) {
       if (err instanceof TokenExpiredError)
         console.error(`Token expired ar ${err.expiredAt}`);
       throw new UnauthorizedException();
@@ -46,7 +46,7 @@ export class AuthGuard implements CanActivate {
 declare global {
   namespace Express {
     interface Request {
-      user?: { id: string, username: string }
+      user?: { id: string; username: string };
     }
   }
 }
