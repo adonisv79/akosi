@@ -40,7 +40,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
-            version: 8 
+          version: ${{ env.HOST_PNPM_VERSION }}
 
       - name: 🤝 Installing dependencies
         working-directory: ./backend
@@ -92,7 +92,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
-            version: 8 
+          version: ${{ env.HOST_PNPM_VERSION }}
 
       - name: 🤝 Installing dependencies
         working-directory: ./backend
