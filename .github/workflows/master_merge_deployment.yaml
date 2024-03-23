@@ -1,0 +1,34 @@
+name: 🚀 MASTER-MERGE-DEPLOYMENT
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  web-deploy:
+    name: Deploy to Shared Host
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: 🖥️ Applying accepted Node version
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 🤝 Installing dependencies
+        working-directory: ./backend
+        run: npm ci
+
+      - name: 🧦 Checking adherence to coding standards
+        working-directory: ./backend
+        run: npm run lint
+
+      - name: 🐞 Runing unit tests
+        working-directory: ./backend
+        run: npm run test
+
+      - name: 🏗️ Exporting distributable files to output directory
+        working-directory: ./backend
+        run: npm run build
