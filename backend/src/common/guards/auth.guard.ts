@@ -42,11 +42,3 @@ export class AuthGuard implements CanActivate {
     return type === 'Bearer' ? token : undefined;
   }
 }
-
-declare global {
-  namespace Express {
-    interface Request {
-      user?: { id: string; username: string };
-    }
-  }
-}

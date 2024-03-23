@@ -1,9 +1,7 @@
 import { ApiProperty, IntersectionType } from '@nestjs/swagger';
 import {
-  IsDateString,
   IsNotEmpty,
   IsString,
-  IsStrongPassword,
   Length,
   Matches,
   MaxLength,
