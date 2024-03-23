@@ -176,7 +176,7 @@ With everything setup, we must now update the deployment script. Open the `maste
           server: ${{ vars.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ${{ vars.BUILD_DIR }}
+          local-dir: ${{ vars.BACKEND_BUILD_DIR }}
           server-dir: ${{ vars.HOST_DIR }}
 
 ```
