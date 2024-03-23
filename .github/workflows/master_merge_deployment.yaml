@@ -1,13 +1,15 @@
 name: 🚀 MASTER-MERGE-DEPLOYMENT
-
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   web-deploy:
     name: Deploy to Shared Host
     runs-on: ubuntu-latest
+    env:
+      HOST_NODE_VERSION: "18"
+      HOST_PNPM_VERSION: "8"
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v3
@@ -15,12 +17,12 @@ jobs:
       - name: 🖥️ Applying accepted Node version
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: ${{ env.HOST_NODE_VERSION }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
-            version: 8 
+          version: ${{ env.HOST_PNPM_VERSION }}
 
       - name: 🤝 Installing dependencies
         working-directory: ./backend
@@ -37,3 +39,13 @@ jobs:
       - name: 🏗️ Exporting distributable files to output directory
         working-directory: ./backend
         run: pnpm run build
+
+      - name: 📂 Uploading distributable files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          dangerous-clean-slate: true
+          server: ${{ vars.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ${{ vars.BUILD_DIR }}
+          server-dir: ${{ vars.HOST_DIR }}
