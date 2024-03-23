@@ -17,18 +17,23 @@ jobs:
         with:
           node-version: 18
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+            version: 8 
+
       - name: 🤝 Installing dependencies
         working-directory: ./backend
-        run: npm ci
+        run: pnpm ci
 
       - name: 🧦 Checking adherence to coding standards
         working-directory: ./backend
-        run: npm run lint
+        run: pnpm run lint
 
       - name: 🐞 Runing unit tests
         working-directory: ./backend
-        run: npm run test
+        run: pnpm run test
 
       - name: 🏗️ Exporting distributable files to output directory
         working-directory: ./backend
-        run: npm run build
+        run: pnpm run build

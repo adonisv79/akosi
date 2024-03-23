@@ -1,6 +1,6 @@
 # CPANEL CICD with Github Guide
 
-This guide will explain how to setup CICD (using Github Workflows) to produce autodeploy for NodeJS projects. By this time, we assume you already have an idea about CICD and uses CPANEL provided by your host. You should already have an idea of Github workflows (https://docs.github.com/en/actions/using-workflows)
+This guide will explain how to setup CICD (using Github Workflows) to produce autodeploy for NodeJS projects. By this time, we assume you already have an idea about CICD and uses CPANEL provided by your host. You should already have an idea of Github workflows (https://docs.github.com/en/actions/using-workflows). Note that we also use pnpm so make sure the workflows apply them.
 
 ## Setup Workflows
 
@@ -30,21 +30,26 @@ jobs:
         with:
           node-version: 18
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+            version: 8 
+
       - name: 🤝 Installing dependencies
         working-directory: ./backend
-        run: npm ci
+        run: pnpm ci
 
       - name: 🧦 Checking adherence to coding standards
         working-directory: ./backend
-        run: npm run lint
+        run: pnpm run lint
 
       - name: 🐞 Runing unit tests
         working-directory: ./backend
-        run: npm run test
+        run: pnpm run test
 
       - name: 🏗️ Testing if project can be built
         working-directory: ./backend
-        run: npm run build
+        run: pnpm run build
 ```
 
 ### Automated deployment upon merge (Continous Delivery)
@@ -71,17 +76,22 @@ jobs:
         with:
           node-version: 18
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+            version: 8 
+
       - name: 🤝 Installing dependencies
-        run: npm ci
+        run: pnpm ci
 
       - name: 🧦 Checking adherence to coding standards
-        run: npm run lint
+        run: pnpm run lint
 
       - name: 🐞 Runing unit tests
-        run: npm run test
+        run: pnpm run test
 
       - name: 🏗️ Exporting distributable files to output directory
-        run: npm run build
+        run: pnpm run build
 
 ```
 
@@ -89,4 +99,6 @@ Notice that the 2 has minimal difference. We will modify it in a while to make i
 
 # references
 
-* https://github.com/marketplace/actions/ftp-deploy
+* Github Actions/Workflows guide -  https://docs.github.com/en/actions/using-workflows
+* Github Actions for FTP - https://github.com/marketplace/actions/ftp-deploy
+* PNPM Github Actions -  https://pnpm.io/continuous-integration#github-actions
