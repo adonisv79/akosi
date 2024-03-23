@@ -2,6 +2,12 @@
 
 This guide will explain how to setup CICD (using Github Workflows) to produce autodeploy for NodeJS projects. By this time, we assume you already have an idea about CICD and uses CPANEL provided by your host. You should already have an idea of Github workflows (https://docs.github.com/en/actions/using-workflows). Note that we also use pnpm so make sure the workflows apply them.
 
+## Checklist
+
+The following are items we need to ensure before setting up our CICD
+
+* The host can support our NodeJS version (or we develop using the version supported by the host). This also includes our dependencies. NestJS v10 for example has deprecated NodeJS v12 since April 30, 2022. If your using v10 above and 
+
 ## Setup Inital Workflows
 
 Github workflows looks into your github repo for the `.github/workflows` directory. If it does not exist, create it. Inside it, we can create multiple workflow configurations in the form of YAML files.
@@ -169,9 +175,6 @@ Variables can be created using the Variables Tab. Click `New repository variable
 With everything setup, we must now update the deployment script. Open the `master_merge_deployment.yaml` file and add the following new steps
 
 ```
-      - name: ⏰ Create restart.txt file
-        run: mkdir -p ./backend/dist/tmp && echo "This file triggers cPanel nodeJS to restart" > ./backend/dist/tmp/restart.txt
-
       - name: 📂 Uploading distributable files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -184,11 +187,26 @@ With everything setup, we must now update the deployment script. Open the `maste
 
 ```
 
-this should automatically deploy your dist files to your host. Merge this into your master branch via PR and see if it runs successfully. You should be able to see that the commit status in your master branch was a success
+this should automatically deploy your dist files to your host via FTP. Merge this into your master branch via PR and see if it runs successfully. You should be able to see that the commit status in your master branch was a success
+
+![Github CICD deployed](/docs/images/guides//GITHUB_CICD_deployed.png "Github CICD deployed")
 
 you can also check your nodejs folder in cPanel if the distributable files were uploaded.
 
 ![cPanel upload success](/docs/images/guides//CPANEL_ftp_success.png "cPanel upload success")
+
+The updated codes are there but you still need to manually trigger some things in cPanel. Go back to the NodeJs apps page in cPanel, select the app and click manage/edit. the following screen appears where you can trigger npm install and after that, trigger a restart to run 'node /src/main.js'
+
+![cPanel restart nodejs app](/docs/images/guides//CPANEL_restart_nodejsapp.png "cPanel restart nodejs app")
+
+# Troubleshooting
+
+In case there are errors in deployment, depending on the stages, go to the respective places.
+
+* GitHub branch/PR - this will be obvious as these are visible in the Github Web Page UI. You can click to open and status and see the errors during build up to deployment via FTP
+* host log file - The host writes errors in the stderr.log file found in the root folder of your ftp path. Here you will be able to see errors during `npm install` and other nodejs events
+
+![cPanel deploy fail log file](/docs/images/guides//CPANEL_stderr_file.png "cPanel deploy fail log file")
 
 # references
 
