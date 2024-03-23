@@ -170,7 +170,7 @@ With everything setup, we must now update the deployment script. Open the `maste
 
 ```
       - name: ⏰ Create restart.txt file
-        run: echo "This file triggers cPanel nodeJS to restart" > ./backend/dist/tmp/restart.txt
+        run: mkdir -p ./backend/dist/tmp && echo "This file triggers cPanel nodeJS to restart" > ./backend/dist/tmp/restart.txt
 
       - name: 📂 Uploading distributable files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
