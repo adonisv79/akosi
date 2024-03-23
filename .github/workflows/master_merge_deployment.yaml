@@ -45,12 +45,15 @@ jobs:
         working-directory: ./backend
         run: pnpm run build
 
+      - name: ⏰ Create restart.txt file
+        run: echo "This file triggers cPanel nodeJS to restart" > ./backend/dist/tmp/restart.txt
+
       - name: 📂 Uploading distributable files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           dangerous-clean-slate: true
           server: ${{ vars.FTP_HOST }}
+          server-dir: ${{ vars.FTP_HOST_DIR }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ${{ vars.BACKEND_BUILD_DIR }}
-          server-dir: ${{ vars.HOST_DIR }}
