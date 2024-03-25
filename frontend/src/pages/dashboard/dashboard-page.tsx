@@ -11,7 +11,6 @@ import { ChangeEvent, useContext, useState } from "react";
 import { UserSessionContext } from "../../hooks/user-session.context";
 import { useDeleteAccountMutation } from "../../api/queries/auth-query";
 import { AkosiTextBoxPassword } from "../../_components/akosi/common/akosi-textbox-password";
-import { UserProfilesList } from "../user/user-profile/user-profiles-list";
 import { HTMLLink } from "../../_components/core/html/html-link";
 
 const COMPONENT_NAME = 'MainDashboard'

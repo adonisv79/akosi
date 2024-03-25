@@ -47,3 +47,19 @@ This will run the package.json script to generate or update `api.types.ts`
 
 * sessionStorage - use these whenever possible and you do not know until when data should stay alive. This is because it auto cleans up after a user closes the tab or browser.
 * localStorage - use this for non-risky data like user's language or UI theme preferences.
+
+
+# Docker
+
+We use docker for this nodejs project. We need to precompile the code to a distributable before packaging a docker image. Run `pnpm build` for production environemnt or `pnpm build-dev` for development.
+
+
+Build a new image by running `pnpm docker:build` ( use `pnpm docker:build-win` if you are on windows). make sure to upgrade the package version when building a new image for deployment.
+
+Once the image is created, we can test run it locally using the following. (Do not forget to update the tag `vX.Y.Z` to the right version). Make sure to also set the API_URL to connect to the correct akosi-api IP. if this is a container hosted in your local docker, the IP will be found when you inspect the container.
+
+```
+docker run -d -p 3000:80 --name akosi-app adonisv79/akosi-app:X.Y.Z
+```
+
+To publish, run `docker:publish` or `docker:publish-win` for windows
