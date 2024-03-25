@@ -105,3 +105,6 @@ dist
 
 # IDE stuffs
 .vscode
+
+# Local files
+*.local

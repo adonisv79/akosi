@@ -1,11 +1,13 @@
-name: 🚀 MASTER-MERGE-DEPLOYMENT
+name: MASTER-BACKEND-PR-QUALITY-CHECK
 on:
-  push:
+  pull_request:
     branches: [master]
+    paths:
+      - 'backend/**'
 
 jobs:
-  web-deploy:
-    name: Deploy to Shared Host
+  test-pull-request:
+    name: Validating PR is safe
     runs-on: ubuntu-latest
     env:
       HOST_NODE_VERSION: "18"
@@ -36,16 +38,6 @@ jobs:
         working-directory: ./backend
         run: pnpm run test
 
-      - name: 🏗️ Exporting distributable files to output directory
+      - name: 🏗️ Testing if project can be built
         working-directory: ./backend
         run: pnpm run build
-
-      - name: 📂 Uploading distributable files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          dangerous-clean-slate: true
-          server: ${{ vars.FTP_HOST }}
-          server-dir: ${{ vars.FTP_HOST_DIR }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ${{ vars.BACKEND_BUILD_DIR }}
